@@ -1,0 +1,19 @@
+{
+  "name": "tolo",
+  "version": "1.0.0",
+  "description": "Take One, Leave One",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "mocha": "^5.0.5"
+  }
+}
