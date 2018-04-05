@@ -4,7 +4,7 @@
   "description": "Take One, Leave One",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --exit"
   },
   "author": "",
   "license": "ISC",
