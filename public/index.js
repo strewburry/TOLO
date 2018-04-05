@@ -32,17 +32,18 @@ var MOCK_MESSAGES = {
 
 function getMessage(callback) {
 	setTimeout(function(){callback(MOCK_MESSAGES)}, 1);
-}
+};
 
 function displayMessage(data) {
 	let index = Math.floor(Math.random() * data.messages.length);
 	let message = data.messages[index].text;
 	$('body').append('<p>' + message + '</p>');
-}
+};
+
 function getAndDisplayMessage() {
 	getMessage(displayMessage);
-}
+};
 
 $(function() {
 	getAndDisplayMessage();
-})
+});
