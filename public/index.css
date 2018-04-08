@@ -39,6 +39,11 @@ body {
 	display: inline-block;
 }
 
+.name {
+	font-weight: 500;
+	color: #F8FFAE;
+}
+
 #navbar {
 	margin-bottom: 60px;
 }
@@ -57,26 +62,143 @@ body {
 
 #navbar li a {
 	text-align: center;
+	font-size: 12px;
 	display: inline-block;
 	padding: 14px 16px;
 	text-decoration: none;
+	color: #0092bd;
+}
+
+.form-overlay {
+	background-color: rgba(0,0,0,.25);
+	bottom: 0;
+	left: 0;
+	top: 0;
+	position: fixed;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	/* support for old browsers */
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+}
+
+.popupwrapper {
+	align-self: center;
+	background-color: rgba(0,0,0,.25);
+	border-radius: 3px;
+	padding: 6px;
+	width: 50%;
+}
+
+.popuptext {
+	text-align: center;
+	display: inline-block;
+	margin: auto;
+}
+
+.popupcontent {
+	background-color: #FFFFFF;
+	border-radius: 3px;
+	padding: 24px;
+	position: relative;
+	text-align: left;
+}
+
+a.close {
+	background-color: rgb(204,204,204);
+	border-radius: 50%;
+	display: block;
+	padding: .2em .5em;
+	position: absolute;
+	top: 1.25rem;
+	transition: all 400ms ease;
+	right: 1.5rem;
+}
+
+a.close:hover {
+	background-color: #1bc5b3;
+	cursor: pointer;
+}
+
+form input[type="text"],
+form input[type="password"] {
+	padding: 10px 10px 10px 10px;
+	border: 1px solid #0092bd;
+	border-radius: 3px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 14px;
+	font-weight: 400;
+	transition: all 400ms ease;
+	width: 100%;
+	display: block;
+}
+
+.signup-prompt, 
+.login-prompt {
+	display: inline-block;
+	padding: 5px 5px 5px 5px;
+	border: 1px solid #0092bd;
+	border-radius: 3px;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 10px;
+	font-weight: 400;
+	transition: all 400ms ease;
+	background-color: #43C6AC;
+}
+
+.signup button[type=submit],
+.login button[type=submit] {
+	padding: 10px 10px 10px 10px;
+	border: 1px solid #0092bd;
+	border-radius: 3px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 14px;
+	font-weight: 400;
+	transition: all 400ms ease;
+	width: 100%;
+	display: block;
+	background-color: #43C6AC;
+}
+
+form input[type="text"]:focus,
+form input[type="password"]:focus, 
+form textarea:focus, 
+form select:focus {
+	border-color: #4195fc;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.1), 0 0 8px #4195fc;
+}
+
+.demo {
+	margin-top: 50px;
+}
+
+.js-input {
+	width: 400px;
+	height: 100px;
 }
 
 .js-input { 
 	padding: 10px 10px 10px 10px;
 	width: 400px;
 	height: 100px;
-	border: 1px solid;
+	border: 1px solid #0092bd;
 	border-radius: 3px;
 	font-family: 'Courier New', Courier, monospace;
 	font-size: 14px;
 	font-weight: 400;
 } 
 
-button[type=submit] {
+#senddemo {
 	height: 30px;
 	width: 400px;
-	border: 1px solid;
+	border: 1px solid #0092bd;
 	border-radius: 3px;
 	vertical-align: middle;
 	font-family: 'Courier New', Courier, monospace;
@@ -84,10 +206,41 @@ button[type=submit] {
 	font-weight: 600;
 }
 
+.buttonwrapper {
+	margin: auto;
+	max-width: 70%;
+}
+
+#register {
+	height: 30px;
+	width: 35%;
+	background-color: #F8FFAE;
+	border: 1px solid #0092bd;
+	border-radius: 3px;
+	vertical-align: middle;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 12px;
+	font-weight: 400;
+	display: inline-block;
+}
+
+#trydemo {
+	height: 30px;
+	width: 35%;
+	background-color: #43C6AC;
+	border: 1px solid #0092bd;
+	border-radius: 3px;
+	vertical-align: middle;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 12px;
+	font-weight: 400;
+	display: inline-block;
+}
+
 #restart {
 	height: 30px;
 	width: 400px;
-	border: 1px solid;
+	border: 1px solid #0092bd;
 	border-radius: 3px;
 	vertical-align: middle;
 	font-family: 'Courier New', Courier, monospace;
@@ -99,7 +252,7 @@ button[type=submit] {
 	padding: 10px 10px 10px 10px;
 	width: 400px;
 	height: 100px;
-	border: 1px solid;
+	border: 1px solid #0092bd;
 	border-radius: 3px;
 	background-color: #FFFFFF;
 	font-family: 'Courier New', Courier, monospace;
@@ -114,6 +267,26 @@ button[type=submit] {
 
 	.js-input {
 		width: 90%;
+	}
+
+	#senddemo {
+		width: 90%;
+	}
+
+	.buttonwrapper {
+		width: 95%;
+	}
+
+	.form-overlay {
+		width: 100%;
+	}
+
+	.popupwrapper {
+		width: 100%;
+	}
+
+	.popupcontent {
+		width: 100%;
 	}
 
 	button[type=submit] {

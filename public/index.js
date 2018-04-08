@@ -37,16 +37,15 @@ function getMessage(callback) {
 function displayMessage(data) {
 	let index = Math.floor(Math.random() * data.messages.length);
 	let message = data.messages[index].text;
-	$('.input').prop('hidden', true);
+	$('.demo').prop('hidden', true);
 	$('.js-message-result').html(`<h3>Thanks for your message!</h3>
+		<p>🌸🌷🌿🌺🌼🍀🌻💐🍃</p>
 		<p>You're sure to make someone's day. 
 		<br>Here's one chosen just for you:</p>
 		<div class="message-card">
 		<p>${message}</p>
-		<p>🌸🌷🌿🌺🌼🍀🌻💐🍃</p>
 		</div>
-		<p><button id="restart">Write another message!</button></p>
-		<p>Or make an account to save and review your messages!</p>`).prop('hidden', false);
+		<p><button id="restart">Write another message!</button></p>`).prop('hidden', false);
 	handleRestart(); 
 };
 
@@ -63,14 +62,18 @@ function appSetUp() {
 		messageTarget.val("");
 		getAndDisplayMessage();
 	});
-}
+	$('#trydemo').on('click', event => {
+		$('.demo').prop('hidden', false);
+		$('.js-message-result').html('').prop('hidden', true)
+	});
+};
 
 function handleRestart() {
 	$('#restart').on('click', event => {
-		$('.input').prop('hidden', false);
+		$('.demo').prop('hidden', false);
 		$('.js-message-result').html('').prop('hidden', true);
 		appSetUp();
 	});
-}
+};
 
 $(appSetUp);
