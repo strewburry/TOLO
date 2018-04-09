@@ -32,6 +32,11 @@ body {
 	padding-bottom: 60px;
 }
 
+a {
+	text-decoration: none;
+	color: #0092bd;
+}
+
 #logo {
 	font-size: 18px;
 	font-weight: bold;
