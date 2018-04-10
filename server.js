@@ -7,7 +7,7 @@ const passport = require('passport');
 
 const app = express();
 
-const {PORT, DATABASE_URL} = require('./config');
+const {PORT, DATABASE_URL, TEST_DATABASE_URL} = require('./config');
 const {router: usersRouter} = require('./users');
 
 mongoose.Promise = global.Promise;
