@@ -8,7 +8,7 @@ const signUpForm = (`
 							<label for="username">
 								Create a username:
 							</label>
-							<input type="text" name="username" placeholder="username">
+							<input type="text" name="username" placeholder="can include letters and numbers" pattern="[a-zA-Z0-9]+">
 							<label for="password">
 								Set a password:
 							</label>
