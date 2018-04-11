@@ -9,12 +9,18 @@ const app = express();
 
 const {PORT, DATABASE_URL, TEST_DATABASE_URL} = require('./config');
 const {router: usersRouter} = require('./users');
+const {router: authRouter, localStrategy, jwtStrategy} = require('./auth');
 
 mongoose.Promise = global.Promise;
 
 app.use(express.static('public'));
 app.use(morgan('common'));
 app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/dashboard', authRouter);
+
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 let server;
 

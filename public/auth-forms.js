@@ -32,7 +32,7 @@ const logInForm = (`
 					<a class="close">x</a>
 						<h2>log in</h2>
 					<div class="warning" aria-live="assertive" style="display:none;" hidden></div>
-					<form class="login">
+					<form class="login" method="post">
 						<label for="username">
 							Username:
 						</label>
@@ -80,8 +80,8 @@ function userSignUp() {
 			})
 			.fail(function(xhr, err) {
 				let jsonResponse = JSON.parse(xhr.responseText);
-				let errmessage = jsonResponse['message'];
-				$('.warning').show().prop('hidden', false).html(`<span class="warning"><p>${errmessage}</p></span>`);
+				let errMessage = jsonResponse['message'];
+				$('.warning').show().prop('hidden', false).html(`<span class="warning"><p>${errMessage}</p></span>`);
 			});
 		}
 	});
@@ -97,6 +97,25 @@ function userLogIn() {
 	$('body').on('click', '.login-prompt', event => {
 		$('.form-overlay').html(logInForm);
 		closeForm();
+	});
+	$('.form-overlay').on('submit', '.login', function(event) {
+		event.preventDefault();
+		const username = $('[name=username]').val();
+		const password = $('[name=password]').val();
+		const logInCreds = {
+			username: username, 
+			password: password
+		};
+		$.ajax({
+			url: '/api/auth/login',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify(logInCreds)
+		})
+		.fail(function(xhr, err) {
+			let errMessage = JSON.stringify(xhr.responseText);
+			$('.warning').show().prop('hidden', false).html(`<span class="warning"><p>${errMessage}</p></span>`);
+		});
 	});
 };
 
