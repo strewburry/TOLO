@@ -12,22 +12,10 @@ router.post('/', jsonParser, (req, res) => {
 		return res.status(422).json({
 			code: 422,
 			reason: 'ValidationError',
-			message: 'All fields must be filled out',
+			message: 'Field cannot be blank',
 			location: missingField
 		});
-	}
-
-	const stringFields = ['username', 'password'];
-	const nonStringField = stringFields.find(field => 
-		field in req.body && typeof req.body[field] !== 'string');
-	if (nonStringField) {
-		return res.status(422).json({
-			code: 422,
-			reason: 'ValidationError',
-			message: 'Incorrect field type: expected string',
-			location: nonStringField
-		});
-	}
+	};
 
 	const sizedFields = {
 		username: {

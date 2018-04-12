@@ -112,6 +112,9 @@ function userLogIn() {
 			contentType: 'application/json',
 			data: JSON.stringify(logInCreds)
 		})
+		.done(function(res) {
+			localStorage.setItem('token', res.authToken);
+		})
 		.fail(function(xhr, err) {
 			let errMessage = JSON.stringify(xhr.responseText);
 			$('.warning').show().prop('hidden', false).html(`<span class="warning"><p>${errMessage}</p></span>`);
