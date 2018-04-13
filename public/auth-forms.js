@@ -4,23 +4,23 @@ const signUpForm = (`
 						<a class="close">x</a>
 							<h2>sign up</h2>
 						<div class="warning" aria-live="assertive" style="display:none;" hidden></div>
-						<form class="signup">
+						<form class="signup" method="post">
 							<label for="username">
-								create a username:
+								Create a username:
 							</label>
-							<input type="text" name="username" placeholder="username">
+							<input type="text" name="username" placeholder="can include letters and numbers" pattern="[a-zA-Z0-9]+">
 							<label for="password">
-								set a password:
+								Set a password:
 							</label>
 							<input type="password" name="password" placeholder="password">
 							<label for="confirmpass">
-								confirm your password: 
+								Confirm your password: 
 							</label>
 							<input type="password" name="confirmpass" placeholder="confirm password">
 							<button type="submit">register</button>
 						</form>
 						<div class="popuptext">
-							<p>already have an account?</p>
+							<p>Already have an account?</p>
 						</div>
 						<button class="login-prompt">log in</button>
 					</div>
@@ -32,19 +32,19 @@ const logInForm = (`
 					<a class="close">x</a>
 						<h2>log in</h2>
 					<div class="warning" aria-live="assertive" style="display:none;" hidden></div>
-					<form class="login">
+					<form class="login" method="post">
 						<label for="username">
-							username:
+							Username:
 						</label>
 						<input type="text" name="username" placeholder="username">
 						<label for="password">
-							password:
+							Password:
 						</label>
 						<input type="password" name="password" placeholder="password">
 						<button type="submit">log in</button>
 					</form>
 					<div class="popuptext">
-						<p>don't have an account?</p>
+						<p>Don't have an account?</p>
 					</div>
 					<button class="signup-prompt">sign up</button>
 				</div>
@@ -56,20 +56,34 @@ function userSignUp() {
 		$('.form-overlay').html(signUpForm);
 		closeForm();
 	});
-	$('.signup').submit(event => {
+	$('.form-overlay').on('submit', '.signup', function(event) {
 		event.preventDefault();
 		const username = $('[name=username]').val();
 		const password = $('[name=password]').val();
 		const passwordConf = $('[name=confirmpass]').val();
 		if (password !== passwordConf) {
-			$('.warning').show().prop('hidden', false);
-			$('.warning').text('passwords must match!');
+			$('.warning').show().prop('hidden', false).html(`<span class="warning"><p>Passwords must match</p></span>`);
 		} else {
 			const newUser = {
 				username: username,
-				password: password
+				password: password, 
+				passwordConf: passwordConf
 			};
-		};
+			$.ajax({
+				url: '/api/users',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(newUser)
+			})
+			.done(function() {
+				$('.form-overlay').html(logInForm);
+			})
+			.fail(function(xhr, err) {
+				let jsonResponse = JSON.parse(xhr.responseText);
+				let errMessage = jsonResponse['message'];
+				$('.warning').show().prop('hidden', false).html(`<span class="warning"><p>${errMessage}</p></span>`);
+			});
+		}
 	});
 }
 
@@ -83,6 +97,28 @@ function userLogIn() {
 	$('body').on('click', '.login-prompt', event => {
 		$('.form-overlay').html(logInForm);
 		closeForm();
+	});
+	$('.form-overlay').on('submit', '.login', function(event) {
+		event.preventDefault();
+		const username = $('[name=username]').val();
+		const password = $('[name=password]').val();
+		const logInCreds = {
+			username: username, 
+			password: password
+		};
+		$.ajax({
+			url: '/api/auth/login',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify(logInCreds)
+		})
+		.done(function(res) {
+			localStorage.setItem('token', res.authToken);
+		})
+		.fail(function(xhr, err) {
+			let errMessage = JSON.stringify(xhr.responseText);
+			$('.warning').show().prop('hidden', false).html(`<span class="warning"><p>${errMessage}</p></span>`);
+		});
 	});
 };
 
