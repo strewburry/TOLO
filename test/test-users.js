@@ -9,13 +9,10 @@ const expect = chai.expect;
 
 chai.use(chaiHttp); 
 
-describe('/api/user', function() {
-	const username = 'exampleUser';
-	const password = 'examplePass';
+describe('users API', function() {
+	const username = 'testUser';
+	const password = 'testPassword';
 	const passwordConf = password;
-	const usernameB = 'exampleUser';
-	const passwordB = 'examplePass';
-	const passwordConfB = password;
 
 	before(function() {
 		return runServer(TEST_DATABASE_URL);
@@ -32,7 +29,7 @@ describe('/api/user', function() {
 		return User.remove({});
 	});
 
-	describe('/api/users', function() {
+	describe('users router', function() {
 		describe('POST endpoint', function() {
 			it('should reject form submissions with missing usernames', function() {
 				return chai
