@@ -42,7 +42,7 @@ describe('/api/user', function() {
 					password,
 					passwordConf
 				})
-				.then((res) => {
+				.then(res => {
 					expect(res).to.have.status(422);
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('Field cannot be blank');
@@ -57,7 +57,7 @@ describe('/api/user', function() {
 					username, 
 					passwordConf
 				})
-				.then((res) => {
+				.then(res => {
 					expect(res).to.have.status(422);
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('Field cannot be blank');
@@ -72,7 +72,7 @@ describe('/api/user', function() {
 					username,
 					password
 				})
-				.then((res) => {
+				.then(res => {
 					expect(res).to.have.status(422);
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('Field cannot be blank');
@@ -88,7 +88,7 @@ describe('/api/user', function() {
 					password,
 					passwordConf
 				})
-				.then((res) => {
+				.then(res => {
 					expect(res).to.have.status(422);
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('username must be at least 1\n\t\t\t\tcharacters long');
@@ -104,7 +104,7 @@ describe('/api/user', function() {
 					password: 'pass',
 					passwordConf: 'pass'
 				})
-				.then((res) => {
+				.then(res => {
 					expect(res).to.have.status(422);
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('password must be at least 10\n\t\t\t\tcharacters long');
@@ -120,7 +120,7 @@ describe('/api/user', function() {
 					password: 'kpndoljqelnwfmiycnzyibtcmiyfuquvsntkbhpnethymbdrkkfjhtkbqskgpbmosftmgsikb',
 					passwordConf: 'kpndoljqelnwfmiycnzyibtcmiyfuquvsntkbhpnethymbdrkkfjhtkbqskgpbmosftmgsikb'
 				})
-				.then((res) => {
+				.then(res => {
 					expect(res).to.have.status(422);
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('password must be at most 72\n\t\t\t\tcharacters long');
@@ -136,7 +136,7 @@ describe('/api/user', function() {
 					password,
 					passwordConf
 				})
-				.then((res) => {
+				.then(res => {
 					expect(res).to.have.status(422);
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('Field cannot start or end with whitespace');
@@ -152,7 +152,7 @@ describe('/api/user', function() {
 					password: `  ${password}  `,
 					passwordConf: `  ${password}  `
 				})
-				.then((res) => {
+				.then(res => {
 					expect(res).to.have.status(422);
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('Field cannot start or end with whitespace');
@@ -168,7 +168,7 @@ describe('/api/user', function() {
 					password,
 					passwordConf
 				})
-				.then((res) => {
+				.then(res => {
 					expect(res).to.have.status(201);
 					expect(res.body).to.be.an('object');
 					expect(res.body).to.have.key('username');
@@ -177,12 +177,35 @@ describe('/api/user', function() {
 						username
 					});
 				})
-				.then((user) => {
+				.then(user => {
 					expect(user).to.not.be.null;
 					return user.validatePassword(password);
 				})
 				.then((validPassword) => {
 					expect(validPassword).to.be.true;
+				});
+			});
+			it('should reject form submissions if user already exists', function() {
+				return User.create({
+					username, 
+					password,
+					passwordConf
+				})
+				.then(() => {
+					return chai
+					.request(app)
+					.post('/api/users')
+					.send({
+						username, 
+						password,
+						passwordConf
+					}) 
+				})
+				.then(res => {
+					expect(res).to.have.status(422);
+					expect(res.body.reason).to.equal('ValidationError');
+					expect(res.body.message).to.equal('Username already exists');
+					expect(res.body.location).to.equal('username');
 				});
 			});
 		});
