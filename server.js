@@ -10,14 +10,23 @@ const app = express();
 const {PORT, DATABASE_URL, TEST_DATABASE_URL} = require('./config');
 const {router: usersRouter} = require('./users');
 const {router: authRouter, localStrategy, jwtStrategy} = require('./auth');
+const {router: messageRouter} = require('./messages');
 
 mongoose.Promise = global.Promise;
 
 app.use(express.static('public'));
-app.use(morgan('common'));
+app.use(function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Headers', 'Content-Type');
+	res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
+	next();
+});
+
+app.use(morgan('dev'));
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/dashboard', authRouter);
+app.use('/api/messages', messageRouter);
 
 passport.use(localStrategy);
 passport.use(jwtStrategy);
