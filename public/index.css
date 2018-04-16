@@ -22,8 +22,8 @@ html, body {
 	margin: 0;
 	padding: 0;
 	height: 100%;
-	font-family: 'Courier New', Courier, monospace;
-	font-size: 14px;
+	font-family: 'Inconsolata', monospace;
+	font-size: 16px;
 	background: #43C6AC; /* fallback for old browsers */
 	background: linear-gradient(-90deg, #F8FFAE, #43C6AC);
 }
@@ -37,16 +37,17 @@ a {
 	color: #0092bd;
 }
 
+h1, h2, h3, h4 {
+	font-family: 'Merriweather', serif;
+}
+
 #logo {
 	font-size: 18px;
 	font-weight: bold;
+	font-family: 'Merriweather', serif;
+	color: #F8FFAE;
 	padding: 14px 16px;
 	display: inline-block;
-}
-
-.name {
-	font-weight: 500;
-	color: #F8FFAE;
 }
 
 #navbar {
@@ -67,7 +68,7 @@ a {
 
 #navbar li a {
 	text-align: center;
-	font-size: 12px;
+	font-size: 14px;
 	display: inline-block;
 	padding: 14px 16px;
 	text-decoration: none;
@@ -114,6 +115,7 @@ a {
 
 a.close {
 	background-color: rgb(204,204,204);
+	font-family: 'Courier New', Courier, monospace;
 	border-radius: 50%;
 	display: block;
 	padding: .2em .5em;
@@ -136,7 +138,7 @@ form textarea[type="text"] {
 	border-radius: 3px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	font-family: 'Courier New', Courier, monospace;
+	font-family: 'Inconsolata', monospace;
 	font-size: 14px;
 	font-weight: 400;
 	transition: all 400ms ease;
@@ -150,8 +152,8 @@ form textarea[type="text"] {
 	padding: 5px 5px 5px 5px;
 	border: 1px solid #0092bd;
 	border-radius: 3px;
-	font-family: 'Courier New', Courier, monospace;
-	font-size: 10px;
+	font-family: 'Inconsolata', monospace;
+	font-size: 14px;
 	font-weight: 400;
 	transition: all 400ms ease;
 	background-color: #43C6AC;
@@ -166,7 +168,7 @@ form textarea[type="text"] {
 	border-radius: 3px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	font-family: 'Courier New', Courier, monospace;
+	font-family: 'Inconsolata', monospace;
 	font-size: 14px;
 	font-weight: 400;
 	transition: all 400ms ease;
@@ -193,7 +195,7 @@ form select:focus {
 	height: 100px;
 	border: 1px solid #0092bd;
 	border-radius: 3px;
-	font-family: 'Courier New', Courier, monospace;
+	font-family: 'Inconsolata', monospace;
 	font-size: 14px;
 	font-weight: 400;
 } 
@@ -210,8 +212,8 @@ form select:focus {
 	border: 1px solid #0092bd;
 	border-radius: 3px;
 	vertical-align: middle;
-	font-family: 'Courier New', Courier, monospace;
-	font-size: 12px;
+	font-family: 'Inconsolata', monospace;
+	font-size: 14px;
 	font-weight: 400;
 	display: inline-block;
 }
@@ -223,8 +225,8 @@ form select:focus {
 	border: 1px solid #0092bd;
 	border-radius: 3px;
 	vertical-align: middle;
-	font-family: 'Courier New', Courier, monospace;
-	font-size: 12px;
+	font-family: 'Inconsolata', monospace;
+	font-size: 14px;
 	font-weight: 400;
 	display: inline-block;
 }
@@ -236,7 +238,7 @@ form select:focus {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	background-color: #FFFFFF;
-	font-family: 'Courier New', Courier, monospace;
+	font-family: 'Inconsolata', monospace;
 	font-size: 14px;
 	font-weight: 400;
 	overflow: auto;
