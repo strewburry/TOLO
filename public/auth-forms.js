@@ -2,7 +2,7 @@ const signUpForm = (`
 				<div class="popupwrapper">
 					<div class="popupcontent">
 						<a class="close">x</a>
-							<h2>sign up</h2>
+						<h2>sign up</h2>
 						<div class="warning" aria-live="assertive" style="display:none;" hidden></div>
 						<form class="signup" method="post">
 							<label for="username">
@@ -30,7 +30,7 @@ const logInForm = (`
 			<div class="popupwrapper">
 				<div class="popupcontent">
 					<a class="close">x</a>
-						<h2>log in</h2>
+					<h2>log in</h2>
 					<div class="warning" aria-live="assertive" style="display:none;" hidden></div>
 					<form class="login" method="post">
 						<label for="username">
@@ -77,6 +77,7 @@ function userSignUp() {
 			})
 			.done(function() {
 				$('.form-overlay').html(logInForm);
+				closeForm();
 			})
 			.fail(function(xhr, err) {
 				let jsonResponse = JSON.parse(xhr.responseText);

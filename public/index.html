@@ -28,22 +28,6 @@
 				<button id="trydemo">✨demo✨</button>
 			</div>
 		</section>
-
-		<section class="demo" aria-live="assertive" hidden>
-			<h4>Try it anonymously:</h4>
-			<form action="#" id="js-message-input">
-				<label for="input">
-					<p>Write a thoughtful, positive message or affirmation for a stranger:</p>
-				</label>
-				<textarea type="text" name="input" class="js-input" form="js-message-input" placeholder="You can do it! You are you, and that's enough!" aria-labelledby="input"></textarea>
-				<p><button id="senddemo" type="submit" alt="send" aria-label="send">Send your message!</button></p>
-			</form>
-		</section>
-
-		<section class="result">
-			<div class="js-message-result" aria-live="assertive" hidden>
-			</div>
-		</section>
 	</main>
 
 	<footer role="contentinfo">
@@ -55,6 +39,7 @@
 	<div class="form-overlay" aria-live="assertive" style="display:none;" hidden></div>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="index.js"></script>
+	<script type="text/javascript" src="client-demo.js"></script>
 	<script type="text/javascript" src="auth-forms.js"></script>
 </body>
 </html>
