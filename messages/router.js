@@ -39,8 +39,20 @@ router.post('/', jsonParser, (req, res) => {
         res.status(201).json(message.serialize());
     })
     .catch(err => {
-        console.log(err);
+        console.error(err);
         res.status(500).json({error: 'something went wrong'});
+    });
+});
+
+router.delete('/:id', (req, res) => {
+    Message
+    .findByIdAndRemove(req.params.id)
+    .then(() => {
+        res.status(204).json({message: 'deleted message successfully'});
+    })
+    .catch(err => {
+        console.error(err);
+        res.status(500).json({error: 'could not delete message'});
     });
 });
 
