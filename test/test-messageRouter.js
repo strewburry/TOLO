@@ -67,4 +67,17 @@ describe('messages', function() {
             });
         });
     });
+
+    describe('GET endpoint', function() {
+        it('should retrieve and return a random message from the main database', function() {
+            return chai
+            .request(app)
+            .get('/api/messages')
+            .then(res => {
+                expect(res).to.have.status(200);
+                expect(res).to.be.json;
+                expect(res.body).to.be.a('object');
+            });
+        });
+    });
 });
