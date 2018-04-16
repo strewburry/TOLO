@@ -1,31 +1,35 @@
 var MOCK_MESSAGES = {
 	"messages": [
 		{
-			"id": "1111",
-			"text": "i know you can do this!",
-			"userId": "aaaaaa",
-			"userName": "Smiley Face"
+			"creatorId": "111111",
+			"holderId": null, 
+			"content": "You are too big a gift to waste your time on sadness.",
+			"upvotes": 0,
+			"downvotes": 0
 		},
 		{
-			"id": "222222",
-			"text": "many people look up to you and recognize your worth! " +
-			"you are admired!",
-			"userId": "bbbbbb",
-			"userName": "Posi Pal"
+			"creatorId": "222222",
+			"holderId": null,
+			"content": "Many people look up to you and recognize your worth! " +
+			"You are admired!",
+			"upvotes": 0,
+			"downvotes": 0
 		},
 		{
-			"id": "333333",
-			"text": "i'm so proud of you, and i hope you are proud of " +
-			"yourself, too! it hasn't been easy, but you're doing so well. " +
-			"i love you, keep it up!",
-			"userId": "cccccc",
-			"userName": "Stay Positive"
+			"creatorId": "333333",
+			"holderId": null, 
+			"content": "I'm so proud of you, and I hope you are proud of " +
+			"yourself, too! It hasn't been easy, but you're doing so well. ",
+			"upvotes": 0,
+			"downvotes": 0
 		},
 		{
-			"id": "444444",
-			"text": "there are better things ahead!", 
-			"userId": "dddddd",
-			"userName": "Sunshine"
+			"creatorId": "444444",
+			"holderId": null,
+			"content": "There are better things ahead! All that you need " +
+			"comes to you at the right time and place in your life.",
+			"upvotes": 0,
+			"downvotes": 0
 		}
 	]
 };
