@@ -66,10 +66,21 @@ describe('messages', function() {
                 expect(message.content).to.equal(newMessage.content);
             });
         });
+        
+        it('should throw an error if req body is missing content', function() {
+           const invalidMessage = {};
+           return chai
+           .request(app)
+           .post('/api/messages')
+           .send(invalidMessage)
+           .catch(res => {
+               expect(res).to.have.status(400);
+           });
+        });
     });
 
     describe('GET endpoint', function() {
-        it('should retrieve and return a random message from the main database', function() {
+        it('should return a random message from the main database', function() {
             return chai
             .request(app)
             .get('/api/messages')
@@ -77,6 +88,22 @@ describe('messages', function() {
                 expect(res).to.have.status(200);
                 expect(res).to.be.json;
                 expect(res.body).to.be.a('object');
+            });
+        });
+    });
+
+    describe('DELETE endpoint', function() {
+        it('should delete messages with valid ID', function() {
+            return chai
+            .request(app)
+            .get('/api/messages')
+            .then(res => {
+                return chai
+                .request(app)
+                .delete(`/api/messages/${res.body.id}`)
+            })
+            .then(res => {
+                expect(res).to.have.status(204);
             });
         });
     });
