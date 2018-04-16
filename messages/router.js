@@ -26,7 +26,7 @@ router.get('/', jsonParser, (req, res) => {
 });
 
 router.post('/', jsonParser, (req, res) => {
-    const requiredField = ['content', 'creatorId'];
+    const requiredField = ['content'];
     if (!requiredField in req.body) {
         res.status(400).json({error: 'message content cannot be empty'});
     };

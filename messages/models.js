@@ -5,10 +5,7 @@ const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise; 
 
 let MessageSchema = new Schema({
-    creatorId: {
-        type: String,
-        required: true
-    }, 
+    creatorId: String,
     holderId: String,
     messageId: String, 
     content: {
