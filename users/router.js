@@ -81,7 +81,7 @@ router.post('/', jsonParser, (req, res) => {
 	})
 	.then(user => {
 		const token = createAuthToken(user.serialize());
-		return res.status(201).json({token});
+		return res.status(201).json({token, user});
 	})
 	.catch(err => {
 		if (err.reason === 'ValidationError') {
