@@ -39,7 +39,6 @@ router.post('/', jsonParser, (req, res) => {
         res.status(201).json(message.serialize());
     })
     .catch(err => {
-        console.error(err);
         res.status(500).json({error: 'something went wrong'});
     });
 });

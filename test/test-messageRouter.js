@@ -22,7 +22,7 @@ function seedMessageDb() {
 
 function generateMessages() {
     return {
-        content: faker.lorem.paragraphs()
+        content: 'here is some test content'
     };
 };
 
