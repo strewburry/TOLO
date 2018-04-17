@@ -88,8 +88,8 @@ describe('user authentication endpoints', function() {
             .then(res => {
                 expect(res).to.have.status(200);
                 expect(res.body).to.be.an('object');
-                expect(res.body.authToken).to.be.a('string');
-                const payload = jwt.verify(res.body.authToken, JWT_SECRET, {
+                expect(res.body.token).to.be.a('string');
+                const payload = jwt.verify(res.body.token, JWT_SECRET, {
                     algorithm: ['HS256']
                 });
                 expect(payload.user).to.deep.equal({
@@ -111,7 +111,7 @@ describe('user authentication endpoints', function() {
         });
 
         it('should reject requests with an invalid token', function() {
-            const token = jwt.sign(
+            const authToken = jwt.sign(
                 {
                     username, 
                     password
@@ -125,14 +125,14 @@ describe('user authentication endpoints', function() {
             return chai
             .request(app)
             .post('/api/auth/refresh')
-            .set('Authorization', `Bearer ${token}`)
+            .set('Authorization', `Bearer ${authToken}`)
             .then(res => {
                 expect(res).to.have.status(401);
             });
         });
 
         it('should reject requests with expired token', function() {
-            const token = jwt.sign(
+            const authToken = jwt.sign(
                 {   
                     username, 
                     password
@@ -146,14 +146,14 @@ describe('user authentication endpoints', function() {
             return chai
             .request(app)
             .post('/api/auth/refresh')
-            .set('Authorization', `Bearer ${token}`)
+            .set('Authorization', `Bearer ${authToken}`)
             .then(res => {
                 expect(res).to.have.status(401);
             });
         });
 
         it('should return a valid auth token with newer expiry date', function() {
-            const token = jwt.sign(
+            const authToken = jwt.sign(
                 {   
                     user: {
                         username
@@ -165,16 +165,16 @@ describe('user authentication endpoints', function() {
                     expiresIn: '7d'
                 }
             );
-            const decodedToken = jwt.decode(token);
+            const decodedToken = jwt.decode(authToken);
             return chai
             .request(app)
             .post('/api/auth/refresh')
-            .set('Authorization', `Bearer ${token}`)
+            .set('Authorization', `Bearer ${authToken}`)
             .then(res => {
                 expect(res).to.have.status(200);
                 expect(res.body).to.be.a('object');
-                expect(res.body.authToken).to.be.a('string');
-                const payload = jwt.verify(token, JWT_SECRET, {
+                expect(res.body.token).to.be.a('string');
+                const payload = jwt.verify(authToken, JWT_SECRET, {
                     algorithm: ['HS256']
                 });
                 expect(payload.user).to.deep.equal({

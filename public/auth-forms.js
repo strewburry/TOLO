@@ -77,7 +77,7 @@ function userSignUp() {
 			})
 			.done(function(res) {
 				localStorage.setItem('token', res.token);
-				// $('.form-overlay').html(logInForm);
+				localStorage.setItem('userId', res.user._id);
 				closeForm();
 			})
 			.fail(function(xhr, err) {
@@ -115,7 +115,8 @@ function userLogIn() {
 			data: JSON.stringify(logInCreds)
 		})
 		.done(function(res) {
-			localStorage.setItem('token', res.authToken);
+			localStorage.setItem('token', res.token);
+			localStorage.setItem('userId', res.user._id)
 		})
 		.fail(function(xhr, err) {
 			let errMessage = JSON.stringify(xhr.responseText);
