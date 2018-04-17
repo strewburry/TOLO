@@ -13,6 +13,7 @@ chai.use(chaiHttp);
 describe('user authentication endpoints', function() {
     const username = 'testUser';
     const password = 'testPassword';
+    let id;
 
     before(function() {
         return runServer(TEST_DATABASE_URL);
@@ -30,6 +31,9 @@ describe('user authentication endpoints', function() {
                 username,
                 password
             })
+            .then(user => {
+                id = user.id;
+            });
         });
     })
 
@@ -89,7 +93,8 @@ describe('user authentication endpoints', function() {
                     algorithm: ['HS256']
                 });
                 expect(payload.user).to.deep.equal({
-                    username
+                    username,
+                    id
                 });
             });
         });

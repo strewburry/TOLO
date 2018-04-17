@@ -75,8 +75,9 @@ function userSignUp() {
 				contentType: 'application/json',
 				data: JSON.stringify(newUser)
 			})
-			.done(function() {
-				$('.form-overlay').html(logInForm);
+			.done(function(res) {
+				localStorage.setItem('token', res.token);
+				// $('.form-overlay').html(logInForm);
 				closeForm();
 			})
 			.fail(function(xhr, err) {

@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const {User} = require('./models');
+const {createAuthToken} = require('../util');
 const router = express.Router();
 const jsonParser = bodyParser.json();
 
@@ -79,7 +80,8 @@ router.post('/', jsonParser, (req, res) => {
 		});
 	})
 	.then(user => {
-		return res.status(201).json(user.serialize());
+		const token = createAuthToken(user.serialize());
+		return res.status(201).json({token});
 	})
 	.catch(err => {
 		if (err.reason === 'ValidationError') {
