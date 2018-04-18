@@ -87,6 +87,7 @@ h2 {
 
 #navbar li {
 	float: right;
+	margin-right: 3px;
 }
 
 #navbar li a {
@@ -173,7 +174,8 @@ form textarea[type="text"] {
 }
 
 .signup-prompt, 
-.login-prompt {
+.login-prompt,
+#logout {
 	display: inline-block;
 	padding: 5px 5px 5px 5px;
 	border: 1px solid #0092bd;
@@ -185,9 +187,19 @@ form textarea[type="text"] {
 	background-color: #43C6AC;
 }
 
-.signup button[type=submit],
-.login button[type=submit],
-#js-demo button[type=submit],
+#write {
+	display: inline-block;
+	padding: 5px 5px 5px 5px;
+	border: 1px solid #0092bd;
+	border-radius: 3px;
+	font-family: 'Inconsolata', monospace;
+	font-size: 14px;
+	font-weight: 400;
+	transition: all 400ms ease;
+	background-color: #F8FFAE;
+}
+
+button[type=submit],
 #restart {
 	padding: 10px 10px 10px 10px;
 	border: 1px solid #0092bd;

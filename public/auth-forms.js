@@ -50,6 +50,29 @@ const logInForm = (`
 				</div>
 			</div>`);
 
+const messageForm = (`
+				<div class="popupwrapper">
+					<div class="popupcontent">
+						<a class="close">x</a>
+						<h2>Write a Message</h2>
+						<div class="warning" aria-live="assertive" style="display:none;" hidden></div>
+						<form id="js-message">
+							<label for="input">
+								<p>Write a thoughtful, positive message or affirmation for a stranger:</p>
+							</label>
+							<textarea type="text" name="input" class="js-message-input" form="js-message" placeholder="Positive words only!"></textarea>
+							<button type="submit">Send your message!</button>
+						</form>
+					</div>
+				</div>`);
+
+const loggedInLinks = (`
+				<ul>
+					<li id="logo" style="float:left;">TOLO</li>
+					<li class="navItems"><button id="logout">log out</button></li>
+					<li class="navItems"><button id="write">write message</button></li>
+				</ul>`);
+
 function userSignUp() {
 	$('body').on('click', '#register, .signup-prompt', event => {
 		$('.form-overlay').show().prop('hidden', false);
@@ -100,7 +123,7 @@ function userLogIn() {
 		$('.form-overlay').html(logInForm);
 		closeForm();
 	});
-	$('.form-overlay').on('submit', '.login', function(event) {
+	$('.form-overlay').on('submit', '.login', event => {
 		event.preventDefault();
 		const username = $('[name=username]').val();
 		const password = $('[name=password]').val();
@@ -125,5 +148,21 @@ function userLogIn() {
 	});
 };
 
+function isLoggedIn() {
+	if(localStorage.getItem('userId')) {
+		$('.introwrapper').hide();
+		$('#navbar').html(loggedInLinks);
+		composeMessage();
+	}
+}
+
+function composeMessage() {
+	$('body').on('click', '#write', event => {
+		$('.form-overlay').show().prop('hidden', false).html(messageForm);
+		closeForm();
+	});
+}
+
 $(userSignUp);
 $(userLogIn);
+$(isLoggedIn);
