@@ -2,7 +2,7 @@ const demoForm = (`
 			<div class="popupwrapper">
 				<div class="popupcontent">
 					<a class="close">x</a>
-					<h2>Try TOLO anonymously</h2>
+					<h2>Try It Out</h2>
 					<div class="warning" aria-live="assertive" style="display:none;" hidden></div>
 					<form id="js-demo">
 						<label for="input">
