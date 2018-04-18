@@ -73,6 +73,12 @@ const loggedInLinks = (`
 					<li class="navItems"><button id="write">write message</button></li>
 				</ul>`);
 
+const loggedOutLinks = (`
+				<ul>
+					<li id="logo" style="float:left;">TOLO</li>
+					<li class="navitems">made with 💕 by <a href="https://www.github.com/strewburry">CB</a></li>
+				</ul>`);
+
 function userSignUp() {
 	$('body').on('click', '#register, .signup-prompt', event => {
 		$('.form-overlay').show().prop('hidden', false);
@@ -153,15 +159,25 @@ function isLoggedIn() {
 		$('.introwrapper').hide();
 		$('#navbar').html(loggedInLinks);
 		composeMessage();
-	}
-}
+		logOut();
+	};
+};
 
 function composeMessage() {
 	$('body').on('click', '#write', event => {
 		$('.form-overlay').show().prop('hidden', false).html(messageForm);
 		closeForm();
 	});
-}
+};
+
+function logOut() {
+	$('body').on('click', '#logout', event => {
+		localStorage.removeItem('userId');
+		localStorage.removeItem('token');
+		$('.introwrapper').show();
+		$('#navbar').html(loggedOutLinks);
+	});
+};
 
 $(userSignUp);
 $(userLogIn);
