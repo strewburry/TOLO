@@ -2,7 +2,7 @@ const signUpForm = (`
 				<div class="popupwrapper">
 					<div class="popupcontent">
 						<a class="close">x</a>
-							<h2>sign up</h2>
+						<h2>sign up</h2>
 						<div class="warning" aria-live="assertive" style="display:none;" hidden></div>
 						<form class="signup" method="post">
 							<label for="username">
@@ -30,7 +30,7 @@ const logInForm = (`
 			<div class="popupwrapper">
 				<div class="popupcontent">
 					<a class="close">x</a>
-						<h2>log in</h2>
+					<h2>log in</h2>
 					<div class="warning" aria-live="assertive" style="display:none;" hidden></div>
 					<form class="login" method="post">
 						<label for="username">
@@ -75,8 +75,10 @@ function userSignUp() {
 				contentType: 'application/json',
 				data: JSON.stringify(newUser)
 			})
-			.done(function() {
-				$('.form-overlay').html(logInForm);
+			.done(function(res) {
+				localStorage.setItem('token', res.token);
+				localStorage.setItem('userId', res.user._id);
+				closeForm();
 			})
 			.fail(function(xhr, err) {
 				let jsonResponse = JSON.parse(xhr.responseText);
@@ -113,7 +115,8 @@ function userLogIn() {
 			data: JSON.stringify(logInCreds)
 		})
 		.done(function(res) {
-			localStorage.setItem('token', res.authToken);
+			localStorage.setItem('token', res.token);
+			localStorage.setItem('userId', res.user._id)
 		})
 		.fail(function(xhr, err) {
 			let errMessage = JSON.stringify(xhr.responseText);

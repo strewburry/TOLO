@@ -1,8 +1,9 @@
 'use strict';
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const jwt = require('jsonwebtoken');
 const {app, runServer, closeServer} = require('../server');
-const {TEST_DATABASE_URL} = require('../config');
+const {JWT_SECRET, TEST_DATABASE_URL} = require('../config');
 const {User} = require('../users'); 
 
 const expect = chai.expect;
@@ -13,6 +14,7 @@ describe('users API', function() {
 	const username = 'testUser';
 	const password = 'testPassword';
 	const passwordConf = password;
+	let id;
 
 	before(function() {
 		return runServer(TEST_DATABASE_URL);
@@ -168,8 +170,15 @@ describe('users API', function() {
 				.then(res => {
 					expect(res).to.have.status(201);
 					expect(res.body).to.be.an('object');
-					expect(res.body).to.have.key('username');
-					expect(res.body.username).to.equal(username);
+					expect(res.body.token).to.be.a('string');
+					const payload = jwt.verify(res.body.token, JWT_SECRET, {
+						algorithm: ['HS256']
+					});
+					id = payload.user.id; 
+					expect(payload.user).to.deep.equal({
+						username, 
+						id
+					});
 					return User.findOne({
 						username
 					});

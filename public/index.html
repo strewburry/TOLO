@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="description" content="Take One, Leave One (TOLO) is a free service where users exchange positivity.">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Inconsolata|Merriweather" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="index.css">
 	<title>Take One, Leave One (TOLO)</title>
 </head>
@@ -17,31 +18,15 @@
 
 	<div class="container">
 	<header role="banner">
-		<h1>TOLO</h1>
+		<h1>Take One, Leave One</h1>
 	</header>
 
 	<main role="main">
 		<section class="intro">
-			<p><span class="name">Take One, Leave One.</span> Write a kind message for a stranger and receive one in return. Register or log in to pay the kindest messages forward.
+			<p>Write a kind message for a stranger and receive one in return. Register or log in to pay the kindest messages forward.</p>
 			<div class="buttonwrapper">
 				<button id="register">sign up</button>
 				<button id="trydemo">✨demo✨</button>
-			</div>
-		</section>
-
-		<section class="demo" aria-live="assertive" hidden>
-			<h4>Try it anonymously:</h4>
-			<form action="#" id="js-message-input">
-				<label for="input">
-					<p>Write a thoughtful, positive message or affirmation for a stranger:</p>
-				</label>
-				<textarea type="text" name="input" class="js-input" form="js-message-input" placeholder="You can do it! You are you, and that's enough!" aria-labelledby="input"></textarea>
-				<p><button id="senddemo" type="submit" alt="send" aria-label="send">Send your message!</button></p>
-			</form>
-		</section>
-
-		<section class="result">
-			<div class="js-message-result" aria-live="assertive" hidden>
 			</div>
 		</section>
 	</main>
@@ -55,6 +40,7 @@
 	<div class="form-overlay" aria-live="assertive" style="display:none;" hidden></div>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="index.js"></script>
+	<script type="text/javascript" src="client-demo.js"></script>
 	<script type="text/javascript" src="auth-forms.js"></script>
 </body>
 </html>

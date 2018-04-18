@@ -41,7 +41,7 @@ describe('protected endpoints', function() {
         it('should reject unauthorized requests', function() {
             return chai
             .request(app)
-            .get('/api/auth/dashboard')
+            .get('/api/dashboard')
             .then(res => {
                 expect(res).to.have.status(401);
             });
@@ -61,7 +61,7 @@ describe('protected endpoints', function() {
             );
             return chai
             .request(app)
-            .get('/api/auth/dashboard')
+            .get('/api/dashboard')
             .set('Authorization', `Bearer ${token}`)
             .then(res => {
                 expect(res).to.have.status(401);
@@ -82,7 +82,7 @@ describe('protected endpoints', function() {
             );
             return chai
             .request(app)
-            .get('/api/auth/dashboard')
+            .get('/api/dashboard')
             .set('Authorization', `Bearer ${token}`)
             .then(res => {
                 expect(res).to.have.status(401);
@@ -104,7 +104,7 @@ describe('protected endpoints', function() {
             );
             return chai
             .request(app)
-            .get('/api/auth/dashboard')
+            .get('/api/dashboard')
             .set('Authorization', `Bearer ${token}`)
             .then(res => {
                 expect(res).to.have.status(200);
