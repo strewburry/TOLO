@@ -4,17 +4,8 @@
 
 .container {
 	margin: auto;
-	max-width: 80%;
-	min-height: 98%;
+	max-width: 100%;
 	position: relative;
-	text-align: center;
-}
-
-footer {
-	bottom: 0;
-	width: 100%;
-	height: 60px;
-	position: absolute;
 	text-align: center;
 }
 
@@ -23,13 +14,35 @@ html, body {
 	padding: 0;
 	height: 100%;
 	font-family: 'Inconsolata', monospace;
-	font-size: 16px;
+	font-size: 14px;
 	background: #43C6AC; /* fallback for old browsers */
 	background: linear-gradient(-90deg, #F8FFAE, #43C6AC);
 }
 
-body { 
-	padding-bottom: 60px;
+.intro {
+	background: linear-gradient(-90deg, #F8FFAE, #43C6AC);
+	position: relative;
+	height: 58vh;
+	margin-top: 150px;
+}
+
+main {
+	background-color: #FFFFFF; 
+}
+
+.wrapper-thirds {
+	display: flex;
+	justify-content: space-between;
+}
+
+.wrapper-thirds > .column {
+	width: 33%;
+	margin: 3px 3px 3px 3px;
+	padding: 2px 2px 2px 2px;
+}
+
+.wrapper-thirds > .column > ul > li {
+	text-align: left;
 }
 
 a {
@@ -38,15 +51,25 @@ a {
 }
 
 h1, h2, h3, h4 {
-	font-family: 'Merriweather', serif;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 800;
+	text-transform: lowercase;
+}
+
+h1 {
+	font-size: 36px;
+}
+
+h2 {
+	line-height: 28px;
+	border-bottom: 2px solid #1bc5b3; 
 }
 
 #logo {
-	font-size: 18px;
-	font-weight: bold;
-	font-family: 'Merriweather', serif;
+	font-size: 24px;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 800; 
 	color: #F8FFAE;
-	padding: 14px 16px;
 	display: inline-block;
 }
 
@@ -68,11 +91,14 @@ h1, h2, h3, h4 {
 
 #navbar li a {
 	text-align: center;
-	font-size: 14px;
+	font-size: 12px;
 	display: inline-block;
-	padding: 14px 16px;
 	text-decoration: none;
 	color: #0092bd;
+}
+
+.navitems {
+	font-size: 12px;
 }
 
 .form-overlay {
@@ -202,7 +228,7 @@ form select:focus {
 
 .buttonwrapper {
 	margin: auto;
-	max-width: 70%;
+	max-width: 60%;
 }
 
 #register {
@@ -250,6 +276,25 @@ form select:focus {
 	color: red;
 }
 
+@media only screen and (max-width: 400px) {
+	.wrapper-thirds {
+		display: block;
+	}
+	.wrapper-thirds > .column {
+	width: 100%;
+	margin: 0 0 10px 0;
+	}
+
+	.form-overlay, 
+	.popupwrapper,
+	.popupcontent, 
+	.message-card,
+	button[type=submit],
+	#restart {
+		width: 100%;
+	}
+}
+
 @media only screen and (max-width: 640px) {
 
 	.js-demo-input {
@@ -273,7 +318,7 @@ form select:focus {
 	}
 
 	button[type=submit] {
-		width: 90%;
+		width: 100%;
 	}
 
 	h1 {
@@ -281,10 +326,10 @@ form select:focus {
 	}
 
 	.message-card {
-		width: 90%;
+		width: 100%;
 	}
 
 	#restart {
-		width: 90%;
+		width: 100%;
 	}
 }
