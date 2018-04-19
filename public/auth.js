@@ -25,6 +25,7 @@ function handleUserSignUp(event) {
 		.done(function(res) {
 			localStorage.setItem('token', res.token);
 			localStorage.setItem('userId', res.user._id);
+			isLoggedIn();
 		})
 		.fail(function(xhr, err) {
 			let jsonResponse = JSON.parse(xhr.responseText);
