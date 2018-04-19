@@ -2,28 +2,23 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const jsonParser = bodyParser.json();
-const {DATABASE_URL, PORT} = require('../config');
+const jwt = require('jsonwebtoken');
+const {DATABASE_URL, JWT_SECRET, PORT} = require('../config');
 const {Message} = require('./models');
 const router = express.Router();
+const jsonParser = bodyParser.json();
 mongoose.Promise = global.Promise; 
 
 router.get('/', jsonParser, (req, res) => {
     Message
-    .count()
-    .exec((err, count) => {
-        const random = Math.floor(Math.random() * count);
-        Message
-        .findOne()
-        .skip(random)
-        .exec((err, result) => {
-            res.json(result.serialize())
-            if (err) {
-                res.status(500).json({error: 'something went wrong'});
-            };
-        });
-    });
-});
+    .find()
+    .then(messages => {
+        res.status(200).send(messages);
+    })
+    .catch(err => {
+        res.status(500).json({error: 'something went wrong'});
+    })
+})
 
 router.post('/', jsonParser, (req, res) => {
     const requiredField = ['content'];

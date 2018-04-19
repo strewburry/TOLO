@@ -79,11 +79,24 @@ const TEMPLATES = (function(){
 					<li id="logo" style="float:left;">TOLO</li>
 					<li class="navitems">made with 💕 by <a href="https://www.github.com/strewburry">CB</a></li>
 				</ul>`);
+
+	const messageCard = (`
+				<div class="popupwrapper">
+					<div class="popupcontent">
+						<a class="close">x</a>
+						<h2>Thanks for your message!</h2>
+						<p>It's sure to make someone's day. Here's one chosen just for you:</p>
+						<div class="message-card">
+						</div>
+						<button id="restart">Write another message!</button>
+					</div>
+				</div>`);
     return {
         signUpForm,
         logInForm,
         messageForm, 
         loggedInLinks,
-        loggedOutLinks 
+		loggedOutLinks,
+		messageCard
     }
 })()

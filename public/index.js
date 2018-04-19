@@ -17,6 +17,12 @@ function appSetUp() {
 	})
 	$('body').on('click', '#write', () => {
 		showMessageForm();
+    })
+    $('.form-overlay').on('submit', '#js-message', event => {
+        handleSendMessage(event);
+	})
+	$('.form-overlay').on('click', '#restart', () => {
+		showMessageForm();
 	})
 	$('body').on('click', '#logout', () => {
 		logOut();

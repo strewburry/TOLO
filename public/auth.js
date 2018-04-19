@@ -75,10 +75,6 @@ function isLoggedIn() {
 	}
 }
 
-function showMessageForm() {
-	$('.form-overlay').show().prop('hidden', false).html(TEMPLATES.messageForm);
-}
-
 function logOut() {
 	localStorage.removeItem('userId');
 	localStorage.removeItem('token');

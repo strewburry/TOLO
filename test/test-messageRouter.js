@@ -87,24 +87,30 @@ describe('messages', function() {
             .then(res => {
                 expect(res).to.have.status(200);
                 expect(res).to.be.json;
-                expect(res.body).to.be.a('object');
+                expect(res.body).to.be.a('array');
             });
         });
     });
 
     describe('DELETE endpoint', function() {
         it('should delete messages with valid ID', function() {
-            return chai
-            .request(app)
-            .get('/api/messages')
+            let id; 
+            return Message
+            .findOne()
             .then(res => {
+                id = res._id;
                 return chai
                 .request(app)
-                .delete(`/api/messages/${res.body.id}`)
+                .delete(`/api/messages/${id}`)
             })
             .then(res => {
                 expect(res).to.have.status(204);
-            });
+                return Message
+                .findById(id);
+            })
+            .then(res => {
+                expect(res).to.be.null;
+            })
         });
     });
-});
+})
