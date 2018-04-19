@@ -15,6 +15,8 @@ describe('users API', function() {
 	const password = 'testPassword';
 	const passwordConf = password;
 	let id;
+	let createdMessages;
+	let receivedMessages;
 
 	before(function() {
 		return runServer(TEST_DATABASE_URL);
@@ -175,9 +177,13 @@ describe('users API', function() {
 						algorithm: ['HS256']
 					});
 					id = payload.user.id; 
+					createdMessages = payload.user.createdMessages;
+					receivedMessages = payload.user.receivedMessages;
 					expect(payload.user).to.deep.equal({
 						username, 
-						id
+						id,
+						createdMessages,
+						receivedMessages
 					});
 					return User.findOne({
 						username
