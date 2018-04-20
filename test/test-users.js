@@ -218,5 +218,30 @@ describe('users API', function() {
 				});
 			});
 		});
+
+		describe('GET endpoint', function() {
+			it('should get user by user id', function() {
+				return User
+				.create({
+					username, 
+					password,
+					passwordConf
+				})
+				.then(() => { 
+					return User
+					.findOne()
+					.then(user => {
+						id = user._id;
+						return chai
+						.request(app)
+						.get(`/api/users/${id}`)
+					})
+					.then(res => {
+						expect(res).to.have.status(200);
+						expect(res).to.be.a('object');
+					});
+				});
+			});
+		});
 	});
 });
