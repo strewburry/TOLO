@@ -91,12 +91,23 @@ const TEMPLATES = (function(){
 						<button id="restart">Write another message!</button>
 					</div>
 				</div>`);
+	const messageTemplate = (`
+				<div class="wrapper-thirds">
+					<div class="column">
+						<div class="content>
+						</div>
+						<div class="votewrapper">
+						<button id="upvote">👍</button>
+						<button id="downvote">👎</button>
+						</div>
+					</div>`);
     return {
         signUpForm,
         logInForm,
         messageForm, 
         loggedInLinks,
 		loggedOutLinks,
-		messageCard
+		messageCard,
+		messageTemplate
     }
 })()

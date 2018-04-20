@@ -2,6 +2,39 @@ function showMessageForm() {
 	$('.form-overlay').show().prop('hidden', false).html(TEMPLATES.messageForm);
 }
 
+function getReceivedMessages(handleReceivedMessages) {
+    $.ajax({
+        url: `/api/users/${localStorage.getItem('userId')}`,
+        type: 'GET',
+        contentType: 'application/json',
+        headers: {
+            authorization: `Bearer ${window.localStorage.token}`
+        }
+    })
+    .done(userData => {
+        handleReceivedMessages(userData);
+    })
+}
+
+function handleReceivedMessages(userData) {
+    const receivedMessages = userData.user.receivedMessages;
+    console.log(receivedMessages);
+    displayReceivedMessages(receivedMessages);
+}
+
+function displayReceivedMessages(receivedMessages) {
+    $('.messageswrapper').show().prop('hidden', false);
+    let renderReceivedMessages = receivedMessages.map((message) => {
+        let messageElement = $(TEMPLATES.messageTemplate); 
+        messageElement.find('.content').text(message.content);
+        $('.messageswrapper').html(messageElement); 
+    })
+}
+
+function getAndDisplayReceivedMessages() {
+    getReceivedMessages(handleReceivedMessages);
+}
+
 function getNewMessage(handleNewMessage) {
     $.ajax({
         url: '/api/messages',
@@ -25,7 +58,10 @@ function handleNewMessage(messages) {
         }
     } 
     let index = Math.floor(Math.random() * availableMessages.length);
-    let returnMessage = availableMessages[index].content; 
+    let userMessages = [];
+    userMessages.push(availableMessages[index]._id);
+    localStorage.setItem('receivedMessages', JSON.stringify(userMessages));
+    let returnMessage = availableMessages[index].content;
     displayNewMessage(returnMessage);
 }
 

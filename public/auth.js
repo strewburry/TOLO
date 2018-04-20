@@ -58,9 +58,7 @@ function handleUserLogIn(event) {
 		data: JSON.stringify(logInCreds)
 	})
 	.done(function(res) {
-		localStorage.setItem('token', res.token);
-		localStorage.setItem('userId', res.user._id);
-		localStorage.setItem('receivedMessages', res.user.receivedMessages);
+		saveDataToLocalStorage(res);
 		isLoggedIn();
 	})
 	.fail(function(xhr, err) {
@@ -69,11 +67,18 @@ function handleUserLogIn(event) {
 	})
 }
 
+function saveDataToLocalStorage(res) {
+	localStorage.setItem('token', res.token);
+	localStorage.setItem('userId', res.user._id);
+	localStorage.setItem('receivedMessages', res.user.receivedMessages);
+}
+
 function isLoggedIn() {
 	if(localStorage.getItem('userId')) {
 		$('.introwrapper').hide();
 		$('.form-overlay').fadeToggle('fast').hide().prop('hidden', true);
 		$('#navbar').html(TEMPLATES.loggedInLinks);
+		getAndDisplayReceivedMessages();
 	}
 }
 
