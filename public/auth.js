@@ -60,6 +60,7 @@ function handleUserLogIn(event) {
 	.done(function(res) {
 		localStorage.setItem('token', res.token);
 		localStorage.setItem('userId', res.user._id);
+		localStorage.setItem('receivedMessages', res.user.receivedMessages);
 		isLoggedIn();
 	})
 	.fail(function(xhr, err) {
@@ -79,6 +80,7 @@ function isLoggedIn() {
 function logOut() {
 	localStorage.removeItem('userId');
 	localStorage.removeItem('token');
+	localStorage.removeItem('receivedMessages');
 	$('.introwrapper').show();
 	$('#navbar').html(TEMPLATES.loggedOutLinks);
 }
