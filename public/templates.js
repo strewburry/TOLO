@@ -93,14 +93,16 @@ const TEMPLATES = (function(){
 				</div>`);
 	const messageTemplate = (`
 				<div class="wrapper-thirds">
-					<div class="column">
-						<div class="content>
+					<div class="column msgwrap">
+						<div class="content">
+						<p>this is some text to test out the display</p> 
 						</div>
 						<div class="votewrapper">
 						<button id="upvote">👍</button>
 						<button id="downvote">👎</button>
 						</div>
-					</div>`);
+					</div>
+				</div>`);
     return {
         signUpForm,
         logInForm,

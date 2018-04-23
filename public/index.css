@@ -22,7 +22,7 @@ html, body {
 .intro {
 	background: linear-gradient(-90deg, #F8FFAE, #43C6AC);
 	position: relative;
-	height: 58vh;
+	height: 48vh;
 	margin-top: 150px;
 }
 
@@ -43,6 +43,28 @@ main {
 
 .wrapper-thirds > .column > ul > li {
 	text-align: left;
+}
+
+.wrapper-thirds > .msgwrap {
+	padding: 10px 10px 10px 10px;
+}
+
+.msgwrap {
+	background-color: #FFFFFF;
+}
+
+#upvote,
+#downvote {
+	padding: 5px 5px 5px 5px;
+	border: 1px solid #0092bd;
+	border-radius: 3px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 14px;
+	transition: all 400ms ease;
+	width: 40%;
+	display: inline-block;
+	background-color: #FFFFFF;
 }
 
 a {

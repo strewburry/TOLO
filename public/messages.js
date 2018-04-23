@@ -2,7 +2,7 @@ function showMessageForm() {
 	$('.form-overlay').show().prop('hidden', false).html(TEMPLATES.messageForm);
 }
 
-function getReceivedMessages(handleReceivedMessages) {
+function getUserMessages(handleUserMessages) {
     $.ajax({
         url: `/api/users/${localStorage.getItem('userId')}`,
         type: 'GET',
@@ -12,27 +12,24 @@ function getReceivedMessages(handleReceivedMessages) {
         }
     })
     .done(userData => {
-        handleReceivedMessages(userData);
+        handleUserMessages(userData);
     })
 }
 
-function handleReceivedMessages(userData) {
-    const receivedMessages = userData.user.receivedMessages;
-    console.log(receivedMessages);
-    displayReceivedMessages(receivedMessages);
+function handleUserMessages(userData) {
+    const userMessages = userData.user.receivedMessages;
+    console.log(userMessages);
+    displayUserMessages(userMessages);
 }
 
-function displayReceivedMessages(receivedMessages) {
-    $('.messageswrapper').show().prop('hidden', false);
-    let renderReceivedMessages = receivedMessages.map((message) => {
-        let messageElement = $(TEMPLATES.messageTemplate); 
-        messageElement.find('.content').text(message.content);
-        $('.messageswrapper').html(messageElement); 
-    })
+function displayUserMessages(userMessages) {
+    let messageTemplate = $(TEMPLATES.messageTemplate);
+    $('.messageswrapper').html(messageTemplate).show().prop('hidden', false);
+    $('main').hide(); 
 }
 
-function getAndDisplayReceivedMessages() {
-    getReceivedMessages(handleReceivedMessages);
+function getAndDisplayUserMessages() {
+    getUserMessages(handleUserMessages);
 }
 
 function getNewMessage(handleNewMessage) {
@@ -73,6 +70,7 @@ function displayNewMessage(returnMessage) {
 
 function getAndDisplayNewMessage() {
     getNewMessage(handleNewMessage);
+    getAndDisplayReceivedMessages(handleReceivedMessages);
 }
 
 function handleSendMessage(event) {

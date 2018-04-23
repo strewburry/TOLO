@@ -78,7 +78,7 @@ function isLoggedIn() {
 		$('.introwrapper').hide();
 		$('.form-overlay').fadeToggle('fast').hide().prop('hidden', true);
 		$('#navbar').html(TEMPLATES.loggedInLinks);
-		getAndDisplayReceivedMessages();
+		getAndDisplayUserMessages();
 	}
 }
 
@@ -87,5 +87,7 @@ function logOut() {
 	localStorage.removeItem('token');
 	localStorage.removeItem('receivedMessages');
 	$('.introwrapper').show();
+	$('main').show();
+	$('.messageswrapper').hide().prop('hidden', true);
 	$('#navbar').html(TEMPLATES.loggedOutLinks);
 }
