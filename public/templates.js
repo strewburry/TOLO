@@ -86,21 +86,19 @@ const TEMPLATES = (function(){
 						<a class="close">x</a>
 						<h2>Thanks for your message!</h2>
 						<p>It's sure to make someone's day. Here's one chosen just for you:</p>
-						<div class="message-card">
+						<div class="returned-message">
 						</div>
 						<button id="restart">Write another message!</button>
 					</div>
 				</div>`);
 	const messageTemplate = (`
-				<div class="wrapper-thirds">
-					<div class="column msgwrap">
-						<div class="content">
-						<p>this is some text to test out the display</p> 
-						</div>
-						<div class="votewrapper">
-						<button id="upvote">👍</button>
-						<button id="downvote">👎</button>
-						</div>
+				<div class="message-card">
+					<div class="content">
+					<p>this is some text to test out the display</p> 
+					</div>
+					<div class="votewrapper">
+					<button id="upvote">👍</button>
+					<button id="downvote">👎</button>
 					</div>
 				</div>`);
     return {
