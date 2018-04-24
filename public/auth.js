@@ -70,7 +70,6 @@ function handleUserLogIn(event) {
 function saveDataToLocalStorage(res) {
 	localStorage.setItem('token', res.token);
 	localStorage.setItem('userId', res.user._id);
-	localStorage.setItem('receivedMessages', res.user.receivedMessages);
 }
 
 function isLoggedIn() {
@@ -85,7 +84,6 @@ function isLoggedIn() {
 function logOut() {
 	localStorage.removeItem('userId');
 	localStorage.removeItem('token');
-	localStorage.removeItem('receivedMessages');
 	$('.introwrapper').show();
 	$('main').show();
 	$('.messageswrapper').hide().prop('hidden', true);
