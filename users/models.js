@@ -1,7 +1,6 @@
 'use strict';
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
-const {Message} = require('../messages');
 const Schema = mongoose.Schema;
 
 mongoose.Promise = global.Promise; 
@@ -16,18 +15,13 @@ let UserSchema = new Schema({
 	password: {
 		type: String,
 		required: true
-	},
-	receivedMessages: [{
-		type: Schema.Types.ObjectId,
-		ref: 'Message'
-	}]
+	}
 });
 
 UserSchema.methods.serialize = function() {
   return {
 		username: this.username || '', 
-		id: this._id, 
-		receivedMessages: this.receivedMessages
+		id: this._id
   };
 };
 

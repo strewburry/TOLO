@@ -4,7 +4,7 @@ function showMessageForm() {
 
 function getUserMessages(handleUserMessages) {
     $.ajax({
-        url: `/api/users/${localStorage.getItem('userId')}`,
+        url: '/api/messages',
         type: 'GET',
         contentType: 'application/json',
         headers: {

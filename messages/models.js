@@ -7,6 +7,10 @@ mongoose.Promise = global.Promise;
 
 let MessageSchema = new Schema({
     creatorId: String,
+    ownerId: {
+        type: String,
+        default: null
+    },
     content: {
         type: String, 
         required: true
@@ -19,6 +23,7 @@ MessageSchema.methods.serialize = function() {
     return {
         id: this._id,
         creatorId: this.creatorId,
+        ownerId: this.ownerId,
         content: this.content, 
         upvotes: this.upvotes,
         downvotes: this.downvotes

@@ -14,7 +14,6 @@ describe('user authentication endpoints', function() {
     const username = 'testUser';
     const password = 'testPassword';
     let id;
-    let receivedMessages; 
 
     before(function() {
         return runServer(TEST_DATABASE_URL);
@@ -34,7 +33,6 @@ describe('user authentication endpoints', function() {
             })
             .then(user => {
                 id = user.id;
-                receivedMessages = user.receivedMessages;
             });
         });
     })
@@ -96,8 +94,7 @@ describe('user authentication endpoints', function() {
                 });
                 expect(payload.user).to.deep.equal({
                     username,
-                    id, 
-                    receivedMessages
+                    id
                 });
             });
         });
