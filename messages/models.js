@@ -1,13 +1,16 @@
 'use strict';
 const mongoose = require('mongoose');
+const {User} = require('../users');
 const Schema = mongoose.Schema; 
 
 mongoose.Promise = global.Promise; 
 
 let MessageSchema = new Schema({
     creatorId: String,
-    holderId: String,
-    messageId: String, 
+    ownerId: {
+        type: String,
+        default: null
+    },
     content: {
         type: String, 
         required: true
@@ -19,6 +22,8 @@ let MessageSchema = new Schema({
 MessageSchema.methods.serialize = function() {
     return {
         id: this._id,
+        creatorId: this.creatorId,
+        ownerId: this.ownerId,
         content: this.content, 
         upvotes: this.upvotes,
         downvotes: this.downvotes

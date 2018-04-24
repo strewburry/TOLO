@@ -2,48 +2,61 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const jsonParser = bodyParser.json();
-const {DATABASE_URL, PORT} = require('../config');
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
+
+const {DATABASE_URL, JWT_SECRET, PORT} = require('../config');
+const {jwtAuth} = require('../util');
 const {Message} = require('./models');
+
 const router = express.Router();
+
 mongoose.Promise = global.Promise; 
 
-router.get('/', jsonParser, (req, res) => {
-    Message
-    .count()
-    .exec((err, count) => {
-        const random = Math.floor(Math.random() * count);
-        Message
-        .findOne()
-        .skip(random)
-        .exec((err, result) => {
-            res.json(result.serialize())
-            if (err) {
-                res.status(500).json({error: 'something went wrong'});
-            };
-        });
-    });
-});
+router.use(bodyParser.json());
 
-router.post('/', jsonParser, (req, res) => {
+router.get('/', jwtAuth, (req, res) => {
+    Message
+    .find({'ownerId': req.user.id})
+    .then(messages => {
+        res.status(200).send(messages);
+    })
+    .catch(err => {
+        res.status(500).json({error: 'something went wrong'});
+    })
+})
+
+router.post('/', jwtAuth, (req, res) => {
     const requiredField = ['content'];
     if (!requiredField in req.body) {
         res.status(400).json({error: 'message content cannot be empty'});
     };
+    // add message to the database
     Message 
     .create({
         content: req.body.content,
         creatorId: req.body.creatorId
     })
-    .then(message => {
-        res.status(201).json(message.serialize());
-    })
-    .catch(err => {
-        res.status(500).json({error: 'something went wrong'});
+    // return message not created by the same user
+    .then(newMessage => {
+        return Message
+        .findOne({'creatorId': {$ne: newMessage.creatorId}, ownerId: null})
+        // set `ownerId` property on the received message to match the user to receive it
+        .then(receivedMessage => {
+            receivedMessage.ownerId = newMessage.creatorId;
+            return receivedMessage.save();
+        })
+        // send back received message with updated `ownerId` property 
+        .then(receivedMessage => {
+            res.status(201).json(receivedMessage.serialize());
+        })
+        .catch(err => {
+            res.status(500).json({error: err});
+        });
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', jwtAuth, (req, res) => {
     Message
     .findByIdAndRemove(req.params.id)
     .then(() => {

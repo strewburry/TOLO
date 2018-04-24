@@ -25,7 +25,6 @@ app.use(function(req, res, next) {
 app.use(morgan('dev'));
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
-app.use('/api/dashboard', authRouter);
 app.use('/api/messages', messageRouter);
 
 passport.use(localStrategy);

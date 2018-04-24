@@ -22,7 +22,7 @@ html, body {
 .intro {
 	background: linear-gradient(-90deg, #F8FFAE, #43C6AC);
 	position: relative;
-	height: 58vh;
+	height: 48vh;
 	margin-top: 150px;
 }
 
@@ -39,10 +39,37 @@ main {
 	width: 33%;
 	margin: 3px 3px 3px 3px;
 	padding: 2px 2px 2px 2px;
+	background-color: #FFFFFF;
 }
 
 .wrapper-thirds > .column > ul > li {
 	text-align: left;
+}
+
+.messageswrapper {
+	max-width: 100%;
+	margin: auto;
+}
+
+.message-card {
+	background-color: #FFFFFF;
+	display: inline-block;
+	width: 30%;
+	margin: 1%;
+	padding: 10px 10px 10px 10px; 
+}
+
+#upvote,
+#downvote {
+	padding: 5px 5px 5px 5px;
+	border: 1px solid #0092bd;
+	border-radius: 3px;
+	margin-top: 10px;
+	font-size: 14px;
+	transition: all 400ms ease;
+	width: 40%;
+	display: inline-block;
+	background-color: #FFFFFF;
 }
 
 a {
@@ -87,6 +114,7 @@ h2 {
 
 #navbar li {
 	float: right;
+	margin-right: 3px;
 }
 
 #navbar li a {
@@ -173,7 +201,8 @@ form textarea[type="text"] {
 }
 
 .signup-prompt, 
-.login-prompt {
+.login-prompt,
+#logout {
 	display: inline-block;
 	padding: 5px 5px 5px 5px;
 	border: 1px solid #0092bd;
@@ -185,9 +214,19 @@ form textarea[type="text"] {
 	background-color: #43C6AC;
 }
 
-.signup button[type=submit],
-.login button[type=submit],
-#js-demo button[type=submit],
+#write {
+	display: inline-block;
+	padding: 5px 5px 5px 5px;
+	border: 1px solid #0092bd;
+	border-radius: 3px;
+	font-family: 'Inconsolata', monospace;
+	font-size: 14px;
+	font-weight: 400;
+	transition: all 400ms ease;
+	background-color: #F8FFAE;
+}
+
+button[type=submit],
 #restart {
 	padding: 10px 10px 10px 10px;
 	border: 1px solid #0092bd;
@@ -257,7 +296,7 @@ form select:focus {
 	display: inline-block;
 }
 
-.message-card {
+.returned-message {
 	padding: 10px 10px 10px 10px;
 	border: 1px solid #0092bd;
 	border-radius: 3px;
@@ -289,9 +328,14 @@ form select:focus {
 	.popupwrapper,
 	.popupcontent, 
 	.message-card,
+	.received-message,
 	button[type=submit],
 	#restart {
 		width: 100%;
+	}
+
+	.message-card {
+		margin: 0 0 10px 0;
 	}
 }
 
@@ -325,7 +369,8 @@ form select:focus {
 		font-size: 22px;
 	}
 
-	.message-card {
+	.message-card,
+	.received-message {
 		width: 100%;
 	}
 

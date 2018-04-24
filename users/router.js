@@ -91,4 +91,11 @@ router.post('/', jsonParser, (req, res) => {
 	});
 });
 
+router.get('/:id', jsonParser, (req, res) => {
+	return User.findById(req.params.id)
+	.then(user => {
+		return res.status(200).json({user});
+	});
+});
+
 module.exports = {router};
