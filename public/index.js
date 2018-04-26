@@ -27,6 +27,9 @@ function appSetUp() {
 	$('body').on('click', '#logout', () => {
 		logOut();
 	})
+	$('body').on('click', '#upvote', () => {
+		handleUpvote(event); 
+	})
 }
 
 $(appSetUp);

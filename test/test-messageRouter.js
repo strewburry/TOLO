@@ -106,17 +106,17 @@ describe('messages resource', function() {
             })
         })
         
-        /* it('should throw an error if req body is missing content', function() {
+        it('should throw an error if req body is missing content', function() {
            const invalidMessage = {};
            return chai
            .request(app)
            .post('/api/messages')
            .send(invalidMessage)
-           .set('authorizaton', `Bearer ${token}`)
-           .catch(res => {
+           .set('Authorization', `Bearer ${token}`)
+           .then(res => {
                expect(res).to.have.status(400);
            });
-        }); */ 
+        }); 
     }); 
 
     describe('GET endpoint', function() {

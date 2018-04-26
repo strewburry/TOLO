@@ -98,7 +98,9 @@ const TEMPLATES = (function(){
 					</div>
 					<div class="votewrapper">
 					<button id="upvote">👍</button>
+					<div id="upvoteNumber"></div>
 					<button id="downvote">👎</button>
+					<div id="downvoteNumber"></div>
 					</div>
 				</div>`);
     return {

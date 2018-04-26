@@ -28,8 +28,8 @@ router.get('/', jwtAuth, (req, res) => {
 
 router.post('/', jwtAuth, (req, res) => {
     const requiredField = ['content'];
-    if (!requiredField in req.body) {
-        res.status(400).json({error: 'message content cannot be empty'});
+    if (!(requiredField in req.body)) {
+        return res.status(400).json({error: 'message content cannot be empty'});
     };
     // add message to the database
     Message 
@@ -55,27 +55,6 @@ router.post('/', jwtAuth, (req, res) => {
         });
     });
 });
-
-router.put('/:id', jwtAuth, (req, res) => {
-    if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-        res.status(400).json({error: 'request path ID and body ID value should match'});
-    }
-    const updatedVote = {};
-    const votingFields = ['upvotes', 'downvotes'];
-    votingFields.forEach(field => {
-        if (field in req.body) {
-            updatedVote[field] = req.body[field];
-        }
-    })
-    Message
-    .findByIdAndUpdate(req.params.id, {$set: updatedVote}, {new: true})
-    .then(updatedMessage => {
-        res.status(204).end();
-    })
-    .catch(err => {
-        res.status(500).json({error: err});
-    })
-})
 
 router.delete('/:id', jwtAuth, (req, res) => {
     Message
