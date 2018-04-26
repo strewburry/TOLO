@@ -56,6 +56,27 @@ router.post('/', jwtAuth, (req, res) => {
     });
 });
 
+router.put('/:id', jwtAuth, (req, res) => {
+    if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+        res.status(400).json({error: 'request path ID and body ID value should match'});
+    }
+    const updatedVote = {};
+    const votingFields = ['upvotes', 'downvotes'];
+    votingFields.forEach(field => {
+        if (field in req.body) {
+            updatedVote[field] = req.body[field];
+        }
+    })
+    Message
+    .findByIdAndUpdate(req.params.id, {$set: updatedVote}, {new: true})
+    .then(updatedMessage => {
+        res.status(204).end();
+    })
+    .catch(err => {
+        res.status(500).json({error: err});
+    })
+})
+
 router.delete('/:id', jwtAuth, (req, res) => {
     Message
     .findByIdAndRemove(req.params.id)
@@ -64,7 +85,7 @@ router.delete('/:id', jwtAuth, (req, res) => {
     })
     .catch(err => {
         console.error(err);
-        res.status(500).json({error: 'could not delete message'});
+        res.status(500).json({error: err});
     });
 });
 
