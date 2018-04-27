@@ -51,25 +51,54 @@ main {
 	margin: auto;
 }
 
+.message-card > .content { 
+	height: 100px;
+	overflow: scroll; 
+}
+
 .message-card {
 	background-color: #FFFFFF;
 	display: inline-block;
 	width: 30%;
+	height: 150px; 
 	margin: 1%;
 	padding: 10px 10px 10px 10px; 
 }
 
-#upvote,
+.messageoptions {
+	width: 100%;
+}
+
+#upvote {
+	background-image: url('./upvote.png');
+}
+
 #downvote {
+	background-image: url('./downvote.png');
+}
+
+#forward {
+	background-image: url('./forward.png');
+}
+
+#delete {
+	background-image: url('./delete.png');
+}
+
+.messagebutton {
 	padding: 5px 5px 5px 5px;
-	border: 1px solid #0092bd;
+	border: 0px solid #F8FFAE;
 	border-radius: 3px;
 	margin-top: 10px;
 	font-size: 14px;
 	transition: all 400ms ease;
-	width: 40%;
+	width: 12%;
+	height: 16px; 
 	display: inline-block;
 	background-color: #FFFFFF;
+	background-position: center; 
+	background-repeat: no-repeat; 
+	vertical-align: middle; 
 }
 
 a {

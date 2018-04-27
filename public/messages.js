@@ -70,8 +70,3 @@ function handleSendMessage(event) {
         })
     }
 }
-
-function handleUpvote(event) {
-    event.preventDefault(); 
-    
-} 

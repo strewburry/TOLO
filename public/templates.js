@@ -96,11 +96,13 @@ const TEMPLATES = (function(){
 					<div class="content">
 					<p>this is some text to test out the display</p> 
 					</div>
-					<div class="votewrapper">
-					<button id="upvote">👍</button>
-					<div id="upvoteNumber"></div>
-					<button id="downvote">👎</button>
-					<div id="downvoteNumber"></div>
+					<div class="messageoptions">
+					<div id="upvotecounter"></div>
+					<div id="downvotecounter"></div>
+					<button class="messagebutton" id="upvote"></button>
+					<button class="messagebutton" id="downvote"></button>
+					<button class="messagebutton" id="delete"></button> 
+					<button class="messagebutton" id="forward"></button>
 					</div>
 				</div>`);
     return {
