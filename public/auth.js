@@ -74,10 +74,17 @@ function saveDataToLocalStorage(res) {
 
 function isLoggedIn() {
 	if(localStorage.getItem('userId')) {
-		$('.introwrapper').hide();
+		$('.messageswrapper').show().prop('hidden', false);
+		$('.introwrapper').hide().prop('hidden', true);
 		$('.form-overlay').fadeToggle('fast').hide().prop('hidden', true);
 		$('#navbar').html(TEMPLATES.loggedInLinks);
 		getAndDisplayUserMessages();
+	}
+	else { 
+		$('.introwrapper').show().prop('hidden', false);
+		$('.messageswrapper').hide().prop('hidden', true);
+		$('main').show().prop('hidden', false);
+		$('#navbar').html(TEMPLATES.loggedOutLinks);
 	}
 }
 
