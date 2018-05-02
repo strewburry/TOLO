@@ -109,12 +109,23 @@ const TEMPLATES = (function(){
 				<div class="popupwrapper">
 					<div class="popupcontent">
 					<a class="close">x</a>
-					<h2>Are you sure you want to delete this message?</h2>
+					<h2>Delete this message?</h2>
 					<p>This action is permanent. You can always pass it on instead.</p>
 					<button data-id="${id}" id="confirmdelete">I'm sure</button>
 					<button class="cancel">I changed my mind</button>
 					</div>
-				</div>`); 
+				</div>`);
+	const confirmForward = (id) => (`
+				<div class="popupwrapper">
+					<div class="popupcontent">
+					<a class="close">x</a>
+					<h2>Forward this message?</h2>
+					<p>This message will no longer belong to you, and you will no longer see it in your received messages--
+					but it will make someone else's day!</p>
+					<button data-id="${id}" id="confirmforward">I'm sure</button>
+					<button class="cancel">I changed my mind</button>
+					</div>
+				</div>`)
     return {
         signUpForm,
         logInForm,
@@ -123,6 +134,7 @@ const TEMPLATES = (function(){
 		loggedOutLinks,
 		messageCard,
 		messageTemplate, 
-		confirmDelete
+		confirmDelete,
+		confirmForward
     }
 })()

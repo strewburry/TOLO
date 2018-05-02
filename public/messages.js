@@ -2,6 +2,10 @@ function showMessageForm() {
 	$('.form-overlay').show().prop('hidden', false).html(TEMPLATES.messageForm);
 }
 
+function hideForm() {
+    $('.form-overlay').fadeToggle('fast').hide().prop('hidden', true);
+}
+
 function getUserMessages(displayUserMessages) {
     $.ajax({
         url: '/api/messages',
@@ -21,11 +25,6 @@ function displayUserMessages(userMessages) {
         userMessages: userMessages
     };
     let userMessageCards = messages.userMessages.map(message => {
-        /* let messageTemplate = $(TEMPLATES.messageTemplate);
-        messageTemplate.find('.content').html(message.content);
-        messageTemplate.find('#upvotecounter').html(message.upvotes);
-        messageTemplate.find('#downvotecounter').html(message.downvotes);
-        return messageTemplate; */ 
         return TEMPLATES.messageTemplate(message);
     });
     $('.messageswrapper').html(userMessageCards).show().prop('hidden', false);
@@ -90,6 +89,25 @@ function deleteMessage(id) {
     })
     .done(() => {
         messageToDelete.remove();
-        $('.form-overlay').hide().prop('hidden', true);
+        hideForm(); 
+    })
+}
+
+function showConfirmForward(id) {
+    $('.form-overlay').show().prop('hidden', false).html(TEMPLATES.confirmForward(id));
+}
+
+function forwardMessage(id) {
+    let messageToForward = $('#' + id);
+    $.ajax({
+        url: '/api/messages/forward/' + id,
+        type: 'PUT',
+        contentType: 'application/json',
+        headers: {
+            authorization: `Bearer ${window.localStorage.token}`
+        }
+    })
+    .done(() => {
+        hideForm(); 
     })
 }
