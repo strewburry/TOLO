@@ -91,27 +91,29 @@ const TEMPLATES = (function(){
 						<button id="restart">Write another message!</button>
 					</div>
 				</div>`);
-	const messageTemplate = (`
-				<div class="message-card">
+	const messageTemplate = (message) => (`
+				<div class="message-card" id="${message._id}">
 					<div class="content">
-					<p>this is some text to test out the display</p> 
+					<p>${message.content}</p> 
 					</div>
 					<div class="messageoptions">
-					<div id="upvotecounter"></div>
-					<div id="downvotecounter"></div>
-					<button class="messagebutton" id="upvote"></button>
-					<button class="messagebutton" id="downvote"></button>
-					<button class="messagebutton" id="delete"></button> 
-					<button class="messagebutton" id="forward"></button>
+					<div id="upvotecounter">${message.upvotes}</div>
+					<div id="downvotecounter">${message.downvotes}</div>
+					<div data-id="${message._id}">
+						<button class="messagebutton" id="upvote"></button>
+						<button class="messagebutton" id="downvote"></button>
+						<button class="messagebutton" id="delete"></button> 
+						<button class="messagebutton" id="forward"></button>
+					</div>
 					</div>
 				</div>`);
-	const confirmDelete = (`
+	const confirmDelete = (id) => (`
 				<div class="popupwrapper">
 					<div class="popupcontent">
 					<a class="close">x</a>
 					<h2>Are you sure you want to delete this message?</h2>
 					<p>This action is permanent. You can always pass it on instead.</p>
-					<button id="confirmdelete">I'm sure</button>
+					<button data-id="${id}" id="confirmdelete">I'm sure</button>
 					<button class="cancel">I changed my mind</button>
 					</div>
 				</div>`); 

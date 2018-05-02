@@ -27,12 +27,15 @@ function appSetUp() {
 	$('body').on('click', '#logout', () => {
 		logOut();
 	})
-	$('body').on('click', '#upvote', () => {
-		handleUpvote(event); 
-	})
 	$('body').on('click', '#delete', event => {
-		deleteMessage(event); 
+		// const id = $(event.target).parent().data('id');
+		const id = event.target.parentElement.getAttribute('data-id');
+		showConfirmDelete(id); 
 	})
+	$('body').on('click', '#confirmdelete', event => {
+		const id = event.target.getAttribute('data-id'); 
+		deleteMessage(id); 
+    })
 }
 
 $(appSetUp);

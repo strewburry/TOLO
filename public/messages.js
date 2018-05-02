@@ -21,11 +21,12 @@ function displayUserMessages(userMessages) {
         userMessages: userMessages
     };
     let userMessageCards = messages.userMessages.map(message => {
-        let messageTemplate = $(TEMPLATES.messageTemplate);
+        /* let messageTemplate = $(TEMPLATES.messageTemplate);
         messageTemplate.find('.content').html(message.content);
         messageTemplate.find('#upvotecounter').html(message.upvotes);
         messageTemplate.find('#downvotecounter').html(message.downvotes);
-        return messageTemplate;
+        return messageTemplate; */ 
+        return TEMPLATES.messageTemplate(message);
     });
     $('.messageswrapper').html(userMessageCards).show().prop('hidden', false);
     $('main').hide();
@@ -73,15 +74,22 @@ function handleSendMessage(event) {
     }
 }
 
-function showConfirmDelete() {
-    $('.form-overlay').show().prop('hidden', false).html(TEMPLATES.confirmDelete);
+function showConfirmDelete(id) {
+    $('.form-overlay').show().prop('hidden', false).html(TEMPLATES.confirmDelete(id));
 }
 
-function deleteMessage(event) {
-    showConfirmDelete(); 
-    let messageToDelete = $(event.currentTarget).closest('.message-card');
-    $('body').on('click', '#confirmdelete', event => {
-        messageToDelete.remove(); 
-        $('.form-overlay').hide().prop('hidden', true); 
+function deleteMessage(id) {
+    let messageToDelete = $('#' + id); 
+    $.ajax({
+        url: '/api/messages/' + id,
+        type: 'DELETE',
+        contentType: 'application/json',
+        headers: {
+            authorization: `Bearer ${window.localStorage.token}`
+        }
+    })
+    .done(() => {
+        messageToDelete.remove();
+        $('.form-overlay').hide().prop('hidden', true);
     })
 }
