@@ -105,6 +105,16 @@ const TEMPLATES = (function(){
 					<button class="messagebutton" id="forward"></button>
 					</div>
 				</div>`);
+	const confirmDelete = (`
+				<div class="popupwrapper">
+					<div class="popupcontent">
+					<a class="close">x</a>
+					<h2>Are you sure you want to delete this message?</h2>
+					<p>This action is permanent. You can always pass it on instead.</p>
+					<button id="confirmdelete">I'm sure</button>
+					<button class="cancel">I changed my mind</button>
+					</div>
+				</div>`); 
     return {
         signUpForm,
         logInForm,
@@ -112,6 +122,7 @@ const TEMPLATES = (function(){
         loggedInLinks,
 		loggedOutLinks,
 		messageCard,
-		messageTemplate
+		messageTemplate, 
+		confirmDelete
     }
 })()

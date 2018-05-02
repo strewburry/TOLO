@@ -30,7 +30,7 @@ function appSetUp() {
 	$('body').on('click', '#upvote', () => {
 		handleUpvote(event); 
 	})
-	$('body').on('click', '#delete', () => {
+	$('body').on('click', '#delete', event => {
 		deleteMessage(event); 
 	})
 }

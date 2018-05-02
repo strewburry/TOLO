@@ -23,6 +23,8 @@ function displayUserMessages(userMessages) {
     let userMessageCards = messages.userMessages.map(message => {
         let messageTemplate = $(TEMPLATES.messageTemplate);
         messageTemplate.find('.content').html(message.content);
+        messageTemplate.find('#upvotecounter').html(message.upvotes);
+        messageTemplate.find('#downvotecounter').html(message.downvotes);
         return messageTemplate;
     });
     $('.messageswrapper').html(userMessageCards).show().prop('hidden', false);
@@ -69,4 +71,17 @@ function handleSendMessage(event) {
 			$('.warning').show().prop('hidden', false).html(`<span class="warning"><p>${errMessage}</p></span>`);
         })
     }
+}
+
+function showConfirmDelete() {
+    $('.form-overlay').show().prop('hidden', false).html(TEMPLATES.confirmDelete);
+}
+
+function deleteMessage(event) {
+    showConfirmDelete(); 
+    let messageToDelete = $(event.currentTarget).closest('.message-card');
+    $('body').on('click', '#confirmdelete', event => {
+        messageToDelete.remove(); 
+        $('.form-overlay').hide().prop('hidden', true); 
+    })
 }
