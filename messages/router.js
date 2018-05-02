@@ -56,6 +56,17 @@ router.post('/', jwtAuth, (req, res) => {
     });
 });
 
+router.put('/forward/:id', jwtAuth, (req, res) => {
+    Message
+    .findByIdAndUpdate(req.params.id, {ownerId: null}, {new: true})
+    .then(() => {
+        res.status(204).end(); 
+    })
+    .catch(err => {
+        res.status(500).json({error: err});
+    })
+})
+
 router.delete('/:id', jwtAuth, (req, res) => {
     Message
     .findByIdAndRemove(req.params.id)
