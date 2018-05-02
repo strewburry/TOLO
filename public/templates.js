@@ -94,17 +94,15 @@ const TEMPLATES = (function(){
 	const messageTemplate = (message) => (`
 				<div class="message-card" id="${message._id}">
 					<div class="content">
-					<p>${message.content}</p> 
+						<p>${message.content}</p> 
 					</div>
-					<div class="messageoptions">
-					<div id="upvotecounter">${message.upvotes}</div>
-					<div id="downvotecounter">${message.downvotes}</div>
-					<div data-id="${message._id}">
+					<div class="messageoptions" data-id="${message._id}">
 						<button class="messagebutton" id="upvote"></button>
+						<div id="upvotecounter">${message.upvotes}</div>
 						<button class="messagebutton" id="downvote"></button>
-						<button class="messagebutton" id="delete"></button> 
+						<div id="downvotecounter">${message.downvotes}</div>
 						<button class="messagebutton" id="forward"></button>
-					</div>
+						<button class="messagebutton" id="delete"></button>
 					</div>
 				</div>`);
 	const confirmDelete = (id) => (`
