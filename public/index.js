@@ -46,6 +46,10 @@ function appSetUp() {
 	$('body').on('click', '.cancel', () => {
 		closeForm(); 
 	})
+	$('body').on('click', '#upvote', event => {
+		const id = event.target.parentElement.getAttribute('data-id');
+		upvoteMessage(id);
+	})
 }
 
 $(appSetUp);

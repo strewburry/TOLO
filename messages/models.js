@@ -22,6 +22,10 @@ let MessageSchema = new Schema({
     downvotes: {
         type: Number, 
         default: 0
+    }, 
+    vote: {
+        type: String,
+        default: null
     }
 });
 
@@ -32,7 +36,8 @@ MessageSchema.methods.serialize = function() {
         ownerId: this.ownerId,
         content: this.content, 
         upvotes: this.upvotes,
-        downvotes: this.downvotes
+        downvotes: this.downvotes,
+        vote: this.vote
     };
 };
 

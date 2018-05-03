@@ -78,7 +78,7 @@ function isLoggedIn() {
 		$('.introwrapper').hide().prop('hidden', true);
 		$('.form-overlay').fadeToggle('fast').hide().prop('hidden', true);
 		$('#navbar').html(TEMPLATES.loggedInLinks);
-		getAndDisplayUserMessages();
+		getUserMessages();
 	}
 	else { 
 		$('.introwrapper').show().prop('hidden', false);

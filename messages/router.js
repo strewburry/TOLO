@@ -64,6 +64,22 @@ router.put('/forward/:id', jwtAuth, (req, res) => {
     })
     .catch(err => {
         res.status(500).json({error: err});
+    });
+});
+
+router.patch('/:id', jwtAuth, (req,res) => {
+    Message
+    .findById(req.params.id)
+    .then(message => {
+        const vote = message.vote; 
+        if (vote == null || vote == 'down') {
+            message.vote = 'up';
+            message.upvotes+=1; 
+        } 
+        return message.save();
+    })
+    .then(message => {
+        res.json({message});
     })
 })
 

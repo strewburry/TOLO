@@ -6,7 +6,7 @@ function hideForm() {
     $('.form-overlay').fadeToggle('fast').hide().prop('hidden', true);
 }
 
-function getUserMessages(displayUserMessages) {
+function getUserMessages() {
     $.ajax({
         url: '/api/messages',
         type: 'GET',
@@ -16,23 +16,17 @@ function getUserMessages(displayUserMessages) {
         }
     })
     .done(userMessages => {
-        displayUserMessages(userMessages);
+        STORE.messages = userMessages;
+        renderMessages();
     })
 }
 
-function displayUserMessages(userMessages) {
-    let messages = {
-        userMessages: userMessages
-    };
-    let userMessageCards = messages.userMessages.map(message => {
+function renderMessages() {
+    let userMessageCards = STORE.messages.map(message => {
         return TEMPLATES.messageTemplate(message);
     });
     $('.messageswrapper').html(userMessageCards).show().prop('hidden', false);
     $('main').hide();
-}
-
-function getAndDisplayUserMessages() {
-    getUserMessages(displayUserMessages);
 }
 
 function displayNewMessage(returnMessage) {
@@ -88,7 +82,8 @@ function deleteMessage(id) {
         }
     })
     .done(() => {
-        messageToDelete.remove();
+        STORE.deleteById(id);
+        renderMessages();
         hideForm(); 
     })
 }
@@ -109,5 +104,21 @@ function forwardMessage(id) {
     })
     .done(() => {
         hideForm(); 
+    })
+}
+
+function upvoteMessage(id) {
+    let messageToUpdate = $('#' + id);
+    $.ajax({
+        url: '/api/messages/' + id,
+        type: 'PATCH', 
+        contentType: 'application/json',
+        headers: {
+            authorization: `Bearer ${window.localStorage.token}`
+        }
+    })
+    .done(res => {
+        STORE.update(res.message);
+        renderMessages();
     })
 }
