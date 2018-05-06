@@ -6,14 +6,14 @@ function appSetUp() {
 	$('.form-overlay').on('submit', '.signup', function(event) {
 		handleUserSignUp(event);
 	})
-	$('body').on('click', '.close', event => {
-		closeForm(event);
-	})
-	$('body').on('click', '.login-prompt', () => {
+	$('body').on('click', '#login, .login-prompt', () => {
 		showLogInForm();
 	})
 	$('.form-overlay').on('submit', '.login', event => {
 		handleUserLogIn(event);
+	})
+	$('body').on('click', '.close, .cancel', () => {
+		hideForm(); 
 	})
 	$('body').on('click', '#write', () => {
 		showMessageForm();
@@ -42,9 +42,6 @@ function appSetUp() {
 	$('body').on('click', '#confirmforward', event => {
 		const id = event.target.getAttribute('data-id');
 		forwardMessage(id);
-	})
-	$('body').on('click', '.cancel', () => {
-		hideForm(); 
 	})
 	$('body').on('click', '#upvote, #downvote', event => {
 		const id = event.target.parentElement.getAttribute('data-id');

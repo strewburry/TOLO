@@ -6,10 +6,6 @@ function showLogInForm() {
 	$('.form-overlay').show().prop('hidden', false).html(TEMPLATES.logInForm);
 }
 
-function closeForm() {
-	$('.form-overlay').fadeToggle('fast').hide().prop('hidden', true);
-}
-
 function handleUserSignUp(event) {
 	event.preventDefault();
 	const username = $('[name=username]').val();
