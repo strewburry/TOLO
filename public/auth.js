@@ -1,6 +1,13 @@
 function showSignUpForm() {
-	$('.form-overlay').show().prop('hidden', false);
-	$('.form-overlay').html(TEMPLATES.signUpForm);
+	$('.form-overlay').show().prop('hidden', false).html(TEMPLATES.signUpForm);
+}
+
+function showLogInForm() {
+	$('.form-overlay').show().prop('hidden', false).html(TEMPLATES.logInForm);
+}
+
+function closeForm() {
+	$('.form-overlay').fadeToggle('fast').hide().prop('hidden', true);
 }
 
 function handleUserSignUp(event) {
@@ -23,8 +30,7 @@ function handleUserSignUp(event) {
 			data: JSON.stringify(newUser)
 		})
 		.done(function(res) {
-			localStorage.setItem('token', res.token);
-			localStorage.setItem('userId', res.user._id);
+			saveDataToLocalStorage(res); 
 			isLoggedIn();
 		})
 		.fail(function(xhr, err) {
@@ -33,14 +39,6 @@ function handleUserSignUp(event) {
 			$('.warning').show().prop('hidden', false).html(`<span class="warning"><p>${errMessage}</p></span>`);
 		})
 	}
-}
-
-function closeForm() {
-	$('.form-overlay').fadeToggle('fast').hide().prop('hidden', true);
-}
-
-function showLogInForm() {
-	$('.form-overlay').html(TEMPLATES.logInForm);
 }
 
 function handleUserLogIn(event) {
