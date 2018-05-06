@@ -46,9 +46,9 @@ function appSetUp() {
 	$('body').on('click', '.cancel', () => {
 		closeForm(); 
 	})
-	$('body').on('click', '#upvote', event => {
+	$('body').on('click', '#upvote, #downvote', event => {
 		const id = event.target.parentElement.getAttribute('data-id');
-		upvoteMessage(id);
+		voteMessage(id);
 	})
 }
 

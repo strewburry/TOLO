@@ -57,7 +57,7 @@ function handleSendMessage(event) {
         })
         .done(res => {
             let returnMessage = res.content; 
-            displayNewMessage(returnMessage);
+            renderMessages();
         })
         .fail((xhr, err) => {
             let jsonResponse = JSON.parse(xhr.responseText);
@@ -93,7 +93,6 @@ function showConfirmForward(id) {
 }
 
 function forwardMessage(id) {
-    let messageToForward = $('#' + id);
     $.ajax({
         url: '/api/messages/forward/' + id,
         type: 'PUT',
@@ -104,11 +103,11 @@ function forwardMessage(id) {
     })
     .done(() => {
         hideForm(); 
+        renderMessages(); 
     })
 }
 
-function upvoteMessage(id) {
-    let messageToUpdate = $('#' + id);
+function voteMessage(id) {
     $.ajax({
         url: '/api/messages/' + id,
         type: 'PATCH', 

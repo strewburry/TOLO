@@ -75,7 +75,10 @@ router.patch('/:id', jwtAuth, (req,res) => {
         if (vote == null || vote == 'down') {
             message.vote = 'up';
             message.upvotes+=1; 
-        } 
+        } else if (vote == null || vote == 'up') {
+            message.vote = 'down';
+            message.downvotes-=1; 
+        }
         return message.save();
     })
     .then(message => {
