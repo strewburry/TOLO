@@ -97,8 +97,9 @@ function forwardMessage(id) {
         }
     })
     .done(() => {
-        hideForm(); 
+        getUserMessages(); 
         renderMessages(); 
+        hideForm(); 
     })
 }
 
