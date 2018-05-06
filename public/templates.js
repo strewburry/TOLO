@@ -80,17 +80,6 @@ const TEMPLATES = (function(){
 					<li class="navitems">made with 💕 by <a href="https://www.github.com/strewburry">CB</a></li>
 				</ul>`);
 
-	const messageCard = (`
-				<div class="popupwrapper">
-					<div class="popupcontent">
-						<a class="close">x</a>
-						<h2>Thanks for your message!</h2>
-						<p>It's sure to make someone's day. Here's one chosen just for you:</p>
-						<div class="returned-message">
-						</div>
-						<button id="restart">Write another message!</button>
-					</div>
-				</div>`);
 	const messageTemplate = (message) => (`
 				<div class="message-card" id="${message._id}">
 					<div class="content">
@@ -105,6 +94,7 @@ const TEMPLATES = (function(){
 						<button class="messagebutton" id="delete"></button>
 					</div>
 				</div>`);
+
 	const confirmDelete = (id) => (`
 				<div class="popupwrapper">
 					<div class="popupcontent">
@@ -115,6 +105,7 @@ const TEMPLATES = (function(){
 					<button class="cancel">I changed my mind</button>
 					</div>
 				</div>`);
+
 	const confirmForward = (id) => (`
 				<div class="popupwrapper">
 					<div class="popupcontent">
@@ -125,14 +116,14 @@ const TEMPLATES = (function(){
 					<button data-id="${id}" id="confirmforward">I'm sure</button>
 					<button class="cancel">I changed my mind</button>
 					</div>
-				</div>`)
+				</div>`);
+
     return {
         signUpForm,
         logInForm,
         messageForm, 
         loggedInLinks,
 		loggedOutLinks,
-		messageCard,
 		messageTemplate, 
 		confirmDelete,
 		confirmForward
