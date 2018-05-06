@@ -155,4 +155,27 @@ describe('messages resource', function() {
             })
         });
     });
+
+    describe('PUT endpoint', function() {
+        it('should reset the ownerId of a message with valid ID', function() {
+            let id; 
+            return Message 
+            .findOne()
+            .then(res => {
+                id = res._id; 
+                return chai
+                .request(app)
+                .put(`/api/messages/forward/${id}`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(res => {
+                expect(res).to.have.status(204);
+                return Message
+                .findById(id);
+            })
+            .then(message => {
+                expect(message.ownerId).to.be.null; 
+            })
+        })
+    })
 })
