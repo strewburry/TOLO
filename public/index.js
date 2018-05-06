@@ -44,7 +44,7 @@ function appSetUp() {
 		forwardMessage(id);
 	})
 	$('body').on('click', '.cancel', () => {
-		closeForm(); 
+		hideForm(); 
 	})
 	$('body').on('click', '#upvote, #downvote', event => {
 		const id = event.target.parentElement.getAttribute('data-id');
