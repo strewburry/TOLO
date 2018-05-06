@@ -29,12 +29,6 @@ function renderMessages() {
     $('main').hide();
 }
 
-function displayNewMessage(returnMessage) {
-    let messageCard = $(TEMPLATES.messageCard); 
-    $('.form-overlay').html(messageCard);
-    messageCard.find('.message-card').html(`<p>${returnMessage}</p>`);
-}
-
 function handleSendMessage(event) {
     event.preventDefault();
     const content = $('[name=input]').val();
@@ -55,9 +49,10 @@ function handleSendMessage(event) {
                 authorization: `Bearer ${window.localStorage.token}`
             }
         })
-        .done(res => {
-            let returnMessage = res.content; 
+        .done(() => {
+            getUserMessages();
             renderMessages();
+            hideForm();
         })
         .fail((xhr, err) => {
             let jsonResponse = JSON.parse(xhr.responseText);
