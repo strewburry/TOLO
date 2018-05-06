@@ -261,8 +261,7 @@ form textarea[type="text"] {
 	background-color: #F8FFAE;
 }
 
-button[type=submit],
-#restart {
+button[type=submit] {
 	padding: 10px 10px 10px 10px;
 	border: 1px solid #0092bd;
 	border-radius: 3px;
@@ -284,21 +283,6 @@ form select:focus {
 	border-color: #4195fc;
 	box-shadow: inset 0 1px 2px rgba(0,0,0,0.1), 0 0 8px #4195fc;
 }
-
-.demo {
-	margin-top: 50px;
-}
-
-.js-demo-input { 
-	padding: 10px 10px 10px 10px;
-	width: 400px;
-	height: 100px;
-	border: 1px solid #0092bd;
-	border-radius: 3px;
-	font-family: 'Inconsolata', monospace;
-	font-size: 14px;
-	font-weight: 400;
-} 
 
 .buttonwrapper {
 	margin: auto;
@@ -331,21 +315,6 @@ form select:focus {
 	display: inline-block;
 }
 
-.returned-message {
-	padding: 10px 10px 10px 10px;
-	border: 1px solid #0092bd;
-	border-radius: 3px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	background-color: #FFFFFF;
-	font-family: 'Inconsolata', monospace;
-	font-size: 14px;
-	font-weight: 400;
-	overflow: auto;
-	width: 100%;
-	display: block;
-}
-
 .warning {
 	color: red;
 }
@@ -363,9 +332,7 @@ form select:focus {
 	.popupwrapper,
 	.popupcontent, 
 	.message-card,
-	.received-message,
-	button[type=submit],
-	#restart {
+	button[type=submit] {
 		width: 100%;
 	}
 
@@ -375,10 +342,6 @@ form select:focus {
 }
 
 @media only screen and (max-width: 640px) {
-
-	.js-demo-input {
-		width: 90%;
-	}
 
 	.buttonwrapper {
 		width: 95%;
@@ -404,12 +367,7 @@ form select:focus {
 		font-size: 22px;
 	}
 
-	.message-card,
-	.received-message {
-		width: 100%;
-	}
-
-	#restart {
+	.message-card {
 		width: 100%;
 	}
 }
