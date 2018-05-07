@@ -31,7 +31,7 @@ MessageSchema.methods.serialize = function() {
         content: this.content, 
         upvoted: this.upvoted,
         downvoted: this.downvoted,
-        vote: this.voteScore
+        voteScore: this.voteScore
     };
 };
 

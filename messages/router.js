@@ -30,7 +30,7 @@ router.post('/', jwtAuth, (req, res) => {
     const requiredField = ['content'];
     if (!(requiredField in req.body)) {
         return res.status(400).json({error: 'message content cannot be empty'});
-    };
+    }
     // add message to the database
     Message 
     .create({
@@ -52,9 +52,9 @@ router.post('/', jwtAuth, (req, res) => {
         })
         .catch(err => {
             res.status(500).json({error: err});
-        });
-    });
-});
+        })
+    })
+})
 
 router.put('/:id/forward', jwtAuth, (req, res) => {
     Message
@@ -64,25 +64,32 @@ router.put('/:id/forward', jwtAuth, (req, res) => {
     })
     .catch(err => {
         res.status(500).json({error: err});
-    });
-});
+    })
+})
 
 router.patch('/:id/upvote', jwtAuth, (req, res) => {
     Message
     .findById(req.params.id)
     .then(message => {
         const alreadyUpvoted = message.upvoted.includes(req.user.id);
-        console.log(alreadyUpvoted);
         if (alreadyUpvoted) {
             return res.status(400).json({error: 'cannot vote the same way twice'});
         }
+        const alreadyDownvoted = message.downvoted.includes(req.user.id);
+        if (alreadyDownvoted) {
+            let _downvoted = message.downvoted.filter(id => id !== req.user.id);
+            message.downvoted = _downvoted; 
+        }
         message.voteScore++; 
         message.upvoted.push(req.user.id);
-        return message.save(); 
-    }) 
-    .then(message => {
-        res.status(200).json({message});
+        message.save()
+        .then(message => {
+            return res.status(200).json({message});
+        })
     })
+    .catch(err => {
+        res.status(500).json({error: err});
+    }) 
 })
 
 router.patch('/:id/downvote', jwtAuth, (req, res) => {
@@ -90,16 +97,23 @@ router.patch('/:id/downvote', jwtAuth, (req, res) => {
     .findById(req.params.id)
     .then(message => {
         const alreadyDownvoted = message.downvoted.includes(req.user.id); 
-        console.log(alreadyDownvoted);
         if (alreadyDownvoted) {
             return res.status(400).json({error: 'cannot vote the same way twice'});
         }
+        const alreadyUpvoted = message.upvoted.includes(req.user.id);
+        if (alreadyUpvoted) {
+            let _upvoted = message.upvoted.filter(id => id !== req.user.id);
+            message.upvoted = _upvoted; 
+        }
         message.voteScore--; 
         message.downvoted.push(req.user.id);
-        return message.save(); 
+        message.save()
+        .then(message => {
+            return res.status(200).json({message});
+        }) 
     })
-    .then(message => {
-        res.status(200).json({message});
+    .catch(err => {
+        res.status(500).json({error: err});
     })
 })
 
@@ -110,9 +124,8 @@ router.delete('/:id', jwtAuth, (req, res) => {
         res.status(204).json({message: 'deleted message successfully'});
     })
     .catch(err => {
-        console.error(err);
         res.status(500).json({error: err});
-    });
-});
+    })
+})
 
 module.exports = {router};
