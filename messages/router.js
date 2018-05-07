@@ -56,7 +56,7 @@ router.post('/', jwtAuth, (req, res) => {
     });
 });
 
-router.put('/forward/:id', jwtAuth, (req, res) => {
+router.put('/:id/forward', jwtAuth, (req, res) => {
     Message
     .findByIdAndUpdate(req.params.id, {ownerId: null}, {new: true})
     .then(() => {
@@ -67,22 +67,39 @@ router.put('/forward/:id', jwtAuth, (req, res) => {
     });
 });
 
-router.patch('/:id', jwtAuth, (req,res) => {
+router.patch('/:id/upvote', jwtAuth, (req, res) => {
     Message
     .findById(req.params.id)
     .then(message => {
-        const vote = message.vote; 
-        if (vote == null || vote == 'down') {
-            message.vote = 'up';
-            message.upvotes+=1; 
-        } else if (vote == null || vote == 'up') {
-            message.vote = 'down';
-            message.downvotes-=1; 
+        const alreadyUpvoted = message.upvoted.includes(req.user.id);
+        console.log(alreadyUpvoted);
+        if (alreadyUpvoted) {
+            return res.status(400).json({error: 'cannot vote the same way twice'});
         }
-        return message.save();
+        message.voteScore++; 
+        message.upvoted.push(req.user.id);
+        return message.save(); 
+    }) 
+    .then(message => {
+        res.status(200).json({message});
+    })
+})
+
+router.patch('/:id/downvote', jwtAuth, (req, res) => {
+    Message
+    .findById(req.params.id)
+    .then(message => {
+        const alreadyDownvoted = message.downvoted.includes(req.user.id); 
+        console.log(alreadyDownvoted);
+        if (alreadyDownvoted) {
+            return res.status(400).json({error: 'cannot vote the same way twice'});
+        }
+        message.voteScore--; 
+        message.downvoted.push(req.user.id);
+        return message.save(); 
     })
     .then(message => {
-        res.json({message});
+        res.status(200).json({message});
     })
 })
 

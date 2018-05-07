@@ -165,7 +165,7 @@ describe('messages resource', function() {
                 id = res._id; 
                 return chai
                 .request(app)
-                .put(`/api/messages/forward/${id}`)
+                .put(`/api/messages/${id}/forward`)
                 .set('authorization', `Bearer ${token}`)
             })
             .then(res => {

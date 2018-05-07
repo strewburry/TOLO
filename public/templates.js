@@ -86,10 +86,9 @@ const TEMPLATES = (function(){
 						<p>${message.content}</p> 
 					</div>
 					<div class="messageoptions" data-id="${message._id}">
+						<div id="votecounter">${message.voteScore}</div>
 						<button class="messagebutton" id="upvote"></button>
-						<div id="upvotecounter">${message.upvotes}</div>
 						<button class="messagebutton" id="downvote"></button>
-						<div id="downvotecounter">${message.downvotes}</div>
 						<button class="messagebutton" id="forward"></button>
 						<button class="messagebutton" id="delete"></button>
 					</div>

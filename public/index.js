@@ -43,9 +43,13 @@ function appSetUp() {
 		const id = event.target.getAttribute('data-id');
 		forwardMessage(id);
 	})
-	$('body').on('click', '#upvote, #downvote', event => {
+	$('body').on('click', '#upvote', event => {
 		const id = event.target.parentElement.getAttribute('data-id');
-		voteMessage(id);
+		upvoteMessage(id);
+	})
+	$('body').on('click', '#downvote', event => {
+		const id = event.target.parentElement.getAttribute('data-id');
+		downvoteMessage(id);
 	})
 }
 

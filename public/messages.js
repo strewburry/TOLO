@@ -67,7 +67,6 @@ function showConfirmDelete(id) {
 }
 
 function deleteMessage(id) {
-    let messageToDelete = $('#' + id); 
     $.ajax({
         url: '/api/messages/' + id,
         type: 'DELETE',
@@ -89,7 +88,7 @@ function showConfirmForward(id) {
 
 function forwardMessage(id) {
     $.ajax({
-        url: '/api/messages/forward/' + id,
+        url: '/api/messages/' + id + '/forward',
         type: 'PUT',
         contentType: 'application/json',
         headers: {
@@ -103,9 +102,9 @@ function forwardMessage(id) {
     })
 }
 
-function voteMessage(id) {
+function upvoteMessage(id) {
     $.ajax({
-        url: '/api/messages/' + id,
+        url: '/api/messages/' + id + '/upvote',
         type: 'PATCH', 
         contentType: 'application/json',
         headers: {
@@ -113,7 +112,24 @@ function voteMessage(id) {
         }
     })
     .done(res => {
+        console.log(res);
         STORE.update(res.message);
         renderMessages();
+    })
+}
+
+function downvoteMessage(id) {
+    $.ajax({
+        url: '/api/messages/' + id + '/downvote',
+        type: 'PATCH',
+        contentType: 'application/json',
+        headers: {
+            authorization: `Bearer ${window.localStorage.token}`
+        }
+    })
+    .done(res => {
+        console.log(res);
+        STORE.update(res.message);
+        renderMessages(); 
     })
 }
