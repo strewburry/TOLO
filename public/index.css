@@ -70,6 +70,14 @@ main {
 	text-align: center;
 }
 
+.nomessagetext > h1 {
+	color: #0092bd;
+}
+
+.nomessagetext > h3 {
+	font-weight: 400;
+}
+
 #upvote {
 	background-image: url('./upvote.png');
 }

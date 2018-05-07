@@ -80,6 +80,12 @@ const TEMPLATES = (function(){
 					<li class="navitems">made with 💕 by <a href="https://www.github.com/strewburry">CB</a></li>
 				</ul>`);
 
+	const noMessagesTemplate = (`
+				<div class="nomessagetext">
+					<h1>No messages here, sorry!</h1>
+					<h3>Once you write a message, more will show up here.<h3>
+				</div>`);
+
 	const messageTemplate = (message) => (`
 				<div class="message-card" id="${message._id}">
 					<div class="content">
@@ -123,6 +129,7 @@ const TEMPLATES = (function(){
         messageForm, 
         loggedInLinks,
 		loggedOutLinks,
+		noMessagesTemplate,
 		messageTemplate, 
 		confirmDelete,
 		confirmForward

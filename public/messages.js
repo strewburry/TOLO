@@ -22,11 +22,17 @@ function getUserMessages() {
 }
 
 function renderMessages() {
+    if (STORE.messages.length < 1) {
+        console.log(TEMPLATES.noMessagesTemplate);
+        $('.messageswrapper').html(TEMPLATES.noMessagesTemplate).show().prop('hidden', false);
+        $('main').hide();
+    } else {
     let userMessageCards = STORE.messages.map(message => {
         return TEMPLATES.messageTemplate(message);
     });
     $('.messageswrapper').html(userMessageCards).show().prop('hidden', false);
     $('main').hide();
+    }
 }
 
 function handleSendMessage(event) {
