@@ -8,7 +8,7 @@ const STORE = {
     update: function(message) {
         const id = message._id; 
         const index = this.messages.findIndex(_message => {
-            return _message._id = id; 
+            return _message._id == id; 
         });
         this.messages[index] = message; 
     }
