@@ -38,7 +38,8 @@ function tearDownDb() {
 describe('messages resource', function() {
     let testUser = {
         username: 'testUser',
-        password: 'testPassword'
+        password: 'testPassword',
+        id: uuidv4()
     };
     const token = createAuthToken(testUser);
 
@@ -175,6 +176,56 @@ describe('messages resource', function() {
             })
             .then(message => {
                 expect(message.ownerId).to.be.null; 
+            })
+        })
+    })
+
+    describe('PATCH endpoint', function() {
+        it('should upvote a message if user has not already upvoted', function() {
+            let id; 
+            return Message
+            .findOne()
+            .then(res => {
+                id = res._id; 
+                return chai
+                .request(app)
+                .patch(`/api/messages/${id}/upvote`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(res => {
+                expect(res).to.have.status(200);
+                return Message
+                .findById(id) 
+            })
+            .then(message => {
+                expect(message.upvoted).to.not.be.null;
+                expect(message.upvoted).to.be.a('array');
+            })
+        })
+
+        it('should throw an error on upvote if user has already upvoted', function() {
+            let id; 
+            return Message
+            .findOne()
+            .then(res => {
+                id = res._id; 
+                return chai
+                .request(app)
+                .patch(`/api/messages/${id}/upvote`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(res => {
+                return Message
+                .findById(id)
+            })
+            .then(res => {
+                return chai
+                .request(app)
+                .patch(`/api/messages/${id}/upvote`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(res => {
+                expect(res).to.have.status(400);
             })
         })
     })
