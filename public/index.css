@@ -14,7 +14,7 @@ html, body {
 	padding: 0;
 	height: 100%;
 	font-family: 'Inconsolata', monospace;
-	font-size: 14px;
+	font-size: 16px;
 	background: #43C6AC; /* fallback for old browsers */
 	background: linear-gradient(-90deg, #F8FFAE, #43C6AC);
 }
@@ -22,7 +22,7 @@ html, body {
 .intro {
 	background: linear-gradient(-90deg, #F8FFAE, #43C6AC);
 	position: relative;
-	height: 48vh;
+	height: 80vh;
 	margin-top: 150px;
 }
 
@@ -54,6 +54,7 @@ main {
 .message-card > .content { 
 	height: 150px;
 	overflow: scroll; 
+	margin-bottom: 5px;
 }
 
 .message-card {
@@ -106,7 +107,7 @@ main {
 	font-size: 14px;
 	transition: all 400ms ease;
 	width: 12%;
-	height: 16px; 
+	height: 24px; 
 	display: inline-block;
 	background-color: #FFFFFF;
 	background-position: center; 

@@ -95,8 +95,8 @@ const TEMPLATES = (function(){
 						<div id="votecounter">${message.voteScore}</div>
 						<button class="messagebutton" id="upvote"></button>
 						<button class="messagebutton" id="downvote"></button>
-						<button class="messagebutton" id="forward"></button>
 						<button class="messagebutton" id="delete"></button>
+						<button class="messagebutton" id="forward"></button>
 					</div>
 				</div>`);
 
