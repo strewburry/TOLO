@@ -329,7 +329,7 @@ form select:focus {
 	color: red;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 812px) {
 	.wrapper-thirds {
 		display: block;
 	}
@@ -346,38 +346,11 @@ form select:focus {
 		width: 100%;
 	}
 
-	.message-card {
-		margin: 0 0 10px 0;
-	}
-}
-
-@media only screen and (max-width: 640px) {
-
 	.buttonwrapper {
 		width: 95%;
 	}
 
-	.form-overlay {
-		width: 100%;
-	}
-
-	.popupwrapper {
-		width: 100%;
-	}
-
-	.popupcontent {
-		width: 100%;
-	}
-
-	button[type=submit] {
-		width: 100%;
-	}
-
-	h1 {
-		font-size: 22px;
-	}
-
 	.message-card {
-		width: 100%;
+		margin: 0 0 10px 0;
 	}
 }
