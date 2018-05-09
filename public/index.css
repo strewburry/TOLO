@@ -245,7 +245,9 @@ form textarea[type="text"] {
 
 .signup-prompt, 
 .login-prompt,
-#logout {
+#logout,
+#confirmdelete,
+#confirmforward {
 	display: inline-block;
 	padding: 5px 5px 5px 5px;
 	border: 1px solid #0092bd;
@@ -257,7 +259,8 @@ form textarea[type="text"] {
 	background-color: #43C6AC;
 }
 
-#write {
+#write,
+.cancel {
 	display: inline-block;
 	padding: 5px 5px 5px 5px;
 	border: 1px solid #0092bd;
