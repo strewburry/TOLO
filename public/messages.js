@@ -23,7 +23,6 @@ function getUserMessages() {
 
 function renderMessages() {
     if (STORE.messages.length < 1) {
-        console.log(TEMPLATES.noMessagesTemplate);
         $('.messageswrapper').html(TEMPLATES.noMessagesTemplate).show().prop('hidden', false);
         $('main').hide();
     } else {
