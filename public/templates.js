@@ -105,7 +105,7 @@ const TEMPLATES = (function(){
 					<div class="popupcontent">
 					<a class="close">x</a>
 					<h2>Delete this message?</h2>
-					<p>This action is permanent. You can always pass it on instead.</p>
+					<p>This action is permanent. You can always pass it on to another user instead.</p>
 					<button data-id="${id}" id="confirmdelete">I'm sure</button>
 					<button class="cancel">I changed my mind</button>
 					</div>
@@ -116,7 +116,7 @@ const TEMPLATES = (function(){
 					<div class="popupcontent">
 					<a class="close">x</a>
 					<h2>Forward this message?</h2>
-					<p>This message will no longer belong to you, and you will no longer see it in your received messages--
+					<p>This message will no longer belong to you, and you will no longer see it in your received messages...
 					but it will make someone else's day!</p>
 					<button data-id="${id}" id="confirmforward">I'm sure</button>
 					<button class="cancel">I changed my mind</button>
