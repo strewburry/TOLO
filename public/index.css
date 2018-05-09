@@ -94,8 +94,7 @@ main {
 	background-image: url('./delete.png');
 }
 
-#upvotecounter,
-#downvotecounter {
+#votecounter {
 	display: inline-block;
 	padding: 5px 5px 5px 5px;
 }
