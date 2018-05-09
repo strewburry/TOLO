@@ -80,34 +80,58 @@ const TEMPLATES = (function(){
 					<li class="navitems">made with 💕 by <a href="https://www.github.com/strewburry">CB</a></li>
 				</ul>`);
 
-	const messageCard = (`
+	const noMessagesTemplate = (`
+				<div class="nomessagetext">
+					<h1>No messages here, sorry!</h1>
+					<h3>Once you write a message, more will show up here.<h3>
+				</div>`);
+
+	const messageTemplate = (message) => (`
+				<div class="message-card" id="${message._id}">
+					<div class="content">
+						<p>${message.content}</p> 
+					</div>
+					<div class="messageoptions" data-id="${message._id}">
+						<div id="votecounter">${message.voteScore}</div>
+						<button class="messagebutton" id="upvote"></button>
+						<button class="messagebutton" id="downvote"></button>
+						<button class="messagebutton" id="forward"></button>
+						<button class="messagebutton" id="delete"></button>
+					</div>
+				</div>`);
+
+	const confirmDelete = (id) => (`
 				<div class="popupwrapper">
 					<div class="popupcontent">
-						<a class="close">x</a>
-						<h2>Thanks for your message!</h2>
-						<p>It's sure to make someone's day. Here's one chosen just for you:</p>
-						<div class="returned-message">
-						</div>
-						<button id="restart">Write another message!</button>
+					<a class="close">x</a>
+					<h2>Delete this message?</h2>
+					<p>This action is permanent. You can always pass it on instead.</p>
+					<button data-id="${id}" id="confirmdelete">I'm sure</button>
+					<button class="cancel">I changed my mind</button>
 					</div>
 				</div>`);
-	const messageTemplate = (`
-				<div class="message-card">
-					<div class="content">
-					<p>this is some text to test out the display</p> 
-					</div>
-					<div class="votewrapper">
-					<button id="upvote">👍</button>
-					<button id="downvote">👎</button>
+
+	const confirmForward = (id) => (`
+				<div class="popupwrapper">
+					<div class="popupcontent">
+					<a class="close">x</a>
+					<h2>Forward this message?</h2>
+					<p>This message will no longer belong to you, and you will no longer see it in your received messages--
+					but it will make someone else's day!</p>
+					<button data-id="${id}" id="confirmforward">I'm sure</button>
+					<button class="cancel">I changed my mind</button>
 					</div>
 				</div>`);
+
     return {
         signUpForm,
         logInForm,
         messageForm, 
         loggedInLinks,
 		loggedOutLinks,
-		messageCard,
-		messageTemplate
+		noMessagesTemplate,
+		messageTemplate, 
+		confirmDelete,
+		confirmForward
     }
 })()

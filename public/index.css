@@ -51,25 +51,68 @@ main {
 	margin: auto;
 }
 
+.message-card > .content { 
+	height: 150px;
+	overflow: scroll; 
+}
+
 .message-card {
 	background-color: #FFFFFF;
 	display: inline-block;
 	width: 30%;
+	height: 200px; 
 	margin: 1%;
 	padding: 10px 10px 10px 10px; 
 }
 
-#upvote,
+.messageoptions {
+	width: 100%;
+	text-align: center;
+}
+
+.nomessagetext > h1 {
+	color: #0092bd;
+}
+
+.nomessagetext > h3 {
+	font-weight: 400;
+}
+
+#upvote {
+	background-image: url('./upvote.png');
+}
+
 #downvote {
+	background-image: url('./downvote.png');
+}
+
+#forward {
+	background-image: url('./forward.png');
+}
+
+#delete {
+	background-image: url('./delete.png');
+}
+
+#upvotecounter,
+#downvotecounter {
+	display: inline-block;
 	padding: 5px 5px 5px 5px;
-	border: 1px solid #0092bd;
+}
+
+.messagebutton {
+	padding: 5px 5px 5px 5px;
+	border: 0px solid #F8FFAE;
 	border-radius: 3px;
-	margin-top: 10px;
 	font-size: 14px;
 	transition: all 400ms ease;
-	width: 40%;
+	width: 12%;
+	height: 16px; 
 	display: inline-block;
 	background-color: #FFFFFF;
+	background-position: center; 
+	background-repeat: no-repeat; 
+	vertical-align: middle; 
 }
 
 a {
@@ -226,8 +269,7 @@ form textarea[type="text"] {
 	background-color: #F8FFAE;
 }
 
-button[type=submit],
-#restart {
+button[type=submit] {
 	padding: 10px 10px 10px 10px;
 	border: 1px solid #0092bd;
 	border-radius: 3px;
@@ -250,21 +292,6 @@ form select:focus {
 	box-shadow: inset 0 1px 2px rgba(0,0,0,0.1), 0 0 8px #4195fc;
 }
 
-.demo {
-	margin-top: 50px;
-}
-
-.js-demo-input { 
-	padding: 10px 10px 10px 10px;
-	width: 400px;
-	height: 100px;
-	border: 1px solid #0092bd;
-	border-radius: 3px;
-	font-family: 'Inconsolata', monospace;
-	font-size: 14px;
-	font-weight: 400;
-} 
-
 .buttonwrapper {
 	margin: auto;
 	max-width: 60%;
@@ -283,7 +310,7 @@ form select:focus {
 	display: inline-block;
 }
 
-#trydemo {
+#login {
 	height: 30px;
 	width: 35%;
 	background-color: #43C6AC;
@@ -294,21 +321,6 @@ form select:focus {
 	font-size: 14px;
 	font-weight: 400;
 	display: inline-block;
-}
-
-.returned-message {
-	padding: 10px 10px 10px 10px;
-	border: 1px solid #0092bd;
-	border-radius: 3px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	background-color: #FFFFFF;
-	font-family: 'Inconsolata', monospace;
-	font-size: 14px;
-	font-weight: 400;
-	overflow: auto;
-	width: 100%;
-	display: block;
 }
 
 .warning {
@@ -328,9 +340,7 @@ form select:focus {
 	.popupwrapper,
 	.popupcontent, 
 	.message-card,
-	.received-message,
-	button[type=submit],
-	#restart {
+	button[type=submit] {
 		width: 100%;
 	}
 
@@ -340,10 +350,6 @@ form select:focus {
 }
 
 @media only screen and (max-width: 640px) {
-
-	.js-demo-input {
-		width: 90%;
-	}
 
 	.buttonwrapper {
 		width: 95%;
@@ -369,12 +375,7 @@ form select:focus {
 		font-size: 22px;
 	}
 
-	.message-card,
-	.received-message {
-		width: 100%;
-	}
-
-	#restart {
+	.message-card {
 		width: 100%;
 	}
 }

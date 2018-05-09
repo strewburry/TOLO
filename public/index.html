@@ -18,7 +18,7 @@
 
 	<div class="container">
 	<div class="messageswrapper" aria-live="assertive" style="display:none;" hidden></div>
-	<div class="introwrapper">
+	<div class="introwrapper" aria-live="assertive" style="display:none;" hidden>
 		<section class="intro">
 				<header role="banner">
 					<h1>Take One, Leave One</h1>
@@ -26,12 +26,12 @@
 				<p>Make an account to exchange positivity with strangers.</p>
 				<div class="buttonwrapper">
 					<button id="register">sign up</button>
-					<button id="trydemo">✨demo✨</button>
+					<button id="login">log in</button>
 				</div>
 		</section>
 	</div>
 
-	<main role="main">
+	<main role="main" aria-live="assertive" style="display:none;" hidden>
 		<div class="wrapper-thirds">
 			<div class="column">
 				<h1>💌</h1>
@@ -64,10 +64,10 @@
 	</div>
 	<div class="form-overlay" aria-live="assertive" style="display:none;" hidden></div>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="store.js"></script>
 	<script type="text/javascript" src="index.js"></script>
 	<script type="text/javascript" src="templates.js"></script>
 	<script type="text/javascript" src="auth.js"></script>
 	<script type="text/javascript" src="messages.js"></script>
-	<script type="text/javascript" src="client-demo.js"></script>
 </body>
 </html>

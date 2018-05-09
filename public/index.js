@@ -6,14 +6,14 @@ function appSetUp() {
 	$('.form-overlay').on('submit', '.signup', function(event) {
 		handleUserSignUp(event);
 	})
-	$('body').on('click', '.close', event => {
-		closeForm(event);
-	})
-	$('body').on('click', '.login-prompt', () => {
+	$('body').on('click', '#login, .login-prompt', () => {
 		showLogInForm();
 	})
 	$('.form-overlay').on('submit', '.login', event => {
 		handleUserLogIn(event);
+	})
+	$('body').on('click', '.close, .cancel', () => {
+		hideForm(); 
 	})
 	$('body').on('click', '#write', () => {
 		showMessageForm();
@@ -26,6 +26,30 @@ function appSetUp() {
 	})
 	$('body').on('click', '#logout', () => {
 		logOut();
+	})
+	$('body').on('click', '#delete', event => {
+		const id = event.target.parentElement.getAttribute('data-id');
+		showConfirmDelete(id); 
+	})
+	$('body').on('click', '#confirmdelete', event => {
+		const id = event.target.getAttribute('data-id'); 
+		deleteMessage(id); 
+	})
+	$('body').on('click', '#forward', event => {
+		const id = event.target.parentElement.getAttribute('data-id');
+		showConfirmForward(id);
+	})
+	$('body').on('click', '#confirmforward', event => {
+		const id = event.target.getAttribute('data-id');
+		forwardMessage(id);
+	})
+	$('body').on('click', '#upvote', event => {
+		const id = event.target.parentElement.getAttribute('data-id');
+		upvoteMessage(id);
+	})
+	$('body').on('click', '#downvote', event => {
+		const id = event.target.parentElement.getAttribute('data-id');
+		downvoteMessage(id);
 	})
 }
 

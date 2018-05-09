@@ -2,7 +2,11 @@ function showMessageForm() {
 	$('.form-overlay').show().prop('hidden', false).html(TEMPLATES.messageForm);
 }
 
-function getUserMessages(displayUserMessages) {
+function hideForm() {
+    $('.form-overlay').fadeToggle('fast').hide().prop('hidden', true);
+}
+
+function getUserMessages() {
     $.ajax({
         url: '/api/messages',
         type: 'GET',
@@ -12,31 +16,23 @@ function getUserMessages(displayUserMessages) {
         }
     })
     .done(userMessages => {
-        displayUserMessages(userMessages);
+        STORE.messages = userMessages;
+        renderMessages();
     })
 }
 
-function displayUserMessages(userMessages) {
-    let messages = {
-        userMessages: userMessages
-    };
-    let userMessageCards = messages.userMessages.map(message => {
-        let messageTemplate = $(TEMPLATES.messageTemplate);
-        messageTemplate.find('.content').html(message.content);
-        return messageTemplate;
+function renderMessages() {
+    if (STORE.messages.length < 1) {
+        console.log(TEMPLATES.noMessagesTemplate);
+        $('.messageswrapper').html(TEMPLATES.noMessagesTemplate).show().prop('hidden', false);
+        $('main').hide();
+    } else {
+    let userMessageCards = STORE.messages.map(message => {
+        return TEMPLATES.messageTemplate(message);
     });
     $('.messageswrapper').html(userMessageCards).show().prop('hidden', false);
     $('main').hide();
-}
-
-function getAndDisplayUserMessages() {
-    getUserMessages(displayUserMessages);
-}
-
-function displayNewMessage(returnMessage) {
-    let messageCard = $(TEMPLATES.messageCard); 
-    $('.form-overlay').html(messageCard);
-    messageCard.find('.message-card').html(`<p>${returnMessage}</p>`);
+    }
 }
 
 function handleSendMessage(event) {
@@ -59,9 +55,10 @@ function handleSendMessage(event) {
                 authorization: `Bearer ${window.localStorage.token}`
             }
         })
-        .done(res => {
-            let returnMessage = res.content; 
-            displayNewMessage(returnMessage);
+        .done(() => {
+            getUserMessages();
+            renderMessages();
+            hideForm();
         })
         .fail((xhr, err) => {
             let jsonResponse = JSON.parse(xhr.responseText);
@@ -69,4 +66,76 @@ function handleSendMessage(event) {
 			$('.warning').show().prop('hidden', false).html(`<span class="warning"><p>${errMessage}</p></span>`);
         })
     }
+}
+
+function showConfirmDelete(id) {
+    $('.form-overlay').show().prop('hidden', false).html(TEMPLATES.confirmDelete(id));
+}
+
+function deleteMessage(id) {
+    $.ajax({
+        url: '/api/messages/' + id,
+        type: 'DELETE',
+        contentType: 'application/json',
+        headers: {
+            authorization: `Bearer ${window.localStorage.token}`
+        }
+    })
+    .done(() => {
+        STORE.deleteById(id);
+        renderMessages();
+        hideForm(); 
+    })
+}
+
+function showConfirmForward(id) {
+    $('.form-overlay').show().prop('hidden', false).html(TEMPLATES.confirmForward(id));
+}
+
+function forwardMessage(id) {
+    $.ajax({
+        url: '/api/messages/' + id + '/forward',
+        type: 'PUT',
+        contentType: 'application/json',
+        headers: {
+            authorization: `Bearer ${window.localStorage.token}`
+        }
+    })
+    .done(() => {
+        getUserMessages(); 
+        renderMessages(); 
+        hideForm(); 
+    })
+}
+
+function upvoteMessage(id) {
+    $.ajax({
+        url: '/api/messages/' + id + '/upvote',
+        type: 'PATCH', 
+        contentType: 'application/json',
+        headers: {
+            authorization: `Bearer ${window.localStorage.token}`
+        }
+    })
+    .done(res => {
+        console.log(res);
+        STORE.update(res.message);
+        renderMessages();
+    })
+}
+
+function downvoteMessage(id) {
+    $.ajax({
+        url: '/api/messages/' + id + '/downvote',
+        type: 'PATCH',
+        contentType: 'application/json',
+        headers: {
+            authorization: `Bearer ${window.localStorage.token}`
+        }
+    })
+    .done(res => {
+        console.log(res);
+        STORE.update(res.message);
+        renderMessages(); 
+    })
 }

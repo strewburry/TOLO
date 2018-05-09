@@ -22,41 +22,42 @@ function seedMessageDb() {
         seedMessages.push(generateMessages());
     }
     return Message.insertMany(seedMessages);
-};
+}
 
 function generateMessages() {
     return {
         content: 'here is some test content',
         creatorId: uuidv4()
-    };
-};
+    }
+}
 
 function tearDownDb() {
     return mongoose.connection.dropDatabase();
-};
+}
 
 describe('messages resource', function() {
     let testUser = {
         username: 'testUser',
-        password: 'testPassword'
+        password: 'testPassword',
+        id: uuidv4()
     };
     const token = createAuthToken(testUser);
 
     before(function() {
         return runServer(TEST_DATABASE_URL);
-    });
+    })
 
     beforeEach(function() {
         return seedMessageDb();
-    });
+    })
 
     afterEach(function() {
         return tearDownDb();
-    });
+    })
 
     after(function() {
         return closeServer();
-    });
+    })
 
     describe('POST endpoint', function() {
         it('should add new message to db', function() {
@@ -106,18 +107,18 @@ describe('messages resource', function() {
             })
         })
         
-        /* it('should throw an error if req body is missing content', function() {
+        it('should throw an error if req body is missing content', function() {
            const invalidMessage = {};
            return chai
            .request(app)
            .post('/api/messages')
            .send(invalidMessage)
-           .set('authorizaton', `Bearer ${token}`)
-           .catch(res => {
+           .set('Authorization', `Bearer ${token}`)
+           .then(res => {
                expect(res).to.have.status(400);
-           });
-        }); */ 
-    }); 
+           })
+        })
+    })
 
     describe('GET endpoint', function() {
         it('should return all messages matching a single ownerId', function() {
@@ -129,9 +130,9 @@ describe('messages resource', function() {
                 expect(res).to.have.status(200);
                 expect(res).to.be.json;
                 expect(res.body).to.be.a('array');
-            });
-        });
-    });
+            })
+        })
+    })
 
     describe('DELETE endpoint', function() {
         it('should delete messages with valid ID', function() {
@@ -153,6 +154,227 @@ describe('messages resource', function() {
             .then(res => {
                 expect(res).to.be.null;
             })
-        });
-    });
+        })
+    })
+
+    describe('PUT endpoint', function() {
+        it('should reset the ownerId of a message with valid ID', function() {
+            let id; 
+            return Message 
+            .findOne()
+            .then(res => {
+                id = res._id; 
+                return chai
+                .request(app)
+                .put(`/api/messages/${id}/forward`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(res => {
+                expect(res).to.have.status(204);
+                return Message
+                .findById(id);
+            })
+            .then(message => {
+                expect(message.ownerId).to.be.null; 
+            })
+        })
+    })
+
+    describe('PATCH endpoint', function() {
+        it('should upvote a message if user has not already upvoted', function() {
+            let id; 
+            return Message
+            .findOne()
+            .then(res => {
+                id = res._id; 
+                return chai
+                .request(app)
+                .patch(`/api/messages/${id}/upvote`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(res => {
+                expect(res).to.have.status(200);
+            })
+        })
+
+        it('should add user ids to upvoted array after upvoting', function() {
+            let id; 
+            return Message
+            .findOne()
+            .then(res => {
+                id = res._id; 
+                return chai
+                .request(app)
+                .patch(`/api/messages/${id}/upvote`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(() => {
+                return Message
+                .findById(id)
+            })
+            .then(message => {
+                expect(message.upvoted).to.not.be.null; 
+                expect(message.upvoted).to.be.a('array');
+                expect(message.upvoted).to.include(testUser.id);
+            })
+        })
+
+        it('should throw an error on upvote if user has already upvoted', function() {
+            let id; 
+            return Message
+            .findOne()
+            .then(res => {
+                id = res._id; 
+                return chai
+                .request(app)
+                .patch(`/api/messages/${id}/upvote`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(() => {
+                return Message
+                .findById(id)
+            })
+            .then(() => {
+                return chai
+                .request(app)
+                .patch(`/api/messages/${id}/upvote`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(res => {
+                expect(res).to.have.status(400);
+            })
+        })
+
+        it('should downvote a message if user has not already downvoted', function() {
+            let id; 
+            return Message
+            .findOne()
+            .then(res => {
+                id = res._id; 
+                return chai
+                .request(app)
+                .patch(`/api/messages/${id}/downvote`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(res => {
+                expect(res).to.have.status(200);
+            })
+        })
+
+        it('should add user ids to downvoted array after downvoting', function() {
+            let id; 
+            return Message
+            .findOne()
+            .then(res => {
+                id = res._id; 
+                return chai
+                .request(app)
+                .patch(`/api/messages/${id}/downvote`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(() => {
+                return Message
+                .findById(id)
+            })
+            .then(message => {
+                expect(message.downvoted).to.not.be.null; 
+                expect(message.downvoted).to.be.a('array');
+                expect(message.downvoted).to.include(testUser.id);
+            })
+        })
+
+        it('should throw an error if user has already downvoted', function() {
+            let id;
+            return Message
+            .findOne()
+            .then(res => {
+                id = res._id; 
+                return chai
+                .request(app)
+                .patch(`/api/messages/${id}/downvote`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(() => {
+                return Message
+                .findById(id)
+            })
+            .then(() => {
+                return chai
+                .request(app)
+                .patch(`/api/messages/${id}/downvote`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(res => {
+                expect(res).to.have.status(400);
+            })
+        })
+
+        it('should remove user id from upvoted array if user changes their vote', function() {
+            let id; 
+            return Message
+            .findOne()
+            .then(res => {
+                id = res._id; 
+                return chai
+                .request(app)
+                .patch(`/api/messages/${id}/upvote`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(() => {
+                return Message
+                .findById(id)
+            })
+            .then(message => {
+                expect(message.upvoted).to.include(testUser.id);
+            })
+            .then(() => {
+                return chai
+                .request(app)
+                .patch(`/api/messages/${id}/downvote`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(() => {
+                return Message
+                .findById(id)
+            })
+            .then(message => {
+                expect(message.upvoted).to.not.include(testUser.id);
+                expect(message.downvoted).to.include(testUser.id);
+            })
+        })
+
+        it('should remove user id from downvoted array if user changes their vote', function() {
+            let id; 
+            return Message
+            .findOne()
+            .then(res => {
+                id = res._id; 
+                return chai
+                .request(app)
+                .patch(`/api/messages/${id}/downvote`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(() => {
+                return Message
+                .findById(id)
+            })
+            .then(message => {
+                expect(message.downvoted).to.include(testUser.id);
+            })
+            .then(() => {
+                return chai
+                .request(app)
+                .patch(`/api/messages/${id}/upvote`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(() => {
+                return Message
+                .findById(id)
+            })
+            .then(message => {
+                expect(message.downvoted).to.not.include(testUser.id);
+                expect(message.upvoted).to.include(testUser.id);
+            })
+        })
+    })
 })
