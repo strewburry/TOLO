@@ -118,7 +118,6 @@ function upvoteMessage(id) {
         }
     })
     .done(res => {
-        console.log(res);
         STORE.update(res.message);
         renderMessages();
     })
@@ -134,7 +133,6 @@ function downvoteMessage(id) {
         }
     })
     .done(res => {
-        console.log(res);
         STORE.update(res.message);
         renderMessages(); 
     })
