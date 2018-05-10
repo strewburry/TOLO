@@ -1,7 +1,7 @@
 const TEMPLATES = (function(){
     const signUpForm = (`
-				<div class="popupwrapper">
-					<div class="popupcontent">
+				<div class="popup-wrapper">
+					<div class="popup-content">
 						<a class="close">x</a>
 						<h2>sign up</h2>
 						<div class="warning" aria-live="assertive" style="display:none;" hidden></div>
@@ -20,7 +20,7 @@ const TEMPLATES = (function(){
 							<input type="password" name="confirmpass" placeholder="confirm password">
 							<button type="submit">register</button>
 						</form>
-						<div class="popuptext">
+						<div class="popup-text">
 							<p>Already have an account?</p>
 						</div>
 						<button class="login-prompt">log in</button>
@@ -28,8 +28,8 @@ const TEMPLATES = (function(){
                 </div>`);
 
     const logInForm = (`
-			<div class="popupwrapper">
-				<div class="popupcontent">
+			<div class="popup-wrapper">
+				<div class="popup-content">
 					<a class="close">x</a>
 					<h2>log in</h2>
 					<div class="warning" aria-live="assertive" style="display:none;" hidden></div>
@@ -44,7 +44,7 @@ const TEMPLATES = (function(){
 						<input type="password" name="password" placeholder="password">
 						<button type="submit">log in</button>
 					</form>
-					<div class="popuptext">
+					<div class="popup-text">
 						<p>Don't have an account?</p>
 					</div>
 					<button class="signup-prompt">sign up</button>
@@ -52,8 +52,8 @@ const TEMPLATES = (function(){
 			</div>`);
 
     const messageForm = (`
-				<div class="popupwrapper">
-					<div class="popupcontent">
+				<div class="popup-wrapper">
+					<div class="popup-content">
 						<a class="close">x</a>
 						<h2>Write a Message</h2>
 						<div class="warning" aria-live="assertive" style="display:none;" hidden></div>
@@ -70,20 +70,20 @@ const TEMPLATES = (function(){
     const loggedInLinks = (`
 				<ul>
 					<li id="logo" style="float:left;">TOLO</li>
-					<li class="navItems"><button id="logout">log out</button></li>
-					<li class="navItems"><button id="write">write message</button></li>
+					<li class="nav-items"><button id="logout">log out</button></li>
+					<li class="nav-items"><button id="write">write message</button></li>
 				</ul>`);
 
     const loggedOutLinks = (`
 				<ul>
 					<li id="logo" style="float:left;">TOLO</li>
-					<li class="navitems">made with 💕 by <a href="https://www.github.com/strewburry">CB</a></li>
+					<li class="nav-items">made with 💕 by <a href="https://www.github.com/strewburry">CB</a></li>
 				</ul>`);
 
 	const noMessagesTemplate = (`
-				<div class="nomessagetext">
+				<div class="no-message-text">
 					<h1>No messages here, sorry!</h1>
-					<h3>Once you write a message, more will show up here.<h3>
+					<p>Once you write a message, more will show up here.<p>
 				</div>`);
 
 	const messageTemplate = (message) => (`
@@ -91,34 +91,34 @@ const TEMPLATES = (function(){
 					<div class="content">
 						<p>${message.content}</p> 
 					</div>
-					<div class="messageoptions" data-id="${message._id}">
-						<div id="votecounter">${message.voteScore}</div>
-						<button class="messagebutton" id="upvote"></button>
-						<button class="messagebutton" id="downvote"></button>
-						<button class="messagebutton" id="delete"></button>
-						<button class="messagebutton" id="forward"></button>
+					<div class="message-options" data-id="${message._id}">
+						<div id="vote-counter">${message.voteScore}</div>
+						<button class="message-button" id="upvote"></button>
+						<button class="message-button" id="downvote"></button>
+						<button class="message-button" id="delete"></button>
+						<button class="message-button" id="forward"></button>
 					</div>
 				</div>`);
 
 	const confirmDelete = (id) => (`
-				<div class="popupwrapper">
-					<div class="popupcontent">
+				<div class="popup-wrapper">
+					<div class="popup-content">
 					<a class="close">x</a>
 					<h2>Delete this message?</h2>
 					<p>This action is permanent. You can always pass it on to another user instead.</p>
-					<button data-id="${id}" id="confirmdelete">I'm sure</button>
+					<button data-id="${id}" id="confirm-delete">I'm sure</button>
 					<button class="cancel">I changed my mind</button>
 					</div>
 				</div>`);
 
 	const confirmForward = (id) => (`
-				<div class="popupwrapper">
-					<div class="popupcontent">
+				<div class="popup-wrapper">
+					<div class="popup-content">
 					<a class="close">x</a>
 					<h2>Forward this message?</h2>
 					<p>This message will no longer belong to you, and you will no longer see it in your received messages...
 					but it will make someone else's day!</p>
-					<button data-id="${id}" id="confirmforward">I'm sure</button>
+					<button data-id="${id}" id="confirm-forward">I'm sure</button>
 					<button class="cancel">I changed my mind</button>
 					</div>
 				</div>`);

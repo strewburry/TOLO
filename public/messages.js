@@ -23,14 +23,12 @@ function getUserMessages() {
 
 function renderMessages() {
     if (STORE.messages.length < 1) {
-        $('.messageswrapper').html(TEMPLATES.noMessagesTemplate).show().prop('hidden', false);
-        $('main').hide();
+        $('.messages-wrapper').html(TEMPLATES.noMessagesTemplate).show().prop('hidden', false);
     } else {
     let userMessageCards = STORE.messages.map(message => {
         return TEMPLATES.messageTemplate(message);
     });
-    $('.messageswrapper').html(userMessageCards).show().prop('hidden', false);
-    $('main').hide();
+    $('.messages-wrapper').html(userMessageCards).show().prop('hidden', false);
     }
 }
 

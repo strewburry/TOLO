@@ -6,6 +6,11 @@ function showLogInForm() {
 	$('.form-overlay').show().prop('hidden', false).html(TEMPLATES.logInForm);
 }
 
+function showAppInfo() {
+	$('#app-info').show().prop('hidden', false);
+	document.getElementById('app-info').scrollIntoView({behavior: 'instant', block: 'end', inline: 'nearest'});
+}
+
 function handleUserSignUp(event) {
 	event.preventDefault();
 	const username = $('[name=username]').val();
@@ -68,16 +73,16 @@ function saveDataToLocalStorage(res) {
 
 function isLoggedIn() {
 	if(localStorage.getItem('userId')) {
-		$('.messageswrapper').show().prop('hidden', false);
-		$('.introwrapper').hide().prop('hidden', true);
+		$('.messages-wrapper').show().prop('hidden', false);
+		$('.intro').hide().prop('hidden', true);
+		$('#app-info').hide().prop('hidden', true);
 		$('.form-overlay').fadeToggle('fast').hide().prop('hidden', true);
 		$('#navbar').html(TEMPLATES.loggedInLinks);
 		getUserMessages();
 	}
 	else { 
-		$('.introwrapper').show().prop('hidden', false);
-		$('.messageswrapper').hide().prop('hidden', true);
-		$('main').show().prop('hidden', false);
+		$('.intro').show().prop('hidden', false);
+		$('.messages-wrapper').hide().prop('hidden', true);
 		$('#navbar').html(TEMPLATES.loggedOutLinks);
 	}
 }
@@ -85,8 +90,7 @@ function isLoggedIn() {
 function logOut() {
 	localStorage.removeItem('userId');
 	localStorage.removeItem('token');
-	$('.introwrapper').show();
-	$('main').show();
-	$('.messageswrapper').hide().prop('hidden', true);
+	$('.intro').show();
+	$('.messages-wrapper').hide().prop('hidden', true);
 	$('#navbar').html(TEMPLATES.loggedOutLinks);
 }

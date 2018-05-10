@@ -15,6 +15,9 @@ function appSetUp() {
 	$('body').on('click', '.close, .cancel', () => {
 		hideForm(); 
 	})
+	$('body').on('click', '#about', () => {
+		showAppInfo();
+	})
 	$('body').on('click', '#write', () => {
 		showMessageForm();
     })
@@ -31,7 +34,7 @@ function appSetUp() {
 		const id = event.target.parentElement.getAttribute('data-id');
 		showConfirmDelete(id); 
 	})
-	$('body').on('click', '#confirmdelete', event => {
+	$('body').on('click', '#confirm-delete', event => {
 		const id = event.target.getAttribute('data-id'); 
 		deleteMessage(id); 
 	})
@@ -39,7 +42,7 @@ function appSetUp() {
 		const id = event.target.parentElement.getAttribute('data-id');
 		showConfirmForward(id);
 	})
-	$('body').on('click', '#confirmforward', event => {
+	$('body').on('click', '#confirm-forward', event => {
 		const id = event.target.getAttribute('data-id');
 		forwardMessage(id);
 	})
