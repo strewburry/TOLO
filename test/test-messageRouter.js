@@ -140,6 +140,8 @@ describe('messages resource', function() {
             return Message
             .findOne()
             .then(res => {
+                res.ownerId = testUser.id;
+                res.save(); 
                 id = res._id;
                 return chai
                 .request(app)
@@ -153,6 +155,22 @@ describe('messages resource', function() {
             })
             .then(res => {
                 expect(res).to.be.null;
+            })
+        })
+
+        it('should throw an error if req user does not own message', function() {
+            let id; 
+            return Message
+            .findOne()
+            .then(res => {
+                id = res._id; 
+                return chai
+                .request(app)
+                .delete(`/api/messages/${id}`)
+                .set('authorization', `Bearer ${token}`)
+            })
+            .then(res => {
+                expect(res).to.have.status(403);
             })
         })
     })
