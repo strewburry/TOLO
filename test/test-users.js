@@ -18,18 +18,18 @@ describe('users API', function() {
 
 	before(function() {
 		return runServer(TEST_DATABASE_URL);
-	});
+	})
 
 	after(function() {
 		return closeServer(); 
-	});
+	})
 
 	beforeEach(function() {
-	});
+	})
 
 	afterEach(function() {
 		return User.remove({});
-	});
+	})
 
 	describe('users router', function() {
 		describe('POST endpoint', function() {
@@ -46,8 +46,9 @@ describe('users API', function() {
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('Field cannot be blank');
 					expect(res.body.location).to.equal('username');
-				});
-			}); 
+				})
+			})
+
 			it('should reject form submissions with missing passwords', function() {
 				return chai
 				.request(app)
@@ -61,8 +62,9 @@ describe('users API', function() {
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('Field cannot be blank');
 					expect(res.body.location).to.equal('password');
-				});
-			});
+				})
+			})
+
 			it('should reject form submissions missing password confirmations', function() {
 				return chai
 				.request(app)
@@ -76,8 +78,9 @@ describe('users API', function() {
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('Field cannot be blank');
 					expect(res.body.location).to.equal('passwordConf');
-				});
-			});
+				})
+			})
+
 			it('should reject form submissions with empty usernames', function() {
 				return chai
 				.request(app)
@@ -92,8 +95,9 @@ describe('users API', function() {
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('username must be at least 1\n\t\t\t\tcharacters long');
 					expect(res.body.location).to.equal('username');
-				});
-			});
+				})
+			})
+
 			it('should reject form submissions with passwords under 10 characters', function() {
 				return chai
 				.request(app)
@@ -108,8 +112,9 @@ describe('users API', function() {
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('password must be at least 10\n\t\t\t\tcharacters long');
 					expect(res.body.location).to.equal('password');
-				});
-			});
+				})
+			})
+
 			it('should reject form submissions with passwords over 72 characters', function() {
 				return chai
 				.request(app)
@@ -124,8 +129,9 @@ describe('users API', function() {
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('password must be at most 72\n\t\t\t\tcharacters long');
 					expect(res.body.location).to.equal('password');
-				});
-			});
+				})
+			})
+
 			it('should reject form submissions with non-trimmed usernames', function() {
 				return chai
 				.request(app)
@@ -140,8 +146,9 @@ describe('users API', function() {
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('Field cannot start or end with whitespace');
 					expect(res.body.location).to.equal('username');
-				});
-			});
+				})
+			})
+
 			it('should reject form submissions with non-trimmed passwords', function() {
 				return chai
 				.request(app)
@@ -156,8 +163,9 @@ describe('users API', function() {
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('Field cannot start or end with whitespace');
 					expect(res.body.location).to.equal('password');
-				});
-			});
+				})
+			})
+
 			it('should create a new user', function() {
 				return chai
 				.request(app)
@@ -178,10 +186,10 @@ describe('users API', function() {
 					expect(payload.user).to.deep.equal({
 						username, 
 						id
-					});
+					})
 					return User.findOne({
 						username
-					});
+					})
 				})
 				.then(user => {
 					expect(user).to.not.be.null;
@@ -189,8 +197,9 @@ describe('users API', function() {
 				})
 				.then((validPassword) => {
 					expect(validPassword).to.be.true;
-				});
-			});
+				})
+			})
+
 			it('should reject form submissions if user already exists', function() {
 				return User.create({
 					username, 
@@ -212,9 +221,9 @@ describe('users API', function() {
 					expect(res.body.reason).to.equal('ValidationError');
 					expect(res.body.message).to.equal('Username already exists');
 					expect(res.body.location).to.equal('username');
-				});
-			});
-		});
+				})
+			})
+		})
 
 		describe('GET endpoint', function() {
 			it('should get user by user id', function() {
@@ -236,9 +245,9 @@ describe('users API', function() {
 					.then(res => {
 						expect(res).to.have.status(200);
 						expect(res).to.be.a('object');
-					});
-				});
-			});
-		});
-	});
-});
+					})
+				})
+			})
+		})
+	})
+})

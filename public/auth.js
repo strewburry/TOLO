@@ -8,12 +8,6 @@ function showLogInForm() {
 	$('.popup__overlay').html(TEMPLATES.logInForm);
 }
 
-function showAppInfo() {
-	TEMPLATES.showElement('.popup__overlay');
-	$('.popup__overlay').html(TEMPLATES.appInfo).css('overflow', 'scroll').scrollTop();
-	$('body').css('overflow', 'hidden');
-}
-
 function handleUserSignUp(event) {
 	event.preventDefault();
 	const username = $('[name=username]').val();
@@ -27,7 +21,7 @@ function handleUserSignUp(event) {
 			username: username,
 			password: password, 
 			passwordConf: passwordConf
-		}
+		};
 		$.ajax({
 			url: '/api/users',
 			type: 'POST',
@@ -54,7 +48,7 @@ function handleUserLogIn(event) {
 	const logInCreds = {
 		username: username, 
 		password: password
-	}
+	};
 	$.ajax({
 		url: '/api/auth/login',
 		type: 'POST',
@@ -80,16 +74,15 @@ function saveDataToLocalStorage(res) {
 function isLoggedIn() {
 	if(localStorage.getItem('userId')) {
 		TEMPLATES.showElement('#navbar');
-		TEMPLATES.showElement('.messages-wrapper');
+		TEMPLATES.showElement('.messages__wrapper');
 		TEMPLATES.hideElement('.intro'); 
-		TEMPLATES.hideElement('#app-info');
 		TEMPLATES.hideElement('.popup__overlay'); 
 		$('#navbar').html(TEMPLATES.loggedInLinks);
 		getUserMessages(); 
 	}
 	else { 
 		TEMPLATES.showElement('.intro');
-		TEMPLATES.hideElement('.messages-wrapper');
+		TEMPLATES.hideElement('.messages__wrapper');
 	}
 }
 
@@ -98,5 +91,5 @@ function logOut() {
 	localStorage.removeItem('token');
 	TEMPLATES.showElement('.intro');
 	TEMPLATES.hideElement('#navbar'); 
-	TEMPLATES.hideElement('.messages-wrapper');
+	TEMPLATES.hideElement('.messages__wrapper');
 } 

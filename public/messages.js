@@ -3,11 +3,6 @@ function showMessageForm() {
     $('.popup__overlay').html(TEMPLATES.messageForm);
 }
 
-function hideForm() {
-    TEMPLATES.hideElement('.popup__overlay');
-    $('body').css('overflow', 'auto');
-}
-
 function getUserMessages() {
     $.ajax({
         url: '/api/messages',
@@ -25,15 +20,15 @@ function getUserMessages() {
 
 function renderMessages() {
     if (STORE.messages.length < 1) {
-        TEMPLATES.showElement('.messages-wrapper');
-        $('.messages-wrapper').html(TEMPLATES.noMessagesTemplate);
+        TEMPLATES.showElement('.messages__wrapper');
+        $('.messages__wrapper').html(TEMPLATES.noMessagesTemplate);
     } else {
         let userMessageCards = STORE.messages.map(message => {
             return TEMPLATES.messageTemplate(message);
         });
-        TEMPLATES.showElement('.messages-wrapper');
-        $('.messages-wrapper').html(userMessageCards);
-        $('.messages-wrapper').find('.vote__counter').each((index, element) => {
+        TEMPLATES.showElement('.messages__wrapper');
+        $('.messages__wrapper').html(userMessageCards);
+        $('.messages__wrapper').find('.vote__counter').each((index, element) => {
             if ($(element).text() > 0) {
                 $(element).addClass('counter--positive');
             } else if ($(element).text() < 0) {
@@ -54,7 +49,7 @@ function handleSendMessage(event) {
         const newMessage = {
             creatorId,
             content
-        }
+        };
         $.ajax({
             url: '/api/messages',
             type: 'POST',
@@ -144,7 +139,7 @@ function upvoteMessage(id) {
 function downvoteMessage(id) {
     let userMessage = STORE.messages.find(message => {
         return message._id == id; 
-    })
+    });
     let userId = window.localStorage.userId; 
     if (!(userMessage.downvoted.includes(userId))) {
         $.ajax({

@@ -11,11 +11,11 @@ router.post('/login', localAuth, (req, res) => {
 	const user = req.user;
 	const token = createAuthToken(req.user.serialize());
 	res.json({token, user});
-});
+})
 
 router.post('/refresh', jwtAuth, (req, res) => {
 	const token = createAuthToken(req.user); 
 	res.json({token});
-});
+})
 
 module.exports = {router}; 

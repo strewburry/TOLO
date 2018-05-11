@@ -15,8 +15,8 @@ router.post('/', jsonParser, (req, res) => {
 			reason: 'ValidationError',
 			message: 'Field cannot be blank',
 			location: missingField
-		});
-	};
+		})
+	}
 
 	const sizedFields = {
 		username: {
@@ -43,7 +43,7 @@ router.post('/', jsonParser, (req, res) => {
 				: `${tooLongField} must be at most ${sizedFields[tooLongField].max}
 				characters long`,
 			location: tooShortField || tooLongField
-		});
+		})
 	}
 
 	const explicitlyTrimmedFields = ['username', 'password'];
@@ -56,7 +56,7 @@ router.post('/', jsonParser, (req, res) => {
 			reason: 'ValidationError',
 			message: 'Field cannot start or end with whitespace',
 			location: nonTrimmedField
-		});
+		})
 	}
 
 	let {username, password, passwordConf} = req.body;
@@ -69,7 +69,7 @@ router.post('/', jsonParser, (req, res) => {
 				reason: 'ValidationError',
 				message: 'Username already exists',
 				location: 'username'
-			});
+			})
 		}
 		return User.hashPassword(password);
 	})
@@ -77,7 +77,7 @@ router.post('/', jsonParser, (req, res) => {
 		return User.create({
 			username, 
 			password: hash
-		});
+		})
 	})
 	.then(user => {
 		const token = createAuthToken(user.serialize());
@@ -88,14 +88,14 @@ router.post('/', jsonParser, (req, res) => {
 			return res.status(err.code).json(err);
 		}
 		res.status(500).json({code: 500, message: 'internal server error'})
-	});
-});
+	})
+})
 
 router.get('/:id', jsonParser, (req, res) => {
 	return User.findById(req.params.id)
 	.then(user => {
 		return res.status(200).json({user});
-	});
-});
+	})
+})
 
 module.exports = {router};

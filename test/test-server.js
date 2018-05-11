@@ -13,17 +13,17 @@ chai.use(chaiHttp);
 describe('TOLO', function() {
 	before(function() {
 		return runServer(TEST_DATABASE_URL);
-	});
+	})
 	after(function() {
 		return closeServer();
-	});
+	})
 	describe('index page', function() {
 		it('should display static assets', function() {
 			return chai.request(app)
 			.get('/')
 			.then(function (res) {
 				expect(res).to.have.status(200);
-			});
-		});
-	});
-}); 
+			})
+		})
+	})
+})

@@ -64,7 +64,7 @@ const TEMPLATES = (function(){
 								</span> 
 							</div> 
 							<h2>How It Works</h2>
-							<h3>Write</h3>
+							<h3>Write 📝</h3>
 							<p>Write a kind message for a stranger. It could be:</p>
 							<ul>
 								<li>a positive affirmation</li>
@@ -75,10 +75,10 @@ const TEMPLATES = (function(){
 								<li>anything you want, as long as it's positive!</li>
 							</ul>
 							<p>They won't know who sent it, but it's sure to make their day.</p>
-							<h3>Receive</h3>
+							<h3>Receive 💌</h3>
 							<p>Once you submit your message, you'll receive a message from a stranger in return.
 							This message is unique, and will only be sent to you, unless you decide to pass it on.</p>
-							<h3>Pay it forward</h3>
+							<h3>Pay it forward 📬</h3>
 							<p>All the messages you receive will be stored for you to upvote or downvote, read and
 							cherish, and pass on to someone else whenever you're ready.</p>
 						</div>

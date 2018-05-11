@@ -46,10 +46,10 @@ function runServer(databaseUrl) {
 			.on('error', err => {
 				mongoose.disconnect();
 				reject(err);
-			});
-		});
-	});
-};
+			})
+		})
+	})
+}
 
 function closeServer() {
 	return mongoose.disconnect().then(() => {
@@ -60,13 +60,13 @@ function closeServer() {
 					return reject(err);
 				}
 				resolve();
-			});
-		});
-	});
-};
+			})
+		})
+	})
+}
 
 if (require.main === module) {
 	runServer(DATABASE_URL).catch(err => console.error(err));
-};
+}
 
 module.exports = {app, runServer, closeServer};

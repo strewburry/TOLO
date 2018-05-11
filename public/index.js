@@ -3,7 +3,7 @@ function appSetUp() {
 	$('body').on('click', '#register, #signup-prompt', () => {
 		showSignUpForm();
 	})
-	$('.popup__overlay').on('submit', '.signup', function(event) {
+	$('.popup__overlay').on('submit', '.signup', event => {
 		handleUserSignUp(event);
 	})
 	$('body').on('click', '#login, #login-prompt', () => {
@@ -23,9 +23,6 @@ function appSetUp() {
     })
     $('.popup__overlay').on('submit', '#js-message', event => {
         handleSendMessage(event);
-	})
-	$('.popup__overlay').on('click', '#restart', () => {
-		showMessageForm();
 	})
 	$('body').on('click', '#logout', () => {
 		logOut();
@@ -54,6 +51,17 @@ function appSetUp() {
 		const id = event.target.parentElement.getAttribute('data-id');
 		downvoteMessage(id);
 	})
+}
+
+function showAppInfo() {
+	TEMPLATES.showElement('.popup__overlay');
+	$('.popup__overlay').html(TEMPLATES.appInfo).css('overflow', 'scroll').scrollTop();
+	$('body').css('overflow', 'hidden');
+}
+
+function hideForm() {
+    TEMPLATES.hideElement('.popup__overlay');
+    $('body').css('overflow', 'auto');
 }
 
 $(appSetUp);

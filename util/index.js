@@ -11,7 +11,7 @@ const createAuthToken = function(user) {
 		subject: user.username, 
 		expiresIn: JWT_EXPIRY, 
 		algorithm: 'HS256'
-	});
-};
+	})
+}
 
 module.exports = {createAuthToken, localAuth, jwtAuth};

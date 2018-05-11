@@ -17,11 +17,11 @@ describe('user authentication endpoints', function() {
 
     before(function() {
         return runServer(TEST_DATABASE_URL);
-    });
+    })
 
     after(function() {
         return closeServer();
-    });
+    })
 
     beforeEach(function() {
         return User
@@ -33,13 +33,13 @@ describe('user authentication endpoints', function() {
             })
             .then(user => {
                 id = user.id;
-            });
-        });
+            })
+        })
     })
 
     afterEach(function() {
         return User.remove({});
-    });
+    })
 
     describe('login endpoint', function() {
         it('should reject empty requests', function() {
@@ -48,8 +48,8 @@ describe('user authentication endpoints', function() {
             .post('/api/auth/login')
             .then(res => {
                 expect(res).to.have.status(400);
-            });
-        });
+            })
+        })
 
         it('should reject requests with invalid usernames', function() {
            return chai
@@ -61,8 +61,8 @@ describe('user authentication endpoints', function() {
            })
            .then(res => {
                expect(res).to.have.status(401);
-           });
-        });
+           })
+        })
 
         it('should reject requests with invalid passwords', function() {
             return chai
@@ -74,8 +74,8 @@ describe('user authentication endpoints', function() {
             })
             .then(res => {
                 expect(res).to.have.status(401);
-            });
-        });
+            })
+        })
 
         it('should supply a valid JWT for a valid request', function() {
             return chai
@@ -95,10 +95,10 @@ describe('user authentication endpoints', function() {
                 expect(payload.user).to.deep.equal({
                     username,
                     id
-                });
-            });
-        });
-    });
+                })
+            })
+        })
+    })
 
     describe('JWT refresh', function() {
         it('should reject empty requests', function() {
@@ -107,8 +107,8 @@ describe('user authentication endpoints', function() {
             .post('/api/auth/refresh')
             .then(res => {
                 expect(res).to.have.status(401);
-            });
-        });
+            })
+        })
 
         it('should reject requests with an invalid token', function() {
             const authToken = jwt.sign(
@@ -128,8 +128,8 @@ describe('user authentication endpoints', function() {
             .set('Authorization', `Bearer ${authToken}`)
             .then(res => {
                 expect(res).to.have.status(401);
-            });
-        });
+            })
+        })
 
         it('should reject requests with expired token', function() {
             const authToken = jwt.sign(
@@ -149,8 +149,8 @@ describe('user authentication endpoints', function() {
             .set('Authorization', `Bearer ${authToken}`)
             .then(res => {
                 expect(res).to.have.status(401);
-            });
-        });
+            })
+        })
 
         it('should return a valid auth token with newer expiry date', function() {
             const authToken = jwt.sign(
@@ -179,9 +179,9 @@ describe('user authentication endpoints', function() {
                 });
                 expect(payload.user).to.deep.equal({
                     username
-                });
+                })
                 expect(payload.exp).to.be.at.least(decodedToken.exp);
-            });
-        });
-    });
-});
+            })
+        })
+    })
+})
