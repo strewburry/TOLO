@@ -71,7 +71,7 @@ a {
 	height: auto;
 }
 
-.intro-buttons-wrapper {
+.intro--button__wrapper {
 	margin: auto;
 	max-width: 90%;
 }
@@ -90,7 +90,7 @@ h2 {
 	border-bottom: 2px solid #0D3B66; 
 }
 
-.messages-wrapper {
+.messages__wrapper {
 	max-width: 100%;
 	margin: auto;
 }
@@ -345,7 +345,7 @@ button[type=submit] {
 		width: 100%;
 	}
 
-	.intro-buttons-wrapper {
+	.intro--button__wrapper {
 		width: 95%;
 	}
 
