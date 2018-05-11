@@ -110,7 +110,7 @@ const TEMPLATES = (function(){
 	const noMessagesTemplate = (`
 				<div class="no-message-text">
 					<h1>No messages here, sorry!</h1>
-					<p>Once you write a message, more will show up here.<p>
+					<p>Once you send a message, a message will appear for you here.<p>
 				</div>`);
 
 	const messageTemplate = (message) => (`
