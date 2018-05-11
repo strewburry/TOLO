@@ -116,7 +116,7 @@ const TEMPLATES = (function(){
 	const messageTemplate = (message) => (`
 				<div class="message__card" id="${message._id}">
 					<div class="message__votes" data-id="${message._id}">
-						<div id="vote__counter">${message.voteScore}</div>
+						<div class="vote__counter">${message.voteScore}</div>
 						<button class="message__vote" id="upvote"></button>
 						<button class="message__vote" id="downvote"></button>
 					</div> 

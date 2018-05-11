@@ -116,10 +116,18 @@ h2 {
 	padding: 10px 10px 10px 10px; 
 }
 
-#vote__counter {
+.vote__counter {
 	font-size: 25px;
 	font-weight: 600;
 	color: #0D3B66;
+}
+
+.counter--positive {
+	color: #4DC14B;
+}
+
+.counter--negative {
+	color: #F95738;
 }
 
 .message__options { 

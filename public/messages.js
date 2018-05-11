@@ -28,18 +28,18 @@ function renderMessages() {
         TEMPLATES.showElement('.messages-wrapper');
         $('.messages-wrapper').html(TEMPLATES.noMessagesTemplate);
     } else {
-    let userMessageCards = STORE.messages.map(message => {
-        if (message.voteScore > 0) {
-            $('#vote__counter').css('color', '#4DC14B');
-        } else if (message.voteScore < 0) {
-            $('#vote__counter').css('color', '#F95738');
-        } else {
-            $('#vote__counter').css('color', '#0D3B66');
-        }
-        return TEMPLATES.messageTemplate(message);
-    });
-    TEMPLATES.showElement('.messages-wrapper');
-    $('.messages-wrapper').html(userMessageCards);
+        let userMessageCards = STORE.messages.map(message => {
+            return TEMPLATES.messageTemplate(message);
+        });
+        TEMPLATES.showElement('.messages-wrapper');
+        $('.messages-wrapper').html(userMessageCards);
+        $('.messages-wrapper').find('.vote__counter').each((index, element) => {
+            if ($(element).text() > 0) {
+                $(element).addClass('counter--positive');
+            } else if ($(element).text() < 0) {
+                $(element).addClass('counter--negative');
+            }
+        })
     }
 }
 
