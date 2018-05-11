@@ -96,11 +96,11 @@ h2 {
 }
 
 .message__card > .message__content { 
-	height: 150px;
+	height: 80%;
+	margin-bottom: 10px;
 	overflow: scroll; 
 	text-align: justify;
-	width: 70%;
-	clear: right;
+	width: 80%;
 	display: inline-block;
 	padding: 5px 5px 5px 5px; 
 }
@@ -136,17 +136,17 @@ h2 {
 }
 
 .message__votes {
-	width: 30%;
+	width: 15%;
 	float: left;
 	clear: left;
-	margin-top: 60px;
-	margin-left: -10px;
+	margin-top: 40px;
 }
 
 .message__vote {
-	padding: 5px 5px 5px 5px; 
+	margin-top: 5px;
+	margin-bottom: 5px; 
 	border: 0px; 
-	width: 30%; 
+	width: 100%; 
 	height: 24px;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -154,8 +154,7 @@ h2 {
 
 .message__action {
 	padding: 5px 5px 5px 5px;
-	border: 0px solid #F8FFAE;
-	border-radius: 3px;
+	border: 0px;
 	font-size: 14px;
 	transition: all 400ms ease;
 	width: 12%;
@@ -354,20 +353,4 @@ button[type=submit] {
 		margin: 0 0 10px 0;
 		width: 80%; 
 	}
-
-	.message__card > .message__content { 
-		width: 70%;
-	}
-	
-	.message__options { 
-		width: 100%;
-	}
-	
-	.message__votes {
-		width: 25%;
-	}
-	
-	.message__vote {
-		width: 35%; 
-	} 
 }
