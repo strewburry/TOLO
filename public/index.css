@@ -353,4 +353,8 @@ button[type=submit] {
 		margin: 0 0 10px 0;
 		width: 80%; 
 	}
+
+	.button--size-large {
+		font-size: 12px;
+	}
 }
