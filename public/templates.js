@@ -13,7 +13,7 @@ const TEMPLATES = (function(){
 							<label for="password">
 								Set a password:
 							</label>
-							<input type="password" name="password" placeholder="password">
+							<input type="password" name="password" placeholder="must be 10 characters long">
 							<label for="confirmpass">
 								Confirm your password: 
 							</label>
