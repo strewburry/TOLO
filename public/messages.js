@@ -31,13 +31,10 @@ function renderMessages() {
     let userMessageCards = STORE.messages.map(message => {
         if (message.voteScore > 0) {
             $('#vote__counter').css('color', '#4DC14B');
-            console.log('votescore is greater than 0');
         } else if (message.voteScore < 0) {
             $('#vote__counter').css('color', '#F95738');
-            console.log('votescore is less than 0');
         } else {
             $('#vote__counter').css('color', '#0D3B66');
-            console.log(`voteScore is ${message.voteScore}`);
         }
         return TEMPLATES.messageTemplate(message);
     });
@@ -124,31 +121,43 @@ function forwardMessage(id) {
 }
 
 function upvoteMessage(id) {
-    $.ajax({
-        url: '/api/messages/' + id + '/upvote',
-        type: 'PATCH', 
-        contentType: 'application/json',
-        headers: {
-            authorization: `Bearer ${window.localStorage.token}`
-        }
-    })
-    .done(res => {
-        STORE.update(res.message);
-        renderMessages();
-    })
+    let userMessage = STORE.messages.find(message => {
+        return message._id == id; 
+    });
+    let userId = window.localStorage.userId; 
+    if (!(userMessage.upvoted.includes(userId))) {
+        $.ajax({
+            url: '/api/messages/' + id + '/upvote',
+            type: 'PATCH', 
+            contentType: 'application/json',
+            headers: {
+                authorization: `Bearer ${window.localStorage.token}`
+            }
+        })
+        .done(res => {
+            STORE.update(res.message);
+            renderMessages();
+        })
+    }
 }
 
 function downvoteMessage(id) {
-    $.ajax({
-        url: '/api/messages/' + id + '/downvote',
-        type: 'PATCH',
-        contentType: 'application/json',
-        headers: {
-            authorization: `Bearer ${window.localStorage.token}`
-        }
+    let userMessage = STORE.messages.find(message => {
+        return message._id == id; 
     })
-    .done(res => {
-        STORE.update(res.message);
-        renderMessages(); 
-    })
+    let userId = window.localStorage.userId; 
+    if (!(userMessage.downvoted.includes(userId))) {
+        $.ajax({
+            url: '/api/messages/' + id + '/downvote',
+            type: 'PATCH',
+            contentType: 'application/json',
+            headers: {
+                authorization: `Bearer ${window.localStorage.token}`
+            }
+        })
+        .done(res => {
+            STORE.update(res.message);
+            renderMessages(); 
+        })
+    }
 }
