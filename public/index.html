@@ -4,65 +4,32 @@
 	<meta charset="UTF-8">
 	<meta name="description" content="Take One, Leave One (TOLO) is a free service where users exchange positivity.">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://fonts.googleapis.com/css?family=Inconsolata|Work+Sans:400,800" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Work+Sans:400,800" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="index.css">
+	<link rel="icon" href="favicon.ico" type="image/x-icon"/>
 	<title>Take One, Leave One (TOLO)</title>
 </head>
 <body>
-	<nav id="navbar" role="navigation">
-		<ul>
-			<li id="logo" style="float:left;">TOLO</li>
-			<li class="navitems">made with 💕 by <a href="https://www.github.com/strewburry">CB</a></li>
-		</ul>
-	</nav>
+	<nav id="navbar" role="navigation" aria-live="assertive" style="display:none;" hidden>
+	</nav> 
 
+	<main role="main">
 	<div class="container">
-	<div class="messageswrapper" aria-live="assertive" style="display:none;" hidden></div>
-	<div class="introwrapper" aria-live="assertive" style="display:none;" hidden>
-		<section class="intro">
+	<div class="messages__wrapper" aria-live="assertive" style="display:none;" hidden></div>
+		<section class="intro" aria-live="assertive" style="display:none;" hidden>
 				<header role="banner">
-					<h1>Take One, Leave One</h1>
+					<img src="./handlogo.png" class="graphic" alt="take one, leave one">
 				</header>
 				<p>Make an account to exchange positivity with strangers.</p>
-				<div class="buttonwrapper">
-					<button id="register">sign up</button>
-					<button id="login">log in</button>
+				<div class="intro--button__wrapper">
+					<button class="button button--size-large button--color-blue" id="about">what's this?</button>
+					<button class="button button--size-large button--color-yellow" id="register">sign up</button>
+					<button class="button button--size-large button--color-orange" id="login">log in</button>
 				</div>
 		</section>
 	</div>
-
-	<main role="main" aria-live="assertive" style="display:none;" hidden>
-		<div class="wrapper-thirds">
-			<div class="column">
-				<h1>💌</h1>
-				<h2>Write</h2>
-				<p>Write a kind message for a stranger. It could be:</p>
-				<ul>
-					<li>a positive affirmation</li>
-					<li>a short poem</li>
-					<li>a word of advice</li>
-					<li>anything you want, as long as it's positive!</li>
-				</ul>
-			</div>
-
-			<div class="column">
-				<h1>📥</h1>
-				<h2>Receive</h2>
-				<p>Once you submit your message, you'll receive one 
-					from a stranger, too. This message is unique, and 
-					will only be sent to you.</p>
-			</div>
-			
-			<div class="column">
-				<h1>📬</h1>
-				<h2>Pass It On</h2>
-				<p>View all your messages, add upvotes or downvotes, 
-					and forward your favorites to other users.</p>
-			</div>
-		</div>
 	</main>
-	</div>
-	<div class="form-overlay" aria-live="assertive" style="display:none;" hidden></div>
+	<div class="popup__overlay" aria-live="assertive" style="display:none;" hidden></div>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="store.js"></script>
 	<script type="text/javascript" src="index.js"></script>

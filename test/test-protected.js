@@ -16,11 +16,11 @@ describe('protected endpoints', function() {
 
     before(function () {
         return runServer(TEST_DATABASE_URL);
-    });
+    })
 
     after(function() {
         return closeServer();
-    });
+    })
 
     beforeEach(function() {
         return User
@@ -29,13 +29,13 @@ describe('protected endpoints', function() {
             User.create({
                 username, 
                 password
-            });
-        });
-    });
+            })
+        })
+    })
 
     afterEach(function() {
         return User.remove({});
-    });
+    })
 
     describe('protected message endpoints', function() {
         it('should reject unauthorized requests', function() {
@@ -44,8 +44,8 @@ describe('protected endpoints', function() {
             .get('/api/messages')
             .then(res => {
                 expect(res).to.have.status(401);
-            });
-        });
+            })
+        })
 
         it('should reject requests with invalid JWT', function() {
             const token = jwt.sign(
@@ -65,8 +65,8 @@ describe('protected endpoints', function() {
             .set('Authorization', `Bearer ${token}`)
             .then(res => {
                 expect(res).to.have.status(401);
-            });
-        });
+            })
+        })
 
         it('should reject requests with an expired JWT', function() {
             const token = jwt.sign(
@@ -86,8 +86,8 @@ describe('protected endpoints', function() {
             .set('Authorization', `Bearer ${token}`)
             .then(res => {
                 expect(res).to.have.status(401);
-            });
-        });
+            })
+        })
 
         it('should send protected data upon valid request', function() {
             const token = jwt.sign(
@@ -108,7 +108,7 @@ describe('protected endpoints', function() {
             .set('Authorization', `Bearer ${token}`)
             .then(res => {
                 expect(res).to.have.status(200);
-            });
-        });
-    });
-});
+            })
+        })
+    })
+})

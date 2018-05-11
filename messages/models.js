@@ -21,7 +21,7 @@ let MessageSchema = new Schema({
         type: Number,
         default: 0
     }
-});
+})
 
 MessageSchema.methods.serialize = function() {
     return {
@@ -32,8 +32,8 @@ MessageSchema.methods.serialize = function() {
         upvoted: this.upvoted,
         downvoted: this.downvoted,
         voteScore: this.voteScore
-    };
-};
+    }
+}
 
 let Message = mongoose.model('Message', MessageSchema);
 module.exports = {Message};

@@ -13,7 +13,7 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
 			return Promise.reject({
 				reason: 'LoginError',
 				message: 'Invalid username or password'
-			});
+			})
 		}
 		return user.validatePassword(password);
 	})
@@ -22,7 +22,7 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
 			return Promise.reject({
 				reason: 'LoginError',
 				message: 'Invalid username or password'
-			});
+			})
 		}
 		return callback(null, user);
 	})
@@ -31,8 +31,8 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
 			return callback(null, false, err); 
 		}
 		return callback(err, false);
-	});
-});
+	})
+})
 
 const jwtStrategy = new JwtStrategy(
 	{
@@ -43,6 +43,6 @@ const jwtStrategy = new JwtStrategy(
 	(payload, done) => {
 		done(null, payload.user)
 	}
-);
+)
 
 module.exports = {localStrategy, jwtStrategy};

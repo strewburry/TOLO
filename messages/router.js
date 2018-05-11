@@ -14,8 +14,9 @@ const router = express.Router();
 mongoose.Promise = global.Promise; 
 
 router.use(bodyParser.json());
+router.use(jwtAuth);
 
-router.get('/', jwtAuth, (req, res) => {
+router.get('/', (req, res) => {
     Message
     .find({'ownerId': req.user.id})
     .then(messages => {
@@ -26,7 +27,7 @@ router.get('/', jwtAuth, (req, res) => {
     })
 })
 
-router.post('/', jwtAuth, (req, res) => {
+router.post('/', (req, res) => {
     const requiredField = ['content'];
     if (!(requiredField in req.body)) {
         return res.status(400).json({error: 'message content cannot be empty'});
@@ -56,7 +57,7 @@ router.post('/', jwtAuth, (req, res) => {
     })
 })
 
-router.put('/:id/forward', jwtAuth, (req, res) => {
+router.put('/:id/forward', (req, res) => {
     Message
     .findByIdAndUpdate(req.params.id, {ownerId: null}, {new: true})
     .then(() => {
@@ -67,7 +68,7 @@ router.put('/:id/forward', jwtAuth, (req, res) => {
     })
 })
 
-router.patch('/:id/upvote', jwtAuth, (req, res) => {
+router.patch('/:id/upvote', (req, res) => {
     Message
     .findById(req.params.id)
     .then(message => {
@@ -92,7 +93,7 @@ router.patch('/:id/upvote', jwtAuth, (req, res) => {
     }) 
 })
 
-router.patch('/:id/downvote', jwtAuth, (req, res) => {
+router.patch('/:id/downvote', (req, res) => {
     Message
     .findById(req.params.id)
     .then(message => {
@@ -117,14 +118,20 @@ router.patch('/:id/downvote', jwtAuth, (req, res) => {
     })
 })
 
-router.delete('/:id', jwtAuth, (req, res) => {
+router.delete('/:id', (req, res) => {
     Message
-    .findByIdAndRemove(req.params.id)
-    .then(() => {
-        res.status(204).json({message: 'deleted message successfully'});
-    })
-    .catch(err => {
-        res.status(500).json({error: err});
+    .findById(req.params.id)
+    .then(message => {
+        if (message.ownerId !== req.user.id) {
+            res.status(403).json({error: 'user must own this message to delete'});
+        }
+        return message.remove()
+        .then(() => {
+            res.status(204).json({message: 'deleted message successfully'});
+        })
+        .catch(err => {
+            res.status(500).json({error: err});
+        })
     })
 })
 
