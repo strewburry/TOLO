@@ -97,13 +97,11 @@ h2 {
 
 .message__card > .message__content { 
 	height: 80%;
-	margin-top: -10px;
 	margin-bottom: 10px;
 	overflow: scroll; 
 	text-align: left;
 	width: 80%;
 	display: inline-block;
-	padding: 5px 5px 5px 5px; 
 }
 
 .message__card {
