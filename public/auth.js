@@ -1,14 +1,17 @@
 function showSignUpForm() {
-	$('.form-overlay').show().prop('hidden', false).html(TEMPLATES.signUpForm);
+	TEMPLATES.showElement('.popup__overlay');
+	$('.popup__overlay').html(TEMPLATES.signUpForm);
 }
 
 function showLogInForm() {
-	$('.form-overlay').show().prop('hidden', false).html(TEMPLATES.logInForm);
+	TEMPLATES.showElement('.popup__overlay');
+	$('.popup__overlay').html(TEMPLATES.logInForm);
 }
 
 function showAppInfo() {
-	$('#app-info').show().prop('hidden', false);
-	document.getElementById('app-info').scrollIntoView({behavior: 'instant', block: 'end', inline: 'nearest'});
+	TEMPLATES.showElement('.popup__overlay');
+	$('.popup__overlay').html(TEMPLATES.appInfo).css('overflow', 'scroll').scrollTop();
+	$('body').css('overflow', 'hidden');
 }
 
 function handleUserSignUp(event) {
@@ -17,7 +20,8 @@ function handleUserSignUp(event) {
 	const password = $('[name=password]').val();
 	const passwordConf = $('[name=confirmpass]').val();
 	if (password !== passwordConf) {
-		$('.warning').show().prop('hidden', false).html(`<span class="warning"><p>Passwords must match</p></span>`);
+		TEMPLATES.showElement('.popup__text--warning');
+		$('.popup__text--warning').html(`<p>Passwords must match</p>`);
 	} else {
 		const newUser = {
 			username: username,
@@ -37,7 +41,8 @@ function handleUserSignUp(event) {
 		.fail(function(xhr, err) {
 			let jsonResponse = JSON.parse(xhr.responseText);
 			let errMessage = jsonResponse['message'];
-			$('.warning').show().prop('hidden', false).html(`<span class="warning"><p>${errMessage}</p></span>`);
+			TEMPLATES.showElement('.popup__text--warning');
+			$('.popup__text--warning').html(`<p>${errMessage}</p>`);
 		})
 	}
 }
@@ -62,7 +67,8 @@ function handleUserLogIn(event) {
 	})
 	.fail(function(xhr, err) {
 		let errMessage = JSON.stringify(xhr.responseText);
-		$('.warning').show().prop('hidden', false).html(`<span class="warning"><p>${errMessage}</p></span>`);
+		TEMPLATES.showElement('.popup__text--warning'); 
+		$('.popup__text--warning').html(`<p>${errMessage}</p>`);
 	})
 }
 
@@ -73,24 +79,24 @@ function saveDataToLocalStorage(res) {
 
 function isLoggedIn() {
 	if(localStorage.getItem('userId')) {
-		$('.messages-wrapper').show().prop('hidden', false);
-		$('.intro').hide().prop('hidden', true);
-		$('#app-info').hide().prop('hidden', true);
-		$('.form-overlay').fadeToggle('fast').hide().prop('hidden', true);
+		TEMPLATES.showElement('#navbar');
+		TEMPLATES.showElement('.messages-wrapper');
+		TEMPLATES.hideElement('.intro'); 
+		TEMPLATES.hideElement('#app-info');
+		TEMPLATES.hideElement('.popup__overlay'); 
 		$('#navbar').html(TEMPLATES.loggedInLinks);
-		getUserMessages();
+		getUserMessages(); 
 	}
 	else { 
-		$('.intro').show().prop('hidden', false);
-		$('.messages-wrapper').hide().prop('hidden', true);
-		$('#navbar').html(TEMPLATES.loggedOutLinks);
+		TEMPLATES.showElement('.intro');
+		TEMPLATES.hideElement('.messages-wrapper');
 	}
 }
 
 function logOut() {
 	localStorage.removeItem('userId');
 	localStorage.removeItem('token');
-	$('.intro').show();
-	$('.messages-wrapper').hide().prop('hidden', true);
-	$('#navbar').html(TEMPLATES.loggedOutLinks);
-}
+	TEMPLATES.showElement('.intro');
+	TEMPLATES.hideElement('#navbar'); 
+	TEMPLATES.hideElement('.messages-wrapper');
+} 

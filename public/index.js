@@ -1,15 +1,15 @@
 function appSetUp() {
 	isLoggedIn();
-	$('body').on('click', '#register, .signup-prompt', () => {
+	$('body').on('click', '#register, #signup-prompt', () => {
 		showSignUpForm();
 	})
-	$('.form-overlay').on('submit', '.signup', function(event) {
+	$('.popup__overlay').on('submit', '.signup', function(event) {
 		handleUserSignUp(event);
 	})
-	$('body').on('click', '#login, .login-prompt', () => {
+	$('body').on('click', '#login, #login-prompt', () => {
 		showLogInForm();
 	})
-	$('.form-overlay').on('submit', '.login', event => {
+	$('.popup__overlay').on('submit', '.login', event => {
 		handleUserLogIn(event);
 	})
 	$('body').on('click', '.close, .cancel', () => {
@@ -21,10 +21,10 @@ function appSetUp() {
 	$('body').on('click', '#write', () => {
 		showMessageForm();
     })
-    $('.form-overlay').on('submit', '#js-message', event => {
+    $('.popup__overlay').on('submit', '#js-message', event => {
         handleSendMessage(event);
 	})
-	$('.form-overlay').on('click', '#restart', () => {
+	$('.popup__overlay').on('click', '#restart', () => {
 		showMessageForm();
 	})
 	$('body').on('click', '#logout', () => {

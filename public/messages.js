@@ -1,9 +1,11 @@
 function showMessageForm() {
-	$('.form-overlay').show().prop('hidden', false).html(TEMPLATES.messageForm);
+    TEMPLATES.showElement('.popup__overlay');
+    $('.popup__overlay').html(TEMPLATES.messageForm);
 }
 
 function hideForm() {
-    $('.form-overlay').fadeToggle('fast').hide().prop('hidden', true);
+    TEMPLATES.hideElement('.popup__overlay');
+    $('body').css('overflow', 'auto');
 }
 
 function getUserMessages() {
@@ -23,12 +25,24 @@ function getUserMessages() {
 
 function renderMessages() {
     if (STORE.messages.length < 1) {
-        $('.messages-wrapper').html(TEMPLATES.noMessagesTemplate).show().prop('hidden', false);
+        TEMPLATES.showElement('.messages-wrapper');
+        $('.messages-wrapper').html(TEMPLATES.noMessagesTemplate);
     } else {
     let userMessageCards = STORE.messages.map(message => {
+        if (message.voteScore > 0) {
+            $('#vote__counter').css('color', '#4DC14B');
+            console.log('votescore is greater than 0');
+        } else if (message.voteScore < 0) {
+            $('#vote__counter').css('color', '#F95738');
+            console.log('votescore is less than 0');
+        } else {
+            $('#vote__counter').css('color', '#0D3B66');
+            console.log(`voteScore is ${message.voteScore}`);
+        }
         return TEMPLATES.messageTemplate(message);
     });
-    $('.messages-wrapper').html(userMessageCards).show().prop('hidden', false);
+    TEMPLATES.showElement('.messages-wrapper');
+    $('.messages-wrapper').html(userMessageCards);
     }
 }
 
@@ -37,7 +51,8 @@ function handleSendMessage(event) {
     const content = $('[name=input]').val();
     const creatorId = localStorage.getItem('userId');
     if (!content) {
-        $('.warning').show().prop('hidden', false).html(`<p>Message cannot be empty</p>`);
+        TEMPLATES.showElement('.popup__text--warning');
+        $('.popup__text--warning').html(`<p>Message cannot be empty</p>`);
     } else {
         const newMessage = {
             creatorId,
@@ -59,14 +74,16 @@ function handleSendMessage(event) {
         })
         .fail((xhr, err) => {
             let jsonResponse = JSON.parse(xhr.responseText);
-			let errMessage = jsonResponse['message'];
-			$('.warning').show().prop('hidden', false).html(`<span class="warning"><p>${errMessage}</p></span>`);
+            let errMessage = jsonResponse['message'];
+            TEMPLATES.showElement('.popup__text--warning');
+            $('.popup__text--warning').html(`<p>${errMessage}</p>`);
         })
     }
 }
 
 function showConfirmDelete(id) {
-    $('.form-overlay').show().prop('hidden', false).html(TEMPLATES.confirmDelete(id));
+    TEMPLATES.showElement('.popup__overlay');
+    $('.popup__overlay').html(TEMPLATES.confirmDelete(id));
 }
 
 function deleteMessage(id) {
@@ -86,7 +103,8 @@ function deleteMessage(id) {
 }
 
 function showConfirmForward(id) {
-    $('.form-overlay').show().prop('hidden', false).html(TEMPLATES.confirmForward(id));
+    TEMPLATES.showElement('.popup__overlay');
+    $('.popup__overlay').html(TEMPLATES.confirmForward(id));
 }
 
 function forwardMessage(id) {
