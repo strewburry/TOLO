@@ -26,7 +26,7 @@ _In order to receive messages, users must first compose a message. With a simple
 ![Messages screen](https://s3.amazonaws.com/tolo-assets/messagesscreen.png "Messages screen")
 _This is a collection of messages a user might receive on TOLO. On this page, users can view upvotes/downvotes, add their own vote (only one vote per message, please!), forward messages to other users, and delete messages entirely._
 
-## Technologies Used
+## Built With
 
 ### Front end
 * HTML5
@@ -44,12 +44,13 @@ _This is a collection of messages a user might receive on TOLO. On this page, us
 ### Workflow
 * Git
 * NPM
-* Travis CI 
 * Heroku
 
 ### Testing
 * Mocha
 * Chai/Chai-HTTP
+* Travis CI
+* aXe 
 
 ## RESTful API Endpoints
 
