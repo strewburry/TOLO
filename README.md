@@ -2,7 +2,7 @@
 
 ![Take One, Leave One](https://s3.amazonaws.com/tolo-assets/HANDlogosmall.png "Take One, Leave One")
 
-TOLO is an app that utilizes RESTful API architecture to allow users to exchange positive messages in a one-to-one exchange. Users write messages for strangers, and receive messages in return, which they can upvote, downvote, delete, or pass on to others. 
+TOLO is an app that utilizes RESTful API architecture to allow strangers to anonymously send and receive positive messages in a one-to-one exchange. Users write messages for strangers, and receive messages in return, which they can upvote, downvote, delete, or pass on to others. 
 
 ## Live URL
 
