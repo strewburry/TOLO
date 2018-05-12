@@ -41,18 +41,26 @@ router.post('/', (req, res) => {
     // return message not created by the same user
     .then(newMessage => {
         return Message
-        .findOne({'creatorId': {$ne: newMessage.creatorId}, ownerId: null})
-        // set `ownerId` property on the received message to match the user to receive it
-        .then(receivedMessage => {
-            receivedMessage.ownerId = newMessage.creatorId;
-            return receivedMessage.save();
-        })
-        // send back received message with updated `ownerId` property 
-        .then(receivedMessage => {
-            res.status(201).json(receivedMessage.serialize());
-        })
-        .catch(err => {
-            res.status(500).json({error: err});
+        .count({'creatorId': {$ne: newMessage.creatorId}, ownerId: null})
+        .exec((err, count) => {
+            const random = Math.floor(Math.random() * count);
+            console.log(count);
+            console.log(random);
+            console.log(newMessage);
+            return Message
+            .findOne({'creatorId': {$ne: newMessage.creatorId}, ownerId: null})
+            .skip(random)
+            .exec((err, receivedMessage) => {
+                console.log(receivedMessage); 
+                receivedMessage.ownerId = newMessage.creatorId;
+                return receivedMessage.save()
+                .then(receivedMessage => {
+                    res.status(201).json(receivedMessage.serialize());
+                })  
+                .catch(err => {
+                    res.status(500).json({error: err});
+                }) 
+            })
         })
     })
 })
