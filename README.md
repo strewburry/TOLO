@@ -85,6 +85,3 @@ logs user in and provides JSON web token
 
 #### POST 
 registers new user
-
-#### GET `/:id`
-returns user matching request id
