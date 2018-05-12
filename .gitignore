@@ -2,4 +2,4 @@ node_modules
 .env
 .DS_STORE
 public/.DS_STORE
-.vscode
+.vscode 
