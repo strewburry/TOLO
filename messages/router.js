@@ -44,14 +44,10 @@ router.post('/', (req, res) => {
         .count({'creatorId': {$ne: newMessage.creatorId}, ownerId: null})
         .exec((err, count) => {
             const random = Math.floor(Math.random() * count);
-            console.log(count);
-            console.log(random);
-            console.log(newMessage);
             return Message
             .findOne({'creatorId': {$ne: newMessage.creatorId}, ownerId: null})
             .skip(random)
             .exec((err, receivedMessage) => {
-                console.log(receivedMessage); 
                 receivedMessage.ownerId = newMessage.creatorId;
                 return receivedMessage.save()
                 .then(receivedMessage => {

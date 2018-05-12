@@ -72,7 +72,7 @@ describe('messages resource', function() {
             })
         })
 
-        it('should return a message from a different user', function() {
+        it('should return a random message from a different user', function() {
             const newMessage = generateMessages();
             return chai
             .request(app)
@@ -80,11 +80,18 @@ describe('messages resource', function() {
             .send(newMessage)
             .set('authorization', `Bearer ${token}`)
             .then(newMessage => {
-                return Message.findOne({creatorId: {$ne: newMessage.creatorId}, ownerId: null})
-            })
-            .then(messageToReturn => {
-                expect(messageToReturn.ownerId).to.be.null; 
-                expect(messageToReturn.creatorId).to.not.equal(newMessage.creatorId);
+                return Message
+                .count({creatorId: {$ne: newMessage.creatorId}})
+                .exec((err, count) => {
+                    const random = Math.floor(Math.random() * count);
+                    return Message
+                    .findOne({creatorId: {$ne: newMessage.creatorId}})
+                    .skip(random)
+                    .exec((err, receivedMessage) => {
+                        expect(receivedMessage.ownerId).to.be.null;
+                        expect(receivedMessage.creatorId).to.not.equal(newMessage.creatorId);
+                    })
+                })
             })
         }) 
 
@@ -96,14 +103,22 @@ describe('messages resource', function() {
             .send(newMessage)
             .set('authorization', `Bearer ${token}`)
             .then(newMessage => {
-                return Message.findOne({creatorId: {$ne: newMessage.creatorId}, ownerId: null})
-            })
-            .then(messageToReturn => {
-                messageToReturn.ownerId = newMessage.creatorId; 
-                return messageToReturn.save(); 
-            })
-            .then(messageToReturn => {
-                expect(messageToReturn.ownerId).to.not.be.null; 
+                return Message
+                .count({creatorId: {$ne: newMessage.creatorId}})
+                .exec((err, count) => {
+                    const random = Math.floor(Math.random() * count);
+                    return Message
+                    .findOne({creatorId: {$ne: newMessage.creatorId}})
+                    .skip(random)
+                    .exec((err, receivedMessage) => {
+                        receivedMessage.ownerId = newMessage.creatorId;
+                        return receivedMessage.save()
+                        .then(receivedMessage => {
+                            expect(receivedMessage.ownerId).to.not.be.null; 
+                            expect(receivedMessage.ownerId).to.equal(newMessage.creatorId);
+                        })
+                    })
+                })
             })
         })
         
