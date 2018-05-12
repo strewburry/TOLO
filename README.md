@@ -8,8 +8,8 @@ TOLO is an app that utilizes RESTful API architecture to allow users to exchange
 
 [https://take-one-leave-one.herokuapp.com](https://take-one-leave-one.herokuapp.com)
 
-**demo username**: testuser
-**demo password**: testpassword
+**demo username**: testuser  
+**demo password**: testpassword  
 _For best results, create your own account! TOLO only requires a username and password for registration, so sign-up is a breeze._
 
 ## Screens
@@ -31,7 +31,7 @@ _This is a collection of messages a user might receive on TOLO. On this page, us
 ### Front end
 * HTML5
 * CSS3
-* ES6 
+* JavaScript ES6 
 * jQuery
 
 ### Back end
@@ -49,8 +49,7 @@ _This is a collection of messages a user might receive on TOLO. On this page, us
 
 ### Testing
 * Mocha
-* Chai
-* Chai-HTTP
+* Chai/Chai-HTTP
 
 ## RESTful API Endpoints
 
@@ -65,16 +64,16 @@ creates new message and returns a message that:
 * is not currently owned by another user 
 
 #### PUT `/:id/forward` 
-relinquishes ownership of message matching request id, allowing another user to receive it 
+"forwards" message matching request id (relinquishes ownership of message, allowing another user to receive it)
 
 #### PATCH `/:id/upvote`
-increments the vote score of message matching request id by 1
+upvotes message matching request id 
 
 #### PATCH `/:id/downvote`
-decrements the vote score of message matching request id by 1
+downvotes message matching request id
 
 #### DELETE `/:id/`
-deletes message with request id 
+deletes message matching request id 
 
 ### `/api/auth`
 
