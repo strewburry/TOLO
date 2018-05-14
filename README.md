@@ -1,10 +1,10 @@
-# Take One, Leave One (TOLO)
+# TOLO 💌
 
 ![Take One, Leave One](https://s3.amazonaws.com/tolo-assets/HANDlogosmall.png "Take One, Leave One")
 
-TOLO is an app that utilizes RESTful API architecture to allow strangers to anonymously send and receive positive messages in a one-to-one exchange. Users write messages for strangers, and receive messages in return, which they can upvote, downvote, delete, or pass on to others. 
+[TOLO](https://take-one-leave-one.herokuapp.com) is a full-stack web application that allows strangers to anonymously send and receive positive messages in a one-to-one exchange. Users write messages for strangers, and receive messages in return, which they can upvote, downvote, delete, or pass on to others. 
 
-## Live URL
+## Live App ⚡️
 
 [https://take-one-leave-one.herokuapp.com](https://take-one-leave-one.herokuapp.com)
 
@@ -12,7 +12,7 @@ TOLO is an app that utilizes RESTful API architecture to allow strangers to anon
 **demo password**: testpassword  
 _For best results, create your own account! TOLO only requires a username and password for registration, so sign-up is a breeze._
 
-## Screens
+## Screencaps 📸
 
 ![TOLO Homepage](https://s3.amazonaws.com/tolo-assets/homescreen.png "TOLO Homepage")
 _This is TOLO's homepage, where users can learn about the app, register, and log in._
@@ -26,7 +26,7 @@ _In order to receive messages, users must first compose a message. With a simple
 ![Messages screen](https://s3.amazonaws.com/tolo-assets/messagesscreen.png "Messages screen")
 _This is a collection of messages a user might receive on TOLO. On this page, users can view upvotes/downvotes, add their own vote (only one vote per message, please!), forward messages to other users, and delete messages entirely._
 
-## Built With
+## Technologies & Tools Used 🛠
 
 ### Front end
 * HTML5
@@ -39,20 +39,23 @@ _This is a collection of messages a user might receive on TOLO. On this page, us
 * Express.js
 * MongoDB
 * Mongoose
-* mLab
+* Passport
+* Bcrypt 
 
 ### Workflow
 * Git
 * NPM
-* Heroku
 
-### Testing
+### Testing and Deployment 
+* aXe
 * Mocha
 * Chai/Chai-HTTP
+* Faker
 * Travis CI
-* aXe 
+* mLab
+* Heroku
 
-## RESTful API Endpoints
+## RESTful API Endpoints 📍
 
 ### `/api/messages`
 
@@ -85,3 +88,7 @@ logs user in and provides JSON web token
 
 #### POST 
 registers new user
+
+## Future Improvements 🔮
+* updates to UI 
+* rich text editing for messages
