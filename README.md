@@ -41,6 +41,7 @@ _This is a collection of messages a user might receive on TOLO. On this page, us
 * Mongoose
 * Passport
 * Bcrypt 
+* JWT 
 
 ### Workflow
 * Git
