@@ -18,7 +18,7 @@ chai.use(chaiHttp);
 
 function seedMessageDb() {
     const seedMessages = [];
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 50; i++) {
         seedMessages.push(generateMessages());
     }
     return Message.insertMany(seedMessages);
@@ -73,40 +73,33 @@ describe('messages resource', function() {
         })
 
         it('should return a message from a different user', function() {
-            const newMessage = generateMessages();
+            let newMessage = generateMessages();
+            newMessage.creatorId = testUser.id;
             return chai
             .request(app)
             .post('/api/messages')
             .send(newMessage)
             .set('authorization', `Bearer ${token}`)
-            .then(newMessage => {
-                return Message.findOne({creatorId: {$ne: newMessage.creatorId}, ownerId: null})
-            })
-            .then(messageToReturn => {
-                expect(messageToReturn.ownerId).to.be.null; 
-                expect(messageToReturn.creatorId).to.not.equal(newMessage.creatorId);
+            .then(res => {
+                const returnedMessage = res.body;
+                expect(returnedMessage.creatorId).to.not.equal(newMessage.creatorId);
             })
         }) 
 
-        it('should update the `ownerId` property on returned message to match the req user', function() {
-            const newMessage = generateMessages();
+        it('should set `ownerId` on returned message', function() {
+            let newMessage = generateMessages();
+            newMessage.creatorId = testUser.id;
             return chai
             .request(app)
             .post('/api/messages')
             .send(newMessage)
             .set('authorization', `Bearer ${token}`)
-            .then(newMessage => {
-                return Message.findOne({creatorId: {$ne: newMessage.creatorId}, ownerId: null})
-            })
-            .then(messageToReturn => {
-                messageToReturn.ownerId = newMessage.creatorId; 
-                return messageToReturn.save(); 
-            })
-            .then(messageToReturn => {
-                expect(messageToReturn.ownerId).to.not.be.null; 
+            .then(res => {
+                const returnedMessage = res.body;
+                expect(returnedMessage.ownerId).to.equal(newMessage.creatorId); 
             })
         })
-        
+
         it('should throw an error if req body is missing content', function() {
            const invalidMessage = {};
            return chai
@@ -121,7 +114,7 @@ describe('messages resource', function() {
     })
 
     describe('GET endpoint', function() {
-        it('should return all messages matching a single ownerId', function() {
+        it('should return all messages matching a single `ownerId`', function() {
             return chai
             .request(app)
             .get('/api/messages')
@@ -176,7 +169,7 @@ describe('messages resource', function() {
     })
 
     describe('PUT endpoint', function() {
-        it('should reset the ownerId of a message with valid ID', function() {
+        it('should reset `ownerId` of a message with valid ID', function() {
             let id; 
             return Message 
             .findOne()
@@ -199,23 +192,26 @@ describe('messages resource', function() {
     })
 
     describe('PATCH endpoint', function() {
-        it('should upvote a message if user has not already upvoted', function() {
+        it('should upvote a message', function() {
             let id; 
+            let voteScore; 
             return Message
             .findOne()
             .then(res => {
-                id = res._id; 
+                id = res._id;
+                voteScore = res.voteScore;
                 return chai
                 .request(app)
                 .patch(`/api/messages/${id}/upvote`)
                 .set('authorization', `Bearer ${token}`)
             })
             .then(res => {
-                expect(res).to.have.status(200);
+                expect(res).to.have.status(200); 
+                expect(res.body.message.voteScore).to.equal(voteScore + 1); 
             })
         })
 
-        it('should add user ids to upvoted array after upvoting', function() {
+        it('should add user ids to `upvoted`', function() {
             let id; 
             return Message
             .findOne()
@@ -237,7 +233,7 @@ describe('messages resource', function() {
             })
         })
 
-        it('should throw an error on upvote if user has already upvoted', function() {
+        it('should throw an error on upvote request if user has already upvoted', function() {
             let id; 
             return Message
             .findOne()
@@ -263,12 +259,14 @@ describe('messages resource', function() {
             })
         })
 
-        it('should downvote a message if user has not already downvoted', function() {
+        it('should downvote a message', function() {
             let id; 
+            let voteScore; 
             return Message
             .findOne()
             .then(res => {
                 id = res._id; 
+                voteScore = res.voteScore; 
                 return chai
                 .request(app)
                 .patch(`/api/messages/${id}/downvote`)
@@ -276,10 +274,11 @@ describe('messages resource', function() {
             })
             .then(res => {
                 expect(res).to.have.status(200);
+                expect(res.body.message.voteScore).to.equal(voteScore - 1); 
             })
         })
 
-        it('should add user ids to downvoted array after downvoting', function() {
+        it('should add user ids to `downvoted`', function() {
             let id; 
             return Message
             .findOne()
@@ -301,7 +300,7 @@ describe('messages resource', function() {
             })
         })
 
-        it('should throw an error if user has already downvoted', function() {
+        it('should throw an error on downvote request if user has already downvoted', function() {
             let id;
             return Message
             .findOne()
@@ -327,7 +326,7 @@ describe('messages resource', function() {
             })
         })
 
-        it('should remove user id from upvoted array if user changes their vote', function() {
+        it('should remove user id from `upvoted` if user changes their vote', function() {
             let id; 
             return Message
             .findOne()
@@ -361,7 +360,7 @@ describe('messages resource', function() {
             })
         })
 
-        it('should remove user id from downvoted array if user changes their vote', function() {
+        it('should remove user id from `downvoted` if user changes their vote', function() {
             let id; 
             return Message
             .findOne()
