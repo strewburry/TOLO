@@ -4,12 +4,14 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const BadLanguageFilter = require('bad-language-filter');
 
 const {DATABASE_URL, JWT_SECRET, PORT} = require('../config');
 const {jwtAuth} = require('../util');
 const {Message} = require('./models');
 
 const router = express.Router();
+const filter = new BadLanguageFilter(); 
 
 mongoose.Promise = global.Promise; 
 
@@ -31,6 +33,10 @@ router.post('/', (req, res) => {
     const requiredField = ['content'];
     if (!(requiredField in req.body)) {
         return res.status(400).json({error: 'message content cannot be empty'});
+    }
+    const badLanguage = filter.contains(req.body.content);
+    if (badLanguage === true) {
+        return res.status(400).json({error: 'no profanity or negativity allowed'});
     }
     // add message to the database
     Message 
