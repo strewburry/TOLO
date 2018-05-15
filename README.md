@@ -32,29 +32,32 @@ _This is a collection of messages a user might receive on TOLO. On this page, us
 * HTML5
 * CSS3
 * JavaScript ES6 
-* jQuery
+* [jQuery](https://jquery.com/)
 
 ### Back end
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
-* Passport
-* Bcrypt 
-* JWT 
+* [Node.js](https://nodejs.org/en/)
+* [Express.js](https://expressjs.com/)
+* [MongoDB](https://www.mongodb.com/)
+* [Mongoose](http://mongoosejs.com/)
+* [Passport](https:/passportjs.org/)
+* [bcrypt.js](https://github.com/dcodeIO/bcrypt.js/)
+* [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken/) 
+* [bad-language-filter](https://github.com/rudolph2907/bad-language-filter/)
 
 ### Workflow
-* Git
-* NPM
+* [Git](https://git-scm.com/)
+* [NPM](https://www.npmjs.com/)
 
 ### Testing and Deployment 
-* aXe
-* Mocha
-* Chai/Chai-HTTP
-* Faker
-* Travis CI
-* mLab
-* Heroku
+* [aXe](https://www.deque.com/axe/)
+* [Mocha](https://mochajs.org/)
+* [Chai](http://www.chaijs.com/)
+* [Chai HTTP](https://github.com/chaijs/chai-http)
+* [faker.js](https://github.com/Marak/Faker.js)
+* [uuid](https://www.npmjs.com/package/uuid)
+* [Travis CI](https://travis-ci.org/)
+* [mLab](https://mlab.com/)
+* [Heroku](https://www.heroku.com/)
 
 ## RESTful API Endpoints 📍
 
