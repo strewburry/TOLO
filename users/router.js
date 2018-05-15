@@ -3,10 +3,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const {User} = require('./models');
 const {createAuthToken} = require('../util');
-const router = express.Router();
-const jsonParser = bodyParser.json();
 
-router.post('/', jsonParser, (req, res) => {
+const router = express.Router();
+
+router.use(bodyParser.json());
+
+router.post('/', (req, res) => {
 	const requiredFields = ['username', 'password', 'passwordConf'];
 	const missingField = requiredFields.find(field => !(field in req.body));
 	if (missingField) {
@@ -87,8 +89,8 @@ router.post('/', jsonParser, (req, res) => {
 		if (err.reason === 'ValidationError') {
 			return res.status(err.code).json(err);
 		}
-		res.status(500).json({code: 500, message: 'internal server error'})
-	})
-})
+		res.status(500).json({code: 500, message: 'internal server error'});
+	}) 
+}) 
 
 module.exports = {router};
