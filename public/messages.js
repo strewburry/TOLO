@@ -66,9 +66,8 @@ function handleSendMessage(event) {
         })
         .fail((xhr, err) => {
             let jsonResponse = JSON.parse(xhr.responseText);
-            let errMessage = jsonResponse['message'];
             TEMPLATES.showElement('.popup__text--warning');
-            $('.popup__text--warning').html(`<p>${errMessage}</p>`);
+            $('.popup__text--warning').html(`<p>${jsonResponse.error}</p>`);
         })
     }
 }
